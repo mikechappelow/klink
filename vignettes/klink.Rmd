@@ -1,0 +1,86 @@
+---
+title: "klink"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{klink}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## What it's for
+klink is an internal R package intended to provide helpful functions focused on easily forming connections to data sources.
+
+## Setup
+In order to use these tools users must first:
+
+1. Have an RStudio Connect account (you likely have one already if you're using RStudio Workbench, if not you can request access through Digital Concierge, instructions can be found here: <https://rstudioconnect.analytics.kellogg.com/RStudio_Knowledge_Library/>)
+2. Create a local RStudio Connect API key <https://docs.rstudio.com/connect/user/api-keys>
+3. Create an .Renviron file in your Home folder assigning your API key value to the name CONNECT_API_KEY <https://rstats.wtf/r-startup.html>
+
+## How to Install
+Currently, the easiest way to install the klink package is to create install from the public GitHub repo:
+```{r install, eval=FALSE, include=TRUE}
+devtools::install_github("mikechappelow/klink")
+
+library(klink)
+```
+
+In the future we may host these types of packages in our internal RStudio Package Manager environment.
+
+## Current Functions
+
+### klink functions
+The klink functions are a general group of functions used to establish links to data sources commonly used within Kellogg.
+
+#### klink_sql
+The klink_sql function enables users to link to predefined, internal SQL databases using only a couple of arguments and removes the necessity of locally defining service account credentials in your code, .Renviron files, and/or manually assignment in Connect publications.
+
+```{r klink_sql, eval=FALSE, include=TRUE}
+library(klink)
+library(DBI)
+library(odbc)
+
+conn <- klink_sql("DEV", "KG_ANALYTICS_APPS")
+
+dbGetQuery(conn,
+          "SELECT TOP 5
+          fixer_number, service_provider
+          FROM dbo.GBS_Performance_Metrics;")
+```
+
+#### klink_s3R
+The klink_s3R function enables users to define all of the required settings and variables required to link to our foreign s3 bucket simply by calling the function.
+
+```{r klink_s3R, eval=FALSE, include=TRUE}
+library(klink)
+library(aws.s3)
+
+# Retrieve required system settings (in background) and appropriate s3 bucket name
+klink_s3R()
+
+# Use aws.s3 functions to retrieve information from s3 bucket
+aws.s3::object_exists("/data/R_training/package_list.rds", bucket = s3BucketName)
+aws.s3::object_size("/data/R_training/package_list.rds", bucket = s3BucketName)
+```
+
+### zoltar
+The klink functions are essentially wrappers that utilize zoltar to make the user experience as lightweight as possible by making implicit assumptions about the connection that should be formed.
+
+If you would like to override these assumptions zoltar is the solution.
+
+When a wish/alias of a known value is passed to this function our internal zoltar API returns the requested value. 
+
+If there are required connections that are not yet supported by zoltar please reach out to the Kellogg Data Science team to have them added.
+
+```{r zoltar, eval=FALSE, include=TRUE}
+library(klink)
+
+zoltar("s3BucketName")
+```

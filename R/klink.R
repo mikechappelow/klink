@@ -1,19 +1,13 @@
-#' klink is an internal R package intended to provide common helper functions that may be of value to Kellogg users.
+#' klink is an internal R package intended to provide helpful functions focused on easily forming connections to data sources.
 #'
-#' Most of the current functions are focused on easily forming connections to internal data connections by removing the necessity of users to maintain their own local secrets for commonly used platforms and service accounts.
-#'
-#' This is accomplished through the use of a centrally managed API hosted in our internal RStudio Connect environment.
-#'
-#' @section klink functions:
 #' The klink functions are a general group of functions used to establish links to data sources commonly used within Kellogg.
 #'
-#' Currently these functions include:
-#'
+#' @section klink functions:
 #' * klink_sql (for SQL connections)
 #'
 #' * klink_s3R (for our foreign s3 bucket connections)
 #'
-#'  See vignette or function documentaion (?klink_sql or ?klink_s3R) for more information and examples.
+#'  See vignette or function documentation (?klink_sql or ?klink_s3R) for more information and examples.
 #'
 #' @section zoltar function:
 #' The klink functions are esssentially wrappers that utilize zoltar under the hood to make the user experience as lightweight as possible.

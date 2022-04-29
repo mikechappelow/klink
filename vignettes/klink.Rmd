@@ -25,14 +25,14 @@ In order to use these tools users must first:
 3. Create an .Renviron file in your Home folder assigning your API key value to the name CONNECT_API_KEY <https://rstats.wtf/r-startup.html>
 
 ## How to Install
-Currently, the easiest way to install the klink package is to create install from the public GitHub repo:
+Currently, the easiest way to install the klink package is to install from the public GitHub repo:
 ```{r install, eval=FALSE, include=TRUE}
 devtools::install_github("mikechappelow/klink")
 
 library(klink)
 ```
 
-In the future we may host these types of packages in our internal RStudio Package Manager environment.
+In the future we will host these types of packages in our internal RStudio Package Manager environment.
 
 ## Current Functions
 
@@ -42,7 +42,7 @@ The klink functions are a general group of functions used to establish links to 
 #### klink_sql
 The klink_sql function enables users to link to predefined, internal SQL databases using only a couple of arguments and removes the necessity of locally defining service account credentials in your code, .Renviron files, and/or manually assignment in Connect publications.
 
-```{r klink_sql, eval=FALSE, include=TRUE}
+```{r klink_sql, eval=TRUE, include=TRUE}
 library(klink)
 library(DBI)
 library(odbc)
@@ -58,7 +58,7 @@ dbGetQuery(conn,
 #### klink_s3R
 The klink_s3R function enables users to define all of the required settings and variables required to link to our foreign s3 bucket simply by calling the function.
 
-```{r klink_s3R, eval=FALSE, include=TRUE}
+```{r klink_s3R, eval=TRUE, include=TRUE}
 library(klink)
 library(aws.s3)
 
@@ -73,7 +73,7 @@ aws.s3::object_size("/data/R_training/package_list.rds", bucket = s3BucketName)
 ### zoltar
 The klink functions are essentially wrappers that utilize zoltar to make the user experience as lightweight as possible by making implicit assumptions about the connection that should be formed.
 
-If you would like to override these assumptions zoltar is the solution.
+If you would like to override these assumptions by specifying your own connection settings zoltar is the solution.
 
 When a wish/alias of a known value is passed to this function our internal zoltar API returns the requested value. 
 

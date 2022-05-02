@@ -81,12 +81,10 @@ The klink_sql function enables users to link to predefined, internal SQL databas
 
 ```{r klink_sql, include=TRUE}
 library(klink)
-library(DBI)
-library(odbc)
 
 conn <- klink_sql("DEV", "database")
 
-dbGetQuery(conn,
+DBI::dbGetQuery(conn,
           "SELECT TOP 5
           var1, var2
           FROM table")
@@ -97,7 +95,6 @@ The klink_s3R function enables users to define all of the required settings and 
 
 ```{r klink_s3R, include=TRUE}
 library(klink)
-library(aws.s3)
 
 # Retrieve required system settings (in background) and appropriate s3 bucket name
 klink_s3R()
@@ -118,7 +115,6 @@ If there are required connections that are not yet supported by zoltar please re
 
 ```{r zoltar, include=TRUE}
 library(klink)
-
 zoltar("s3BucketName")
 ```
 

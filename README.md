@@ -69,12 +69,10 @@ files, and/or manually assignment in Connect publications.
 
 ``` r
 library(klink)
-library(DBI)
-library(odbc)
 
 conn <- klink_sql("DEV", "database")
 
-dbGetQuery(conn,
+DBI::dbGetQuery(conn,
           "SELECT TOP 5
           var1, var2
           FROM table")
@@ -88,7 +86,6 @@ by calling the function.
 
 ``` r
 library(klink)
-library(aws.s3)
 
 # Retrieve required system settings (in background) and appropriate s3 bucket name
 klink_s3R()
@@ -115,6 +112,5 @@ please reach out to the Kellogg Data Science team to have them added.
 
 ``` r
 library(klink)
-
 zoltar("s3BucketName")
 ```

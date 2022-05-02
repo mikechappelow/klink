@@ -1,18 +1,10 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# klink
+# klink <img src="vignettes/k_hex-DS.png" width="100" />
 
 The goal of klink is to provide helpful functions for Kellogg users to
 form connections to common data sources.
-
-<!-- badges: start -->
-<p align="center">
-
-<img src="vignettes/k_hex-DS.png" width="160" />
-
-</p>
-<!-- badges: end -->
 
 ## Example
 

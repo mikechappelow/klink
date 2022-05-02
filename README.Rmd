@@ -23,7 +23,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <center>
 
-![KDS](vignettes/k_hex-DS.png){width=30%}
+![KDS](vignettes/k_hex-DS.png){width=160px}
 
 </center>
 

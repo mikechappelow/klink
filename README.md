@@ -7,7 +7,7 @@
 <center>
 
 <figure>
-<img src="vignettes/k_hex-DS.png" style="width:30.0%" alt="KDS" /><figcaption aria-hidden="true">KDS</figcaption>
+<img src="vignettes/k_hex-DS.png" width="160" alt="KDS" /><figcaption aria-hidden="true">KDS</figcaption>
 </figure>
 
 </center>

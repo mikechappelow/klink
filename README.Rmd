@@ -40,7 +40,7 @@ klink current covers commonly used SQL databases and non-Kortex S3 and provides 
     ,PWD = pwd
   )
 
-# klink approach:
+# klink Approach:
   con <- klink_sql("DEV", "database_name")
 
 ```

@@ -25,7 +25,7 @@ provides a more succinct approach to calling these connections:
     ,PWD = pwd
   )
 
-# klink approach:
+# klink Approach:
   con <- klink_sql("DEV", "database_name")
 ```
 

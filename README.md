@@ -4,7 +4,8 @@
 # klink
 
 <!-- badges: start -->
-<!-- badges: end -->
+
+![KDS](%22/vignettes/k_hex-DS.png%22) <!-- badges: end -->
 
 The goal of klink is to provide helpful functions focused on easily
 forming connections to K data sources.

@@ -53,7 +53,7 @@ klink current covers commonly used SQL databases and non-Kortex S3 and provides 
 
 ```
 
-In addition to the brevity of the klink functions end users also gain the added benefit of not having to maintain credentials in their own code and individual publications.
+In addition to the brevity of the klink functions, end users also gain the added benefit of not having to maintain credentials in their own code and individual publications.
 
 ## Installation
 You can install the development version of klink from [GitHub](https://github.com/) with:

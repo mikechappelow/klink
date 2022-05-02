@@ -4,11 +4,17 @@
 # klink
 
 <!-- badges: start -->
+<center>
 
-![KDS](%22/vignettes/k_hex-DS.png%22) <!-- badges: end -->
+<figure>
+<img src="vignettes/k_hex-DS.png" style="width:30.0%" alt="KDS" /><figcaption aria-hidden="true">KDS</figcaption>
+</figure>
 
-The goal of klink is to provide helpful functions focused on easily
-forming connections to K data sources.
+</center>
+<!-- badges: end -->
+
+The goal of klink is to provide helpful functions for Kellogg users to
+form connections to common data sources.
 
 ## Example
 

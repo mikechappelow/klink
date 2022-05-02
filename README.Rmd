@@ -21,11 +21,11 @@ knitr::opts_chunk$set(
 # klink
 
 <!-- badges: start -->
-<center>
+<p align="center">
 
-![KDS](vignettes/k_hex-DS.png){width=160px}
+![](vignettes/k_hex-DS.png){width=160px}
 
-</center>
+</p>
 
 <!-- badges: end -->
 

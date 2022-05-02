@@ -4,13 +4,11 @@
 # klink
 
 <!-- badges: start -->
-<center>
+<p align="center">
 
-<figure>
-<img src="vignettes/k_hex-DS.png" width="160" alt="KDS" /><figcaption aria-hidden="true">KDS</figcaption>
-</figure>
+<img src="vignettes/k_hex-DS.png" width="160" />
 
-</center>
+</p>
 <!-- badges: end -->
 
 The goal of klink is to provide helpful functions for Kellogg users to

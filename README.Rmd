@@ -107,7 +107,7 @@ aws.s3::object_size("your_object.csv", bucket = s3BucketName)
 ```
 
 #### zoltar
-The klink functions are essentially wrappers that utilize zoltar to make the user experience as lightweight as possible by making implicit assumptions about the connection that should be formed.
+The klink functions are essentially wrappers that utilize zoltar to make the user experience as lightweight as possible by making assumptions about the connection that should be formed.
 
 If you would like to override these assumptions by specifying your own connection settings zoltar is the solution.
 

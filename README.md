@@ -45,7 +45,8 @@ RStudio Package Manager environment.
 
 ## Setup
 
-In order to use klink there is some one-time setup requirements:
+In order to use klink there are a few setup requirements that will need
+to be completed:
 
 1.  Have an RStudio Connect account (you likely have one already if
     you’re using RStudio Workbench, if not you can request access

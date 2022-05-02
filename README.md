@@ -3,6 +3,9 @@
 
 # klink
 
+The goal of klink is to provide helpful functions for Kellogg users to
+form connections to common data sources.
+
 <!-- badges: start -->
 <p align="center">
 
@@ -10,9 +13,6 @@
 
 </p>
 <!-- badges: end -->
-
-The goal of klink is to provide helpful functions for Kellogg users to
-form connections to common data sources.
 
 ## Example
 

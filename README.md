@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# klink <img src="vignettes/k_hex-DS.png" width="100" />
+# klink <img src="vignettes/k_hex-DS.png" width="120" />
 
 The goal of klink is to provide helpful functions for Kellogg users to
 form connections to common data sources.

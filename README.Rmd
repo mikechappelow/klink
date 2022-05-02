@@ -33,7 +33,7 @@ klink current covers commonly used SQL databases and non-Kortex S3 and provides 
 # Old Approach to forming a SQL connection:
   con <- DBI::dbConnect(
     odbc::odbc()
-    ,Driver = "freetds" #"SQLServer"
+    ,Driver = "freetds"
     ,Server = server
     ,Database = database
     ,UID = uid

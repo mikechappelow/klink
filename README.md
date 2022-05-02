@@ -18,7 +18,7 @@ provides a more succinct approach to calling these connections:
 # Old Approach to forming a SQL connection:
   con <- DBI::dbConnect(
     odbc::odbc()
-    ,Driver = "freetds" #"SQLServer"
+    ,Driver = "freetds"
     ,Server = server
     ,Database = database
     ,UID = uid

@@ -50,8 +50,7 @@ to be completed:
 
 1.  Have an RStudio Connect account (you likely have one already if
     you’re using RStudio Workbench, if not you can request access
-    through Digital Concierge, instructions can be found here:
-    <https://rstudioconnect.analytics.kellogg.com/RStudio_Knowledge_Library/>)
+    through Digital Concierge)
 2.  Create a local RStudio Connect API key
     <https://docs.rstudio.com/connect/user/api-keys>
 3.  Create an .Renviron file in your Home folder assigning your API key

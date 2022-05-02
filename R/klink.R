@@ -21,7 +21,7 @@
 #' @section Setup:
 #' In order to use these functions users must first:
 #'
-#' 1. Have an RStudio Connect account (you likely have one already if you're using RStudio Workbench, if not you can request access through Digital Concierge, instructions can be found here: <https://rstudioconnect.analytics.kellogg.com/RStudio_Knowledge_Library/>
+#' 1. Have an RStudio Connect account (you likely have one already if you're using RStudio Workbench, if not you can request access through Digital Concierge)
 #'
 #' 2. Create a local RStudio Connect API key <https://docs.rstudio.com/connect/user/api-keys>
 #'

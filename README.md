@@ -1,11 +1,5 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-
-# klink
-
-The goal of klink is to provide helpful functions for Kellogg users to
-form connections to common data sources.
-
 <!-- badges: start -->
 <p align="center">
 
@@ -13,6 +7,11 @@ form connections to common data sources.
 
 </p>
 <!-- badges: end -->
+
+# klink
+
+The goal of klink is to provide helpful functions for Kellogg users to
+form connections to common data sources.
 
 ## Example
 

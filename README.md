@@ -22,9 +22,13 @@ provides a more succinct approach to calling these connections:
     ,PWD = pwd
   )
 
-# klink Approach:
+# New klink Approach:
   con <- klink_sql("DEV", "database_name")
 ```
+
+In addition to the brevity of the klink functions end users also gain
+the added benefit of not having to maintain credentials in their own
+code and individual publications.
 
 ## Installation
 

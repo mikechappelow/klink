@@ -28,7 +28,7 @@ klink_sql <- function(environment, database){
     # retrieve server
     server <- klink::zoltar("MS_SQL_ANALYTICS_DEV_server")
     # retrieve credentials
-    if (database == "KG_R_APPS") {
+    if (database %in% c("KG_R_APPS", "KNA_FIN")) {
       uid <- klink::zoltar("KG_R_APPS_DEV_userid")
       pwd <- klink::zoltar("KG_R_APPS_DEV_pwd")
     } else if (database %in% c("KG_SAS")) {

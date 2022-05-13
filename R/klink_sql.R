@@ -22,7 +22,8 @@
 
 klink_sql <- function(environment, database){
 
-  # Retrieve wishes using zoltar
+  # retrieve wishes using zoltar
+  #----------------------------------------------------------------------------
   # DEV
   if(environment == "DEV"){
     # retrieve server
@@ -57,17 +58,25 @@ klink_sql <- function(environment, database){
         pwd <- klink::zoltar("KG_ANALYTICS_APPS_DEV_pwd")
       }
     } else {
-      "invalid combination of environment, and database"
-    } # / wishes closure
+      "Error: Invalid environment name. Should be 'DEV' or 'PROD'."
+    }
 
-  # Create DB connection object
-  DBI::dbConnect(
-    odbc::odbc()
-    ,Driver = "freetds" #"SQLServer"
-    ,Server = server
-    ,Database = database
-    ,UID = uid
-    ,PWD = pwd
-  )
+  # connection or zoltar error message handling
+  #----------------------------------------------------------------------------
+  if(grepl("^Error", uid, ignore.case = TRUE)){
+    return(uid) # would be error message from zoltar
+    } else if(grepl("^Error", pwd, ignore.case = TRUE)) {
+      return(pwd)
+      } else {
+        # Create DB connection object
+        DBI::dbConnect(
+          odbc::odbc()
+          ,Driver = "freetds" #"SQLServer"
+          ,Server = server
+          ,Database = database
+          ,UID = uid
+          ,PWD = pwd
+          )
+      }
 
   } # / function closure

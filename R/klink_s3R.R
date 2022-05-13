@@ -25,16 +25,23 @@
 #' aws.s3::object_size("/data/R_training/package_list.rds", bucket = s3BucketName)
 
 klink_s3R <- function(){
-  # Retrieve and set required global environmental vars
-  Sys.setenv("AWS_ACCESS_KEY_ID" = klink::zoltar("aws_key"),
-             "AWS_SECRET_ACCESS_KEY" = klink::zoltar("aws_secretkey"),
-             "AWS_DEFAULT_REGION" = "us-east-1",
-             envir = globalenv()
-             )
+  bucket_name <- klink::zoltar("s3BucketName")
 
-  # Return bucket name as "S3BucketName"
-  assign("s3BucketName",
-         value = klink::zoltar("s3BucketName"),
-         envir = globalenv())
+  if(grepl("^Error", bucket_name, ignore.case = TRUE)){
+    return(bucket_name) # would be error message from zoltar
+
+    } else {
+      # Retrieve and set required global environmental vars
+      Sys.setenv("AWS_ACCESS_KEY_ID" = klink::zoltar("aws_key"),
+                 "AWS_SECRET_ACCESS_KEY" = klink::zoltar("aws_secretkey"),
+                 "AWS_DEFAULT_REGION" = "us-east-1",
+                 envir = globalenv()
+                 )
+
+      # Return bucket name as "S3BucketName"
+      assign("s3BucketName",
+             value = bucket_name, #klink::zoltar("s3BucketName"),
+             envir = globalenv())
+    }
 }
 

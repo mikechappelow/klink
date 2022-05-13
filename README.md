@@ -99,6 +99,8 @@ aws.s3::object_exists("your_object.rds", bucket = s3BucketName)
 aws.s3::object_size("your_object.csv", bucket = s3BucketName)
 ```
 
+<img src="vignettes/zoltar-hex.png" width="110" />
+
 #### zoltar
 
 The klink functions are essentially wrappers that utilize zoltar to make

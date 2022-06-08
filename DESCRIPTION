@@ -12,7 +12,9 @@ Imports:
     aws.s3,
     DBI,
     httr,
-    odbc
+    odbc,
+    aws.iam,
+    paws
 Suggests: 
     knitr,
     rmarkdown

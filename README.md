@@ -3,12 +3,41 @@
 
 # klink <img src="vignettes/k_hex-DS.png" width="110" />
 
+## What it’s for
+
 The goal of klink is to provide helpful functions for Kellogg users to
 form connections to common data sources.
 
+## Setup
+
+In order to use these tools users must first:
+
+1.  Have an RStudio Connect account (you likely have one already if
+    you’re using RStudio Workbench, if not you can request access
+    through Digital Concierge)
+2.  Create a local RStudio Connect API key
+    <https://docs.rstudio.com/connect/user/api-keys>
+3.  Create an .Renviron file in your Home folder assigning your API key
+    value to the name CONNECT_API_KEY
+    <https://rstats.wtf/r-startup.html>
+
+## How to Install
+
+Currently, the easiest way to install the klink package is to install
+from the public GitHub repo:
+
+``` r
+devtools::install_github("mikechappelow/klink")
+
+library(klink)
+```
+
+In the future we will host these types of packages in our internal
+RStudio Package Manager environment.
+
 ## Example
 
-klink current covers commonly used SQL databases and non-Kortex S3 and
+klink currently covers commonly used SQL databases and non-Kortex S3 and
 provides a more succinct approach to calling these connections:
 
 ``` r
@@ -30,19 +59,6 @@ In addition to the brevity of the klink functions, end users also gain
 the added benefit of not having to maintain credentials in their own
 code and individual publications.
 
-## Installation
-
-You can install the development version of klink from
-[GitHub](https://github.com/) with:
-
-``` r
-# install.packages("devtools")
-devtools::install_github("mikechappelow/klink")
-```
-
-In the future we will host these types of packages in our internal
-RStudio Package Manager environment.
-
 ## Setup
 
 In order to use klink there are a few setup requirements that will need
@@ -61,15 +77,15 @@ to be completed:
 
 ### klink functions
 
-The klink functions are a general group of functions used to establish
-links to data sources commonly used within Kellogg.
+The klink functions can be used to establish links to common data
+sources within Kellogg.
 
 #### klink_sql
 
 The klink_sql function enables users to link to predefined, internal SQL
 databases using only a couple of arguments and removes the necessity of
 locally defining service account credentials in your code, .Renviron
-files, and/or manually assignment in Connect publications.
+files, and Connect publications.
 
 ``` r
 library(klink)
@@ -82,11 +98,33 @@ DBI::dbGetQuery(conn,
           FROM table")
 ```
 
+Note: the klink_sql function requires the odbc and DBI R packages.
+
+#### klink_s3
+
+The klink_s3 function enables users to link to our kortex s3 bucket
+simply by calling the function (no arguments required).
+
+``` r
+# library(klink)
+# 
+# # Retrieve required system settings (in background) and appropriate s3 bucket name
+# klink_s3()
+# 
+# # Use aws.s3 functions to retrieve information from s3 bucket
+# # (making sure to reference the bucket as "s3BucketName_kortex")
+# aws.s3::get_bucket_df(s3BucketName_kortex,max = 20)[["Key"]]
+```
+
+Note: the klink_s3 function requires the paws, aws.s3, and aws.iam
+packages
+
 #### klink_s3R
 
-The klink_s3R function enables users to define all of the required
-settings and variables required to link to our foreign s3 bucket simply
-by calling the function.
+The klink_s3R function enables users to link to our foreign s3 bucket
+simply by calling the function (no arguments required).
+
+Example:
 
 ``` r
 library(klink)
@@ -99,16 +137,21 @@ aws.s3::object_exists("your_object.rds", bucket = s3BucketName)
 aws.s3::object_size("your_object.csv", bucket = s3BucketName)
 ```
 
+Note: the klink_s3R function requires the aws.s3 package in order to use
+the resulting connection
+
 <img src="vignettes/zoltar-hex.png" width="110" />
 
-#### zoltar
+### zoltar
 
 The klink functions are essentially wrappers that utilize zoltar to make
-the user experience as lightweight as possible by making assumptions
-about the connection that should be formed.
+the user experience as frictionless as possible. This is achieved by
+leveraging the zoltar API and making assumptions about the connection
+that should be formed based on the user inputs.
 
-If you would like to override these assumptions by specifying your own
-connection settings zoltar is the solution.
+If you would like to avoid these assumptions while leveraging the
+underlying functionality you can do so by specifying your own connection
+settings and using the zoltar function directly in your connection call.
 
 When a wish/alias of a known value is passed to this function our
 internal zoltar API returns the requested value.
@@ -116,7 +159,22 @@ internal zoltar API returns the requested value.
 If there are required connections that are not yet supported by zoltar
 please reach out to the Kellogg Data Science team to have them added.
 
+Example:
+
 ``` r
 library(klink)
-zoltar("s3BucketName")
+
+con <- DBI::dbConnect(
+          odbc::odbc()
+          ,Driver = "freetds"
+          ,Server = zoltar("server_alias") 
+          ,Database = "database_name"
+          ,UID = zoltar("uid_alias")
+          ,PWD = zoltar("pwd_alias")
+          )
 ```
+
+Note: the values passed to the zoltar function in the example above are
+not valid and are meant for illustrative purposes only. Please contact a
+member of the data science team if you have questions concerning valid
+arguments for zoltar.

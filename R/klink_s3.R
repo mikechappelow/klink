@@ -9,8 +9,6 @@
 #' 2. Create a local RStudio Connect API key <https://docs.rstudio.com/connect/user/api-keys>
 #' 3. Create an .Renviron file in your Home folder assigning your API key value to the name "CONNECT_API_KEY" <https://rstats.wtf/r-startup.html>
 #'
-#' 4. install aws.s3 package (not technically needed to run function but necessary in order to make use of the settings created)
-#'
 #' @return
 #' @export
 #'
@@ -19,37 +17,43 @@
 #' klink_s3()
 #'
 #' # Use example aws.s3 functions to retrieve information from s3 bucket
-#' # (making sure to reference the bucket as "s3BucketName_kortex")
-#' aws.s3::get_bucket_df(s3BucketName_kortex,max = 20)[["Key"]]
+#' # (making sure to reference the bucket as "s3BucketName")
+#' aws.s3::get_bucket_df(s3BucketName, max = 20)[["Key"]]
 
 klink_s3 <- function(){
-  bucket_name <- klink::zoltar("s3BucketName_kortex")
+  # Check for existing s3 connections
+  if(Sys.getenv("AWS_SECRET_ACCESS_KEY") != ""){
+    print("Already connected to an S3 bucket")
+    }else{
+      bucket_name <- klink::zoltar("s3BucketName_kortex")
 
-  if(grepl("^Error", bucket_name, ignore.case = TRUE)){
-    return(bucket_name) # would be error message from zoltar
-  }
-   else {
-     # Return bucket name to global environment as "S3BucketName_kortex"
-     assign("s3BucketName_kortex",
-            value = bucket_name,
-            envir = globalenv()
+      if(grepl("^Error", bucket_name, ignore.case = TRUE)){
+        return(bucket_name) # would be error message from zoltar
+        }
+
+      else {
+        # Return bucket name to global environment as "S3BucketName_kortex"
+        assign("s3BucketName",
+               value = bucket_name,
+               envir = globalenv()
+               )
+
+        # Use paws to assume iam and form s3 connection
+        suppressWarnings(
+          s3_other <- paws::s3(
+            config = list(
+              credentials = list(
+                r <- aws.iam::assume_role("arn:aws:iam::895344418283:role/S3Access-From-Leg-Corp-Rstudio-to-kna-prd", "rstudio", use=TRUE)
+                ),
+              region = "us-east-1"
+              )
             )
+          )
 
-     # Use paws to assume iam and form s3 connection
-     suppressWarnings(
-       s3_other <- paws::s3(
-       config = list(
-         credentials = list(
-           r <- aws.iam::assume_role("arn:aws:iam::895344418283:role/S3Access-From-Leg-Corp-Rstudio-to-kna-prd", "rstudio", use=TRUE)
-           ),
-         region = "us-east-1"
-         )
-       )
-     )
-
-     assign("s3_other",
-            value = s3_other,
-            envir = globalenv()
-            )
+        assign("s3_other",
+               value = s3_other,
+               envir = globalenv()
+               )
+        }
   }
 }

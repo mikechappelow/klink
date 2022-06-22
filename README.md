@@ -8,33 +8,6 @@
 The goal of klink is to provide helpful functions for Kellogg users to
 form connections to common data sources.
 
-## Setup
-
-In order to use these tools users must first:
-
-1.  Have an RStudio Connect account (you likely have one already if
-    you’re using RStudio Workbench, if not you can request access
-    through Digital Concierge)
-2.  Create a local RStudio Connect API key
-    <https://docs.rstudio.com/connect/user/api-keys>
-3.  Create an .Renviron file in your Home folder assigning your API key
-    value to the name CONNECT_API_KEY
-    <https://rstats.wtf/r-startup.html>
-
-## How to Install
-
-Currently, the easiest way to install the klink package is to install
-from the public GitHub repo:
-
-``` r
-devtools::install_github("mikechappelow/klink")
-
-library(klink)
-```
-
-In the future we will host these types of packages in our internal
-RStudio Package Manager environment.
-
 ## Example
 
 klink currently covers commonly used SQL databases and non-Kortex S3 and
@@ -72,6 +45,20 @@ to be completed:
 3.  Create an .Renviron file in your Home folder assigning your API key
     value to the name CONNECT_API_KEY
     <https://rstats.wtf/r-startup.html>
+
+## How to Install
+
+Currently, the easiest way to install the klink package is to install
+from the public GitHub repo:
+
+``` r
+devtools::install_github("mikechappelow/klink")
+
+library(klink)
+```
+
+In the future we will host these types of packages in our internal
+RStudio Package Manager environment.
 
 ## Current Functions
 

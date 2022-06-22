@@ -19,7 +19,6 @@ In order to use these tools users must first:
 \item Have an RStudio Connect account (you likely have one already if you're using RStudio Workbench, if not you can request access through Digital Concierge).
 \item Create a local RStudio Connect API key \url{https://docs.rstudio.com/connect/user/api-keys}
 \item Create an .Renviron file in your Home folder assigning your API key value to the name CONNECT_API_KEY \url{https://rstats.wtf/r-startup.html}
-\item install aws.s3 package (not technically needed to run function but necessary in order to make use of the settings created)
 }
 }
 \examples{

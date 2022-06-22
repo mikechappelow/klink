@@ -3,3 +3,5 @@ klink.Rproj
 .Rhistory
 .RData
 vignettes/rsconnect/
+/doc/
+/Meta/

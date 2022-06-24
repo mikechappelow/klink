@@ -15,6 +15,8 @@ knitr::opts_chunk$set(
 )
 ```
 
+![](klink.png){width=216px}
+
 ## What it's for
 The goal of klink is to provide helpful functions for Kellogg users to form connections to common data sources.
 
@@ -90,7 +92,11 @@ aws.s3::object_exists("your_object.rds", bucket = s3BucketName)
 aws.s3::object_size("your_object.csv", bucket = s3BucketName)
 ```
 
+
 ### zoltar
+
+![](zoltar-hex.png){width=216px}
+
 The klink functions are essentially wrappers that utilize zoltar to make the user experience as frictionless as possible. This is achieved by leveraging the zoltar API and making assumptions about the connection that should be formed based on the user inputs.
 
 If you would like to avoid these assumptions while leveraging the underlying functionality you can do so by specifying your own connection settings and using the zoltar function directly in your connection call.

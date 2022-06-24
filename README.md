@@ -3,6 +3,8 @@
 
 # klink <img src="vignettes/k_hex-DS.png" width="110" />
 
+<img src="vignettes/klink.png" width="216" />
+
 ## What it’s for
 
 The goal of klink is to provide helpful functions for Kellogg users to
@@ -127,7 +129,7 @@ aws.s3::object_size("your_object.csv", bucket = s3BucketName)
 Note: the klink_s3R function requires the aws.s3 package in order to use
 the resulting connection
 
-<img src="vignettes/zoltar-hex.png" width="110" />
+<img src="vignettes/zoltar-hex.png" width="216" />
 
 ### zoltar
 

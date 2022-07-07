@@ -164,6 +164,14 @@ con <- DBI::dbConnect(
 ```
 
 Note: the values passed to the zoltar function in the example above are
-not valid and are meant for illustrative purposes only. Please contact a
-member of the data science team if you have questions concerning valid
-arguments for zoltar.
+not valid and are meant for illustrative purposes only. In order to
+retrieve a full list of currently supported arguments to the zoltar API
+users with a Connect API key can use the zoltar_list() function.
+
+Example:
+
+``` r
+library(klink)
+
+zoltar_list()
+```

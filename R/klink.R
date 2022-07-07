@@ -4,19 +4,21 @@
 #'
 #' @section klink functions:
 #' * klink_sql (for SQL connections)
-#'
-#' * klink_s3R (for our foreign s3 bucket connections)
+#' * klink_s3 (for Kortex bucket connection)
+#' * klink_s3R (for POC bucket connection)
 #'
 #'  See vignette or function documentation (?klink_sql or ?klink_s3R) for more information and examples.
 #'
-#' @section zoltar function:
-#' The klink functions are esssentially wrappers that utilize zoltar under the hood to make the user experience as lightweight as possible.
+#' @section zoltar functions:
+#' TThe klink functions are wrappers that utilize zoltar in order to simplify the user experience. This is achieved by leveraging the zoltar API and making assumptions about the connection that should be formed based on the user inputs.
 #'
 #' When a wish/alias of a known value is passed to this function our internal zoltar API returns the requested value. The Connect API key required in the user setup allows us to secure this functionality while also centrally managing our shared service account credentials. In addition to reduced upkeep for users this also limits the exposure to the underlying secrets associated with these account.
 #'
-#' If there is a service account that isn't for SQL, s3, or similar you may want to try to use zoltar directly. If there are service accounts that are not yet supported by zoltar please reach out to the Kellogg Data Science team to have them added.
+#' If you would like to avoid these assumptions while leveraging the underlying functionality you can do so by specifying your own connection settings and using the zoltar function directly in your connection call.
 #'
-#' See vignette or function documentation (?zoltar) for more information and examples.
+#' You can also use the zoltar_list() function to return a list of permitted requests based on your credentials.
+#'
+#' #' See vignette or function documentation (?zoltar and ?zoltar_list) for more information and examples.
 #'
 #' @section Setup:
 #' In order to use these functions users must first:

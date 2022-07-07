@@ -15,24 +15,28 @@
 
 
 zoltar_list <- function(){
-  # Clean API output and split into list
-  strsplit(
-    gsub(
-      pattern = ('"|\\[|\\]'),
-      replacement = '',
+  # Check User
+  user <- httr::content(
+    httr::GET("https://rstudioconnect.analytics.kellogg.com/__api__/v1/user",
+              httr::add_headers(Authorization =
+                                  paste0("Key ", Sys.getenv("CONNECT_API_KEY")))), # / httr::GET
+    as = "parsed",
+    type = "application/json",
+    encoding = 'UTF-8'
+    )
 
-      # Use RStudio Connect API to retrieve zoltar environmental var info
-      # https://docs.rstudio.com/connect/api/#get-/v1/content/{guid}/environment
-      x = httr::content(
-        httr::GET("https://rstudioconnect.analytics.kellogg.com/__api__/v1/content/898b7328-3d00-47d3-9716-0a065dd61083/environment",
-                  httr::add_headers(Authorization =
-                                      paste0("Key ", Sys.getenv("CONNECT_API_KEY")))), # / httr::GET
-        as = "text",
-        type = "application/json",
-        encoding = 'UTF-8'
-        ) # / httr::content
+  # Compare Vs User Access Table - future state
+  # user$username
+  # user$user_role
+  # user$locked
 
-      ), # / gsub
+  # Retrieve from zoltar_list
+  if(user$locked == FALSE){
+    zoltar_con <- klink::klink_sql("PROD", "KG_R_APPS")
+    out <- DBI::dbGetQuery(zoltar_con, "SELECT * FROM [KG_R_APPS].[dbo].[zoltar_list]")
+    DBI::dbDisconnect(zoltar_con)
 
-    split = ",")[[1]] # / strsplit
+    return(out)
+    } else {"Error: You don't have permission to access this item. Have you set up your CONNECT_API_KEY? (see documentation: ?klink_list)"}
 }
+

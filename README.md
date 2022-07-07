@@ -8,36 +8,36 @@
 ## What it’s for
 
 The goal of klink is to provide helpful functions for Kellogg users to
-form connections to common data sources.
+connect to common data sources.
 
 ## Example
 
-klink currently supports commonly used SQL databases and S3 buckets
-providing a more succinct approach to calling these connections:
+klink currently supports common SQL databases and S3 buckets providing a
+more succinct approach to forming these connections:
 
 ``` r
 # Old Approach to forming a SQL connection:
-  con <- DBI::dbConnect(
+con <- DBI::dbConnect(
     odbc::odbc()
     ,Driver = "freetds"
     ,Server = server
     ,Database = database
     ,UID = uid
     ,PWD = pwd
-  )
+    )
 
 # New klink Approach:
-  con <- klink_sql("DEV", "database_name")
+con <- klink_sql("DEV", "database_name")
 ```
 
-In addition to the brevity of the klink functions, end users also gain
-the added benefit of not having to maintain credentials in their own
-code and individual publications.
+In addition to the brevity of the klink syntax, end users also gain the
+benefit of not having to maintain credentials in their own code and
+individual publications.
 
 ## Setup
 
-In order to use klink there are a few setup requirements that will need
-to be completed:
+In order to use klink there are a few setup steps that will need to be
+completed:
 
 1.  Have a RStudio Connect account (you likely have one already if
     you’re using RStudio Workbench, if not you can request access
@@ -47,6 +47,7 @@ to be completed:
 3.  Create an .Renviron file in your Home folder assigning your API key
     value to the name CONNECT_API_KEY
     <https://rstats.wtf/r-startup.html>
+4.  Install the klink package (instructions below)
 
 ## How to Install
 
@@ -72,9 +73,9 @@ sources within Kellogg.
 #### klink_sql
 
 The klink_sql function enables users to link to predefined, internal SQL
-databases using only a couple of arguments and removes the necessity of
-locally defining service account credentials in your code, .Renviron
-files, and Connect publications.
+databases. The function only requires two arguments and removes the
+necessity of locally defining service account credentials in your code,
+.Renviron files, and Connect publications.
 
 ``` r
 library(klink)
@@ -87,7 +88,8 @@ DBI::dbGetQuery(conn,
           FROM table")
 ```
 
-Note: the klink_sql function requires the odbc and DBI R packages.
+Note: the klink_sql function requires the odbc and DBI R packages (these
+should be automatically installed when you install klink).
 
 #### klink_s3
 
@@ -106,7 +108,8 @@ simply by calling the function (no arguments required).
 ```
 
 Note: the klink_s3 function requires the paws, aws.s3, and aws.iam
-packages
+packages (these should be automatically installed when you install
+klink).
 
 #### klink_s3R
 
@@ -127,16 +130,17 @@ aws.s3::object_size("your_object.csv", bucket = s3BucketName)
 ```
 
 Note: the klink_s3R function requires the aws.s3 package in order to use
-the resulting connection
+the resulting connection (these should be automatically installed when
+you install klink).
 
 <img src="vignettes/zoltar-hex.png" width="216" />
 
 ### zoltar
 
-The klink functions are essentially wrappers that utilize zoltar to make
-the user experience as frictionless as possible. This is achieved by
-leveraging the zoltar API and making assumptions about the connection
-that should be formed based on the user inputs.
+The klink functions are wrappers that utilize zoltar in order to
+simplify the user experience. This is achieved by leveraging the zoltar
+API and making assumptions about the connection that should be formed
+based on the user inputs.
 
 If you would like to avoid these assumptions while leveraging the
 underlying functionality you can do so by specifying your own connection

@@ -38,7 +38,7 @@ The goal of klink is to provide helpful functions for Kellogg users to form conn
 
 ## Example
 
-klink currently covers commonly used SQL databases and non-Kortex S3 and provides a more succinct approach to calling these connections:
+klink currently supports commonly used SQL databases and S3 buckets providing a more succinct approach to calling these connections:
 
 ```{r example, echo=TRUE}
 # Old Approach to forming a SQL connection:
@@ -61,7 +61,7 @@ In addition to the brevity of the klink functions, end users also gain the added
 ## Setup
 In order to use klink there are a few setup requirements that will need to be completed:
 
-1. Have an RStudio Connect account (you likely have one already if you're using RStudio Workbench, if not you can request access through Digital Concierge)
+1. Have a RStudio Connect account (you likely have one already if you're using RStudio Workbench, if not you can request access through Digital Concierge)
 2. Create a local RStudio Connect API key <https://docs.rstudio.com/connect/user/api-keys>
 3. Create an .Renviron file in your Home folder assigning your API key value to the name CONNECT_API_KEY <https://rstats.wtf/r-startup.html>
 

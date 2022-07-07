@@ -12,8 +12,8 @@ form connections to common data sources.
 
 ## Example
 
-klink currently covers commonly used SQL databases and non-Kortex S3 and
-provides a more succinct approach to calling these connections:
+klink currently supports commonly used SQL databases and S3 buckets
+providing a more succinct approach to calling these connections:
 
 ``` r
 # Old Approach to forming a SQL connection:
@@ -39,7 +39,7 @@ code and individual publications.
 In order to use klink there are a few setup requirements that will need
 to be completed:
 
-1.  Have an RStudio Connect account (you likely have one already if
+1.  Have a RStudio Connect account (you likely have one already if
     you’re using RStudio Workbench, if not you can request access
     through Digital Concierge)
 2.  Create a local RStudio Connect API key

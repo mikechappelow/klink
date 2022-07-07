@@ -15,14 +15,13 @@ klink_sql(environment, database)
 Returns SQL odbc connection object
 }
 \description{
-Enables internal users with Connect API keys to create connections to Kellogg SQL databases with a simple function
+Enables users to create connections to Kellogg SQL databases with a simple function
 
 In order to use these tools users must first:
 \enumerate{
-\item Have an RStudio Connect account (you likely have one already if you're using RStudio Workbench, if not you can request access through Digital Concierge).
+\item Have a RStudio Connect account (you likely have one already if you're using RStudio Workbench, if not you can request access through Digital Concierge).
 \item Create a local RStudio Connect API key \url{https://docs.rstudio.com/connect/user/api-keys}
 \item Create an .Renviron file in your Home folder assigning your API key value to the name CONNECT_API_KEY \url{https://rstats.wtf/r-startup.html}
-\item Install DBI and odbc packages
 }
 }
 \examples{

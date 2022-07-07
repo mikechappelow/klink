@@ -22,6 +22,7 @@ zoltar_list <- function(){
       replacement = '',
 
       # Use RStudio Connect API to retrieve zoltar environmental var info
+      # https://docs.rstudio.com/connect/api/#get-/v1/content/{guid}/environment
       x = httr::content(
         httr::GET("https://rstudioconnect.analytics.kellogg.com/__api__/v1/content/898b7328-3d00-47d3-9716-0a065dd61083/environment",
                   httr::add_headers(Authorization =

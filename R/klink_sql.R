@@ -32,9 +32,9 @@ klink_sql <- function(environment, database){
       uid <- klink::zoltar("KG_SAS_DEV_userid")
       pwd <- klink::zoltar("KG_SAS_DEV_pwd")
     } else {
-      # !!! using KG_ANALYTICS_APPS as catch-all/default for now
-      uid <- klink::zoltar("KG_ANALYTICS_APPS_DEV_userid")
-      pwd <- klink::zoltar("KG_ANALYTICS_APPS_DEV_pwd")
+      # !!! using KG_SAS as catch-all/default for now
+      uid <- klink::zoltar("KG_SAS_DEV_userid")
+      pwd <- klink::zoltar("KG_SAS_DEV_pwd")
     }
 
     # PROD
@@ -49,9 +49,9 @@ klink_sql <- function(environment, database){
         uid <- klink::zoltar("KG_SAS_PROD_userid")
         pwd <- klink::zoltar("KG_SAS_PROD_pwd")
       } else {
-        # !!! using KG_ANALYTICS_APPS as catch-all/default for now
-        uid <- klink::zoltar("KG_ANALYTICS_APPS_DEV_userid")
-        pwd <- klink::zoltar("KG_ANALYTICS_APPS_DEV_pwd")
+        # !!! using KG_SAS as catch-all/default for now
+        uid <- klink::zoltar("KG_SAS_PROD_userid")
+        pwd <- klink::zoltar("KG_SAS_PROD_pwd")
       }
     } else {
       "Error: Invalid environment name. Should be 'DEV' or 'PROD'."

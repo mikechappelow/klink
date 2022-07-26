@@ -73,7 +73,7 @@ sources within Kellogg.
 #### klink_sql
 
 The klink_sql function enables users to link to predefined, internal SQL
-databases. The function only requires two arguments and removes the
+databases. The function only requires\* two arguments and removes the
 necessity of locally defining service account credentials in your code,
 .Renviron files, and Connect publications.
 
@@ -88,8 +88,8 @@ DBI::dbGetQuery(conn,
           FROM table")
 ```
 
-Note: the klink_sql function requires the odbc and DBI R packages (these
-should be automatically installed when you install klink).
+Note: the klink_sql function also requires the odbc and DBI R packages
+(these should be automatically installed when you install klink).
 
 #### klink_s3
 

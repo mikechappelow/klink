@@ -4,15 +4,17 @@
 \alias{klink_sql}
 \title{Kellogg SQL connections}
 \usage{
-klink_sql(environment, database)
+klink_sql(environment, database, server = NULL)
 }
 \arguments{
-\item{environment}{Valid arguments are "PROD" or "DEV"}
+\item{environment}{character string containing desired environment. Valid arguments are "PROD" or "DEV".}
 
-\item{database}{Any database in the specified SQL environment should be valid. In current version values of  KG_R_APPS will attempt to use KG_R_APPS svc account credentials, KG_SAS will use KG_SAS credentials, and all other databases will attempt to use KG_ANALYTICS_APPS. If you have suggestions for refining or correcting these functions please contact package authors.}
+\item{database}{character string containing name of desired database. Any database in the specified SQL environment should be valid.}
+
+\item{server}{character string containing exact server name in R format (beware of /s). If no argument provided will attempt to use Keystone servers. If server argument is provided the function will attempt to pass specified value into the connection call.}
 }
 \value{
-Returns SQL odbc connection object
+Returns SQL DBI connection object
 }
 \description{
 Enables users to create connections to Kellogg SQL databases with a simple function

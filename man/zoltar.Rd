@@ -4,10 +4,10 @@
 \alias{zoltar}
 \title{zoltar}
 \usage{
-zoltar(x)
+zoltar(token)
 }
 \arguments{
-\item{x}{A string containing the name of secret to be retrieved (must be wrapped in quotation marks)}
+\item{token}{character string containing the exact name of secret to be retrieved (if passing value directly must be wrapped in quotation marks to be interpreted as character string)}
 }
 \value{
 If name is found, a string containing the secret value else a string stating that zoltar is unable to grant your wish

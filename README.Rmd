@@ -45,14 +45,14 @@ klink currently supports common SQL databases and S3 buckets providing a more su
 con <- DBI::dbConnect(
     odbc::odbc()
     ,Driver = "freetds"
-    ,Server = server
-    ,Database = database
-    ,UID = uid
-    ,PWD = pwd
+    ,Server = "server"
+    ,Database = "database_name"
+    ,UID = "uid"
+    ,PWD = "pwd"
     )
 
 # New klink Approach:
-con <- klink_sql("DEV", "database_name")
+con <- klink_sql(environment = "DEV", database = "database_name")
 
 ```
 
@@ -88,7 +88,8 @@ The klink_sql function enables users to link to predefined, internal SQL databas
 ```{r klink_sql, include=TRUE}
 library(klink)
 
-conn <- klink_sql("DEV", "database")
+conn <- klink_sql("DEV", "database_name") 
+# note: there is an optional server argument that can be used for connections outside of Keystone
 
 DBI::dbGetQuery(conn,
           "SELECT TOP 5

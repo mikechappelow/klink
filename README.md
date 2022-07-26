@@ -20,14 +20,14 @@ more succinct approach to forming these connections:
 con <- DBI::dbConnect(
     odbc::odbc()
     ,Driver = "freetds"
-    ,Server = server
-    ,Database = database
-    ,UID = uid
-    ,PWD = pwd
+    ,Server = "server"
+    ,Database = "database_name"
+    ,UID = "uid"
+    ,PWD = "pwd"
     )
 
 # New klink Approach:
-con <- klink_sql("DEV", "database_name")
+con <- klink_sql(environment = "DEV", database = "database_name")
 ```
 
 In addition to the brevity of the klink syntax, end users also gain the
@@ -80,7 +80,8 @@ necessity of locally defining service account credentials in your code,
 ``` r
 library(klink)
 
-conn <- klink_sql("DEV", "database")
+conn <- klink_sql("DEV", "database_name") 
+# note: there is an optional server argument that can be used for connections outside of Keystone
 
 DBI::dbGetQuery(conn,
           "SELECT TOP 5

@@ -17,7 +17,8 @@
 #' @export
 #'
 #' @examples
-#' conn <- klink_sql("DEV", "KG_ANALYTICS_APPS")
+#' keystone_example <- klink_sql(environment = "DEV", database = "KG_ANALYTICS_APPS")
+#' other_servers_ex <- klink_sql(environment = "DEV", database = "KG_ANALYTICS_APPS", server = "USAWSCWSQL5066\\ANALYTICSDEV3")
 
 klink_sql <- function(environment, database, server = NULL){
 

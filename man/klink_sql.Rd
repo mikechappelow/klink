@@ -27,5 +27,6 @@ In order to use these tools users must first:
 }
 }
 \examples{
-conn <- klink_sql("DEV", "KG_ANALYTICS_APPS")
+keystone_example <- klink_sql(environment = "DEV", database = "KG_ANALYTICS_APPS")
+other_servers_ex <- klink_sql(environment = "DEV", database = "KG_ANALYTICS_APPS", server = "USAWSCWSQL5066\\\\ANALYTICSDEV3")
 }

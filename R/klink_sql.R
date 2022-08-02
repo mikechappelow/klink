@@ -52,6 +52,9 @@ klink_sql <- function(environment, database, server = NULL){
                                "KG_VIEWS")) {
       uid <- klink::zoltar("KG_SAS_DEV_userid")
       pwd <- klink::zoltar("KG_SAS_DEV_pwd")
+    } else if (database %in% c("KG_ANALYTICS_APPS")) {
+      uid <- klink::zoltar("KG_ANALYTICS_APPS_DEV_userid")
+      pwd <- klink::zoltar("KG_ANALYTICS_APPS_DEV_pwd")
     } else {
       # using KG_SAS as catch-all/default for now
       uid <- klink::zoltar("KG_SAS_DEV_userid")
@@ -73,6 +76,9 @@ klink_sql <- function(environment, database, server = NULL){
                                  "KG_VIEWS")) {
         uid <- klink::zoltar("KG_SAS_PROD_userid")
         pwd <- klink::zoltar("KG_SAS_PROD_pwd")
+      } else if (database %in% c("KG_ANALYTICS_APPS")) {
+        uid <- klink::zoltar("KG_ANALYTICS_APPS_PROD_userid")
+        pwd <- klink::zoltar("KG_ANALYTICS_APPS_PROD_pwd")
       } else {
         # using KG_SAS as catch-all/default for now
         uid <- klink::zoltar("KG_SAS_PROD_userid")

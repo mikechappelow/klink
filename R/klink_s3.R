@@ -66,7 +66,7 @@ klink_s3 <- function(){
 
               } else {
 
-                # Return bucket name to global environment as "S3BucketName_kortex"
+                # Return bucket name to global environment as "S3BucketName"
                 assign("s3BucketName",
                        value = bucket_name,
                        envir = globalenv()

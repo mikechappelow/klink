@@ -26,7 +26,7 @@
 klink_s3 <- function(){
   # Check for existing s3 connections
   if(Sys.getenv("AWS_SECRET_ACCESS_KEY") != ""){
-    print("You have already defined an AWS connection. You can only assume one role at a time. To open a different connection you must start a new session.")
+    print("You have already defined an S3 connection. You can only assume one role at a time. To open a different connection you must start a new session.")
     } else {
 
       # Check whether in PROD or DEV

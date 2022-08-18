@@ -106,11 +106,25 @@ library(klink)
 conn <- klink_redshift("DEV") 
 # note: there is are optional database and server arguments that are currently optional and unused but may be utilized in the future
 
+# Then use your connection as you would any other DBI connection object
 DBI::dbListTables(conn)
+DBI::dbGetQuery(conn, "SELECT TOP 10 * FROM fin_acctg_ops.fisc_cal_wk")
 ```
 
-Note: the klink_sql function also requires the odbc and DBI R packages
-(these should be automatically installed when you install klink).
+Or, If you need to be able to explore the database/table hiearchy, I
+would recommend using more direct calls to the zoltar API to form your
+connection for the time being (hope to incorporate this into the
+klink_redshift function in the future).
+
+``` r
+con <- DBI::dbConnect(odbc::odbc(),
+                      Driver       = "redshift",
+                      servername   = klink::zoltar("REDSHIFT_DEV_server"),
+                      database     = "klg_nga_kna",
+                      UID          = klink::zoltar("REDSHIFT_DEV_uid"),
+                      PWD          = klink::zoltar("REDSHIFT_DEV_pwd"),
+                      Port         = 5439)
+```
 
 #### klink_s3
 
@@ -127,10 +141,6 @@ simply by calling the function (no arguments required).
 # # (making sure to reference the bucket as "s3BucketName_kortex")
 # aws.s3::get_bucket_df(s3BucketName_kortex,max = 20)[["Key"]]
 ```
-
-Note: the klink_s3 function requires the paws, aws.s3, and aws.iam
-packages (these should be automatically installed when you install
-klink).
 
 #### klink_s3R
 

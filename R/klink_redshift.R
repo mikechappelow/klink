@@ -18,7 +18,9 @@
 #'
 #' @examples
 #' conn <- klink_redshift(environment = "DEV")
+#'
 #' DBI::dbListTables(conn)
+#' DBI::dbGetQuery(con, "SELECT TOP 10 * FROM fin_acctg_ops.fisc_cal_wk")
 
 klink_redshift <- function(environment, database = NULL, server = NULL){
 

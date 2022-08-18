@@ -12,8 +12,9 @@ connect to common data sources.
 
 ## Example
 
-klink currently supports common SQL databases and S3 buckets providing a
-more succinct approach to forming these connections:
+klink currently supports common SQL and Redshift databases as well as S3
+buckets and provides a more succinct approach to forming these
+connections:
 
 ``` r
 # Old Approach to forming a SQL connection:
@@ -26,7 +27,7 @@ con <- DBI::dbConnect(
     ,PWD = "pwd"
     )
 
-# New klink Approach:
+# New klink_sql Approach:
 con <- klink_sql(environment = "DEV", database = "database_name")
 ```
 
@@ -72,7 +73,7 @@ sources within Kellogg.
 
 #### klink_sql
 
-The klink_sql function enables users to link to predefined, internal SQL
+The klink_sql function enables users to connect to internal SQL
 databases. The function only requires\* two arguments and removes the
 necessity of locally defining service account credentials in your code,
 .Renviron files, and Connect publications.
@@ -87,6 +88,25 @@ DBI::dbGetQuery(conn,
           "SELECT TOP 5
           var1, var2
           FROM table")
+```
+
+Note: the klink_sql function also requires the odbc and DBI R packages
+(these should be automatically installed when you install klink).
+
+#### klink_redshift
+
+The klink_redshift function enables users to link to predefined,
+internal redshift databases. The function currenlty only requires\* one
+argument and removes the necessity of locally defining service account
+credentials in your code, environ files, and Connect publications.
+
+``` r
+library(klink)
+
+conn <- klink_redshift("DEV") 
+# note: there is are optional database and server arguments that are currently optional and unused but may be utilized in the future
+
+DBI::dbListTables(conn)
 ```
 
 Note: the klink_sql function also requires the odbc and DBI R packages

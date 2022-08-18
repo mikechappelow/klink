@@ -21,7 +21,7 @@
 klink_s3R <- function(){
   # Check for existing s3 connections
   if(Sys.getenv("AWS_SECRET_ACCESS_KEY") != ""){
-    print("Already connected to an S3 bucket")
+    print("You have already defined an S3 connection. You can only assume one role at a time. To open a different connection you must start a new session.")
   }else{
     bucket_name <- klink::zoltar("s3BucketName")
 

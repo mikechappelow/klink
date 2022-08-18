@@ -18,6 +18,8 @@ In order to use these tools users must first:
 \item Create a local RStudio Connect API key \url{https://docs.rstudio.com/connect/user/api-keys}
 \item Create an .Renviron file in your Home folder assigning your API key value to the name "CONNECT_API_KEY" \url{https://rstats.wtf/r-startup.html}
 }
+
+Note: the klink_s3() function currently only works from within our RStudio server environment
 }
 \examples{
 # Retrieve required system settings (in background) and appropriate s3 bucket name
@@ -25,5 +27,8 @@ klink_s3()
 
 # Use example aws.s3 functions to retrieve information from s3 bucket
 # (making sure to reference the bucket as "s3BucketName")
+
 aws.s3::get_bucket_df(s3BucketName, max = 20)[["Key"]]
+
+s3_other$list_objects(Bucket = s3BucketName)
 }

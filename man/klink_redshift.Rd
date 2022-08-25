@@ -28,5 +28,7 @@ In order to use these tools users must first:
 }
 \examples{
 conn <- klink_redshift(environment = "DEV")
+
 DBI::dbListTables(conn)
+DBI::dbGetQuery(con, "SELECT TOP 10 * FROM fin_acctg_ops.fisc_cal_wk")
 }

@@ -53,13 +53,11 @@ klink_s3 <- function(){
             s3_other <- paws::s3(
               config = list(
                 credentials = list(
-                  r <- aws.iam::assume_role("arn:aws:iam::895344418283:role/S3Access-From-Leg-Corp-Rstudio-to-kna-prd"
-                                            ,"rstudio"
-                                            ,use=TRUE)
+                  r <- aws.iam::assume_role("arn:aws:iam::895344418283:role/S3Access-From-Leg-Corp-Rstudio-to-kna-prd", "rstudio", use=TRUE)
                   ),
                 region = "us-east-1"
+                )
               )
-            )
             # ) # / suppressWarnings
           }
           } else {
@@ -83,7 +81,7 @@ klink_s3 <- function(){
                 s3_other <- paws::s3(
                   config = list(
                     credentials = list(
-                      r <- assume_role("arn:aws:iam::953495608177:role/S3Access-From-Leg-Corp-Rstudio-to-kna-npd", "rstudio", use=TRUE)
+                      r <- aws.iam::assume_role("arn:aws:iam::953495608177:role/S3Access-From-Leg-Corp-Rstudio-to-kna-npd", "rstudio", use=TRUE)
                     ),
                     region = "us-east-1"
                   )

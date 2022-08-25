@@ -29,6 +29,9 @@ klink_s3 <- function(){
     print("You have already defined an S3 connection. You can only assume one role at a time. To open a different connection you must start a new session.")
     } else {
 
+      # load ec2 meta data package
+      library(aws.ec2metadata)
+
       # Check whether in PROD or DEV
         current_server <- system2(command = "hostname", stdout  = TRUE)
 

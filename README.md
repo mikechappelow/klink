@@ -132,14 +132,14 @@ The klink_s3 function enables users to link to our kortex s3 bucket
 simply by calling the function (no arguments required).
 
 ``` r
-# library(klink)
-# 
-# # Retrieve required system settings (in background) and appropriate s3 bucket name
-# klink_s3()
-# 
-# # Use aws.s3 functions to retrieve information from s3 bucket
-# # (making sure to reference the bucket as "s3BucketName_kortex")
-# aws.s3::get_bucket_df(s3BucketName_kortex,max = 20)[["Key"]]
+library(klink)
+
+# Retrieve required system settings (in background) and appropriate s3 bucket name
+klink_s3()
+
+# Use aws.s3 functions to retrieve information from s3 bucket
+# (making sure to reference the bucket as "s3BucketName_kortex")
+aws.s3::get_bucket_df(s3BucketName, max = 20)[["Key"]]
 ```
 
 #### klink_s3R

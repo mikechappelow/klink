@@ -12,6 +12,8 @@ klink_sql(environment, database, server = NULL)
 \item{database}{character string containing name of desired database. Any database in the specified SQL environment should be valid.}
 
 \item{server}{character string containing exact server name in R format (beware of /s). If no argument provided will attempt to use Keystone servers. If server argument is provided the function will attempt to pass specified value into the connection call.}
+
+\item{connection_pane}{logical indicating whether information about your connection should be added to the Connections pane, default is TRUE.}
 }
 \value{
 Returns SQL DBI connection object

@@ -12,6 +12,8 @@ klink_redshift(environment, database = NULL, server = NULL)
 \item{database}{character string containing name of desired database. As of now, there is only one known databse for each environment. As such, this argument is optional and currently unused.}
 
 \item{server}{character string containing exact server name in R format (beware of /s). As of now, there is only one known server for each environment. As such, this argument is optional and currently unused.}
+
+\item{connection_pane}{logical indicating whether information about your connection should be added to the Connections pane, default is TRUE.}
 }
 \value{
 Returns redshift DBI connection object

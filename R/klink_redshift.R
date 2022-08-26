@@ -10,6 +10,7 @@
 #' @param environment character string containing desired environment. Valid arguments are "PROD", "DEV", or "QA"
 #' @param database character string containing name of desired database. As of now, there is only one known databse for each environment. As such, this argument is optional and currently unused.
 #' @param server character string containing exact server name in R format (beware of /s). As of now, there is only one known server for each environment. As such, this argument is optional and currently unused.
+#' @param connection_pane logical indicating whether information about your connection should be added to the Connections pane, default is TRUE.
 #'
 #' @usage klink_redshift(environment, database = NULL, server = NULL)
 #'
@@ -22,7 +23,7 @@
 #' DBI::dbListTables(conn)
 #' DBI::dbGetQuery(con, "SELECT TOP 10 * FROM fin_acctg_ops.fisc_cal_wk")
 
-klink_redshift <- function(environment, database = NULL, server = NULL){
+klink_redshift <- function(environment, database = NULL, server = NULL, connection_pane = TRUE){
 
   # DEV
   if(environment %in% c("DEV","dev","Dev")){
@@ -59,13 +60,22 @@ klink_redshift <- function(environment, database = NULL, server = NULL){
     } else if(grepl("^Error", pwd, ignore.case = TRUE)) {
       return(pwd)
       } else {
-        DBI::dbConnect(odbc::odbc(),
+        conn <- DBI::dbConnect(odbc::odbc(),
                        Driver       = "redshift",
                        servername   = server_val,
                        database     = database,
                        UID          = uid,
                        PWD          = pwd,
                        Port         = 5439)
-      }
+
+        # Updates connections pane w db structure
+        if(connection_pane == TRUE){
+          odbc:::on_connection_opened(conn,
+                                      paste("redshift", environment, database, server, sep = "_"))
+          }
+
+        return(conn)
+        }
 
   } # / function closure
+

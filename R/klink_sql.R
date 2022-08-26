@@ -10,6 +10,7 @@
 #' @param environment character string containing desired environment. Valid arguments are "PROD" or "DEV".
 #' @param database character string containing name of desired database. Any database in the specified SQL environment should be valid.
 #' @param server character string containing exact server name in R format (beware of /s). If no argument provided will attempt to use Keystone servers. If server argument is provided the function will attempt to pass specified value into the connection call.
+#' @param connection_pane logical indicating whether information about your connection should be added to the Connections pane, default is TRUE.
 #'
 #' @usage klink_sql(environment, database, server = NULL)
 #'
@@ -20,7 +21,7 @@
 #' keystone_example <- klink_sql(environment = "DEV", database = "KG_ANALYTICS_APPS")
 #' other_servers_ex <- klink_sql(environment = "DEV", database = "KG_ANALYTICS_APPS", server = "USAWSCWSQL5066\\ANALYTICSDEV3")
 
-klink_sql <- function(environment, database, server = NULL){
+klink_sql <- function(environment, database, server = NULL, connection_pane = TRUE){
 
   # retrieve wishes using zoltar
   #----------------------------------------------------------------------------
@@ -96,7 +97,7 @@ klink_sql <- function(environment, database, server = NULL){
       return(pwd)
       } else {
         # Create DB connection object
-        DBI::dbConnect(
+        conn <- DBI::dbConnect(
           odbc::odbc()
           ,Driver = "freetds" #"SQLServer"
           ,Server = server_val
@@ -104,6 +105,14 @@ klink_sql <- function(environment, database, server = NULL){
           ,UID = uid
           ,PWD = pwd
           )
+
+        # Updates connections pane w db structure
+        if(connection_pane == TRUE){
+          odbc:::on_connection_opened(conn,
+                                      paste("ms_sql", environment, database, server, sep = "_"))
+          }
+
+        return(conn)
       }
 
   } # / function closure

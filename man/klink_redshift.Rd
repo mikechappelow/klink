@@ -29,8 +29,8 @@ In order to use these tools users must first:
 }
 }
 \examples{
-conn <- klink_redshift(environment = "DEV")
+red_dev <- klink_redshift(environment = "DEV")
 
-DBI::dbListTables(conn)
-DBI::dbGetQuery(con, "SELECT TOP 10 * FROM fin_acctg_ops.fisc_cal_wk")
+DBI::dbGetQuery(red_dev, "SELECT DISTINCT tablename FROM PG_TABLE_DEF")
+DBI::dbGetQuery(red_dev, "SELECT TOP 10 * FROM fin_acctg_ops.fisc_cal_wk")
 }

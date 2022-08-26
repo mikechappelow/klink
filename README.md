@@ -93,19 +93,18 @@ DBI::dbGetQuery(conn,
 #### klink_redshift
 
 The klink_redshift function enables users to link to predefined,
-internal redshift databases. The function currenlty only requires\* one
-argument and removes the necessity of locally defining service account
-credentials in your code, environ files, and Connect publications.
+internal redshift databases. The function currently only requires\* one
+argument.
 
 ``` r
 library(klink)
 
-conn <- klink_redshift("DEV") 
+red_dev <- klink_redshift("DEV") 
 # note: there are additional, optional arguments available. See documentation for more details (?klink::klink_redshift)
 
 # Then use your connection as you would any other DBI connection object
-DBI::dbListTables(conn)
-DBI::dbGetQuery(conn, "SELECT TOP 10 * FROM fin_acctg_ops.fisc_cal_wk")
+DBI::dbGetQuery(red_dev, "SELECT DISTINCT tablename FROM PG_TABLE_DEF") 
+DBI::dbGetQuery(red_dev, "SELECT TOP 10 * FROM fin_acctg_ops.fisc_cal_wk")
 ```
 
 #### klink_s3

@@ -24,80 +24,99 @@
 #' s3_other$list_objects(Bucket = s3BucketName)
 
 klink_s3 <- function(){
+
   # Check for existing s3 connections
   if(Sys.getenv("AWS_SECRET_ACCESS_KEY") != ""){
-    print("You have already defined an S3 connection. You can only assume one role at a time. To open a different connection you must start a new session.")
-    } else {
+    print("You appear to have an existing S3 connection. You can only assume one role at a time. To open a new connection you must first start a new session.")
+  #----------------------------------------------------------------------------
 
+  # If no existing connection
+    } else {
       # load ec2 meta data package
       library(aws.ec2metadata)
 
       # Check whether in PROD or DEV
         current_server <- system2(command = "hostname", stdout  = TRUE)
 
-        # if PROD
-        if(current_server %in% paste0("usaws",1170:1173)){
+        #----------------------------------------------------------------------
+        # if DEV
 
-          # Retrieve bucket name
-          bucket_name <- klink::zoltar("s3BucketName_kortex")
+        if(current_server %in% paste0("usaws",3170:3174)){
+          # if DEV or UNKNOWN HOST
+          bucket_name <- klink::zoltar("s3BucketName_kortex_DEV")
+
+          #--------------------------------------------------------------------
+          # if zoltar returned error, pass that error back as the output of function
 
           if(grepl("^Error", bucket_name, ignore.case = TRUE)){
             return(bucket_name) # would be error message from zoltar
+
+          #--------------------------------------------------------------------
+          # if no error, proceed with defining connection
           } else {
 
-            # Return bucket name to global environment as "S3BucketName_kortex"
+            # Return bucket name to global environment as "S3BucketName"
             assign("s3BucketName",
                    value = bucket_name,
                    envir = globalenv()
                    )
 
-          # Use paws to assume iam and form s3 connection
-          # suppressWarnings(
+            # Use paws to assume iam and form s3 connection
+            # suppressWarnings(
             s3_other <- paws::s3(
               config = list(
                 credentials = list(
-                  r <- aws.iam::assume_role("arn:aws:iam::895344418283:role/S3Access-From-Leg-Corp-Rstudio-to-kna-prd", "rstudio", use=TRUE)
-                  ),
+                  r <- aws.iam::assume_role("arn:aws:iam::953495608177:role/S3Access-From-Leg-Corp-Rstudio-to-kna-npd", "rstudio", use=TRUE)
+                ),
                 region = "us-east-1"
-                )
               )
+            )
             # ) # / suppressWarnings
+
           }
-          } else {
+        } else { # / else (servers in DEV)
 
-            # if DEV or UNKNOWN HOST
-            bucket_name <- klink::zoltar("s3BucketName_kortex_DEV")
+          #--------------------------------------------------------------------
+          # PROD
 
-            if(grepl("^Error", bucket_name, ignore.case = TRUE)){
-              return(bucket_name) # would be error message from zoltar
+          # Retrieve bucket name
+          bucket_name <- klink::zoltar("s3BucketName_kortex")
 
-              } else {
+          #--------------------------------------------------------------------
+          # if zoltar returns error, pass that as function output
 
-                # Return bucket name to global environment as "S3BucketName"
-                assign("s3BucketName",
-                       value = bucket_name,
-                       envir = globalenv()
-                       )
+          if(grepl("^Error", bucket_name, ignore.case = TRUE)){
+            return(bucket_name) # would be error message from zoltar
 
-                # Use paws to assume iam and form s3 connection
-                # suppressWarnings(
-                s3_other <- paws::s3(
-                  config = list(
-                    credentials = list(
-                      r <- aws.iam::assume_role("arn:aws:iam::953495608177:role/S3Access-From-Leg-Corp-Rstudio-to-kna-npd", "rstudio", use=TRUE)
+          #--------------------------------------------------------------------
+          # otherwise proceed defining connection
+            } else {
+
+              # Return bucket name to global environment as "S3BucketName_kortex"
+              assign("s3BucketName",
+                     value = bucket_name,
+                     envir = globalenv()
+                     )
+
+              # Use paws to assume iam and form s3 connection
+              # suppressWarnings(
+              s3_other <- paws::s3(
+                config = list(
+                  credentials = list(
+                    r <- aws.iam::assume_role("arn:aws:iam::895344418283:role/S3Access-From-Leg-Corp-Rstudio-to-kna-prd", "rstudio", use=TRUE)
                     ),
-                    region = "us-east-1"
+                  region = "us-east-1"
                   )
                 )
-                # ) # / suppressWarnings
+              # ) # / suppressWarnings
+            }
+          } # / PROD closure
 
-                }
-        } # / else PROD/DEV
-
+        #----------------------------------------------------------------------
         # BOTH
         assign("s3_other",
                value = s3_other,
                envir = globalenv()
                )
-        }
-}
+        } # / if no existing connection
+} # / function

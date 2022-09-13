@@ -90,6 +90,17 @@ DBI::dbGetQuery(conn,
           FROM table")
 ```
 
+#### klink_postgres
+
+The klink_postgres function enables users to connect to kortex
+PostgreSQL databases.
+
+``` r
+library(klink)
+
+conn <- klink_postgres("DEV", "postgres") 
+```
+
 #### klink_redshift
 
 The klink_redshift function enables users to link to predefined,

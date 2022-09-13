@@ -1,6 +1,6 @@
 Package: klink
 Title: Easily Connect to K Data
-Version: 0.0.2.0
+Version: 0.0.3.0
 Authors@R: 
     person("Mike", "Chappelow", , "michael.chappelow@kellogg.com", role = c("aut", "cre"))
 Description: Functions to simplify K data connections.

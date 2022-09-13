@@ -26,7 +26,7 @@ zuul <- function(){
   )
 
   session_user <- tryCatch(
-    expr = {if(object_exists(session)){
+    expr = {if(klink::r_object_exists(session)){
       if(!is.null(session$user)){
         paste0("session$user = ", session$user)
         } else {"UNDEFINED"}

@@ -23,7 +23,7 @@ knitr::opts_chunk$set(
 ![](vignettes/klink.png){width=216px}
 
 ## What it's for
-The goal of klink is to provide helpful functions for Kellogg users to connect to common data sources.
+The goal of klink is to provide helpful functions for Kellogg users to connect to common data sources and Connect processes.
 
 ```{r old badge, include=FALSE}
 # <!-- badges: start -->
@@ -186,3 +186,16 @@ library(klink)
 
 zoltar_list()
 ```
+
+
+### bumper
+
+The bumper function is intended to be called when you want to trigger an existing Connect job to run at the end of another process. This essentially allows you to string together a series of jobs in sequence without having to guess at/schedule specific run times.
+
+Example:
+```{r bumper, include=TRUE}
+library(klink)
+
+bumper(GUID = "b824db78-07b8-4205-b29e-0dbea32b4d8a", environment = "PROD")
+```
+Note: Currently only supported in PROD. Can be added to DEV if needed.

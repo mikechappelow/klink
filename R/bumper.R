@@ -21,11 +21,13 @@
 #' bumper("b824db78-07b8-4205-b29e-0dbea32b4d8a")
 
 bumper <- function(GUID, environment = "PROD"){
+  suppressWarnings(
   # tryCatch 1
   tryCatch({
-    if(environment == "PROD"){client <- connectapi::connect(host = klink::zoltar("CONNECT_PROD_url"),
-                                  api_key = Sys.getenv("CONNECT_API_KEY"))
-    }
+    if(environment == "PROD"){client <- #connectapi::connect(host = klink::zoltar("CONNECT_PROD_url"),
+      connectapi::connect(server = klink::zoltar("CONNECT_PROD_url"),
+                          api_key = Sys.getenv("CONNECT_API_KEY"))
+                          }
     # tryCatch 2
     tryCatch({
       rmd_content <- connectapi::content_item(client, GUID)
@@ -54,4 +56,5 @@ bumper <- function(GUID, environment = "PROD"){
       conditionMessage(e)
     }
   ) # /tryCatch 1
+  ) # /suppressWarnings
 }

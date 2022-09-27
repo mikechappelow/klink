@@ -29,13 +29,20 @@ klink_sql <- function(environment, database, server = NULL, connection_pane = TR
   if(!is.null(server)){
     server_val <- server
 
-    if (server == "USAWSCWSQL5066\\ANALYTICSDEV3" & environment == "DEV"){
+    # SQL5066
+    if (grep("USAWSCWSQL5066", toupper(server)) == 1 & environment == "DEV"){
       uid <- klink::zoltar("USAWSCWSQL5066_DEV_userid")
       pwd <- klink::zoltar("USAWSCWSQL5066_DEV_pwd")
 
-    } else if (server == "USAWSCWSQL5066\\ANALYTICSDEV3" & environment == "PROD"){
+    } else if (grep("USAWSCWSQL5066", toupper(server)) == 1 & environment == "PROD"){
       uid <- klink::zoltar("USAWSCWSQL5066_PROD_userid")
-      pwd <- klink::zoltar("USAWSCWSQL5066_PROD_pwd")}
+      pwd <- klink::zoltar("USAWSCWSQL5066_PROD_pwd")
+
+    # SQL0066
+    } else if (grep("USAWSCWSQL0066", toupper(server)) == 1 & environment == "PROD"){
+      uid <- klink::zoltar("Usawscwsql0066_KG_SAS_PROD_userid")
+      pwd <- klink::zoltar("Usawscwsql0066_KG_SAS_PROD_pwd")
+    }
   }
 
   # DEV
@@ -77,6 +84,10 @@ klink_sql <- function(environment, database, server = NULL, connection_pane = TR
                                  "KG_VIEWS")) {
         uid <- klink::zoltar("KG_SAS_PROD_userid")
         pwd <- klink::zoltar("KG_SAS_PROD_pwd")
+      } else if (database %in% c("KG_SAS_WRITE")) {
+        database <- "KG_SAS" # replacing with true db name
+        uid <- klink::zoltar("KG_SAS_PROD_WRITE_uid")
+        pwd <- klink::zoltar("KG_SAS_PROD_WRITE_pwd")
       } else if (database %in% c("KG_ANALYTICS_APPS")) {
         uid <- klink::zoltar("KG_ANALYTICS_APPS_PROD_userid")
         pwd <- klink::zoltar("KG_ANALYTICS_APPS_PROD_pwd")

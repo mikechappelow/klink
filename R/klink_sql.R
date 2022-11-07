@@ -12,7 +12,7 @@
 #' @param server character string containing exact server name in R format (beware of /s). If no argument provided will attempt to use Keystone servers. If server argument is provided the function will attempt to pass specified value into the connection call.
 #' @param connection_pane logical indicating whether information about your connection should be added to the Connections pane, default is TRUE.
 #'
-#' @usage klink_sql(environment, database, server = NULL)
+#' @usage klink_sql(environment, database, server = NULL, connection_pane = TRUE)
 #'
 #' @return Returns SQL DBI connection object
 #' @export

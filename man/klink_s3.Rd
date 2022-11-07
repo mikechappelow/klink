@@ -7,7 +7,7 @@
 klink_s3()
 }
 \value{
-
+populates user environment with required role and settings to access the corresponding S3 environment
 }
 \description{
 Defines system environment variables required to utilize aws.s3 functions and returns paws s3 connection by way of iam role assumption.

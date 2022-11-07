@@ -7,7 +7,7 @@
 #' 2. Create a local RStudio Connect API key <https://docs.rstudio.com/connect/user/api-keys>
 #' 3. Create an .Renviron file in your Home folder assigning your API key value to the name CONNECT_API_KEY <https://rstats.wtf/r-startup.html>
 #'
-#' @return
+#' @return populates user environment with required role and settings to access the corresponding S3 environment
 #' @export
 #'
 #' @examples

@@ -29,6 +29,10 @@ In order to use these tools users must first:
 }
 }
 \examples{
+# Typical connection w/ connection pane
 keystone_example <- klink_sql(environment = "DEV", database = "KG_ANALYTICS_APPS")
+# Typical connection w/o connection pane
+keystone_example <- klink_sql(environment = "DEV", database = "KG_ANALYTICS_APPS", connection_pane = FALSE)
+# Connection to non-standard SQL server (these are supported on a case-by-case basis, please reach out to package maintainers for support)
 other_servers_ex <- klink_sql(environment = "DEV", database = "KG_ANALYTICS_APPS", server = "USAWSCWSQL5066\\\\ANALYTICSDEV3")
 }

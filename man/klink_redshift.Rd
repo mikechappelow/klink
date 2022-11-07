@@ -29,8 +29,13 @@ In order to use these tools users must first:
 }
 }
 \examples{
+# Connect w/ connection pane
 red_dev <- klink_redshift(environment = "DEV")
 
+# Connect w/o connection pane
+red_dev <- klink_redshift(environment = "DEV", connection_pane = FALSE)
+
+# Example queries
 DBI::dbGetQuery(red_dev, "SELECT DISTINCT tablename FROM PG_TABLE_DEF")
 DBI::dbGetQuery(red_dev, "SELECT TOP 10 * FROM fin_acctg_ops.fisc_cal_wk")
 }

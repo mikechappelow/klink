@@ -18,8 +18,13 @@
 #' @export
 #'
 #' @examples
+#' # Typical connection w/ connection pane
 #' keystone_example <- klink_sql(environment = "DEV", database = "KG_ANALYTICS_APPS")
-#' other_servers_ex <- klink_sql(environment = "DEV", database = "KG_ANALYTICS_APPS", server = "USAWSCWSQL5066\\ANALYTICSDEV3")
+#' # Typical connection w/o connection pane
+#' keystone_example <- klink_sql("DEV", "KG_ANALYTICS_APPS", connection_pane = FALSE)
+#' # Connection to non-standard SQL server
+#' # (these are supported on a case-by-case basis, contact data science team for support)
+#' other__ex <- klink_sql("DEV", "KG_ANALYTICS_APPS", server = "USAWSCWSQL5066\\ANALYTICSDEV3")
 
 klink_sql <- function(environment, database, server = NULL, connection_pane = TRUE){
 
@@ -60,6 +65,10 @@ klink_sql <- function(environment, database, server = NULL, connection_pane = TR
                                "KG_VIEWS")) {
       uid <- klink::zoltar("KG_SAS_DEV_userid")
       pwd <- klink::zoltar("KG_SAS_DEV_pwd")
+    } else if (database %in% c("KG_SAS_WRITE")) {
+      database <- "KG_SAS" # replacing with true db name
+      uid <- klink::zoltar("KG_SAS_DEV_WRITE_uid")
+      pwd <- klink::zoltar("KG_SAS_DEV_WRITE_pwd")
     } else if (database %in% c("KG_ANALYTICS_APPS")) {
       uid <- klink::zoltar("KG_ANALYTICS_APPS_DEV_userid")
       pwd <- klink::zoltar("KG_ANALYTICS_APPS_DEV_pwd")

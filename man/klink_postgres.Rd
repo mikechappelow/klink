@@ -29,5 +29,9 @@ In order to use these tools users must first:
 }
 }
 \examples{
+# With connection pane
 dev_con <- klink_postgres(environment = "DEV", database = "postgres")
+
+# Without connection pane
+dev_con <- klink_postgres(environment = "DEV", database = "postgres", connection_pane = FALSE)
 }

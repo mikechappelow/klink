@@ -152,6 +152,24 @@ aws.s3::object_exists("your_object.rds", bucket = s3BucketName)
 aws.s3::object_size("your_object.csv", bucket = s3BucketName)
 ```
 
+#### klink_scrub
+
+The klink_scrub function replaces NaN and Inf values (which often cause
+issues when writing to databases) with NAs (which are written as
+standard NULL values). Running klink_scrub on your data before
+attempting to write to a database is recommended as the error messages
+associated with these type of errors can often be nondescript and
+opaque.
+
+Example:
+
+``` r
+library(klink)
+
+# Replace NaN and Inf values with NAs
+my_df <- klink_scrub(my_df)
+```
+
 <img src="vignettes/zoltar-hex.png" width="216" />
 
 ### zoltar

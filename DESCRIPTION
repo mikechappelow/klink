@@ -1,6 +1,6 @@
 Package: klink
 Title: Easily Connect to K Data
-Version: 0.0.3.1
+Version: 0.0.3.2
 Authors@R: 
     person("Mike", "Chappelow", , "michael.chappelow@kellogg.com", role = c("aut", "cre"))
 Description: Functions to simplify K data connections.
@@ -16,7 +16,9 @@ Imports:
     paws,
     aws.ec2metadata,
     aws.s3,
-    connectapi
+    connectapi,
+    dplyr,
+    magrittr
 Suggests: 
     knitr,
     rmarkdown

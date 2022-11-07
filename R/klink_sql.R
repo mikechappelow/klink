@@ -18,8 +18,13 @@
 #' @export
 #'
 #' @examples
+#' # Typical connection w/ connection pane
 #' keystone_example <- klink_sql(environment = "DEV", database = "KG_ANALYTICS_APPS")
-#' other_servers_ex <- klink_sql(environment = "DEV", database = "KG_ANALYTICS_APPS", server = "USAWSCWSQL5066\\ANALYTICSDEV3")
+#' # Typical connection w/o connection pane
+#' keystone_example <- klink_sql("DEV", "KG_ANALYTICS_APPS", connection_pane = FALSE)
+#' # Connection to non-standard SQL server
+#' # (these are supported on a case-by-case basis, contact data science team for support)
+#' other__ex <- klink_sql("DEV", "KG_ANALYTICS_APPS", server = "USAWSCWSQL5066\\ANALYTICSDEV3")
 
 klink_sql <- function(environment, database, server = NULL, connection_pane = TRUE){
 

@@ -18,7 +18,11 @@
 #' @export
 #'
 #' @examples
+#' # With connection pane
 #' dev_con <- klink_postgres(environment = "DEV", database = "postgres")
+#'
+#' # Without connection pane
+#' dev_con <- klink_postgres("DEV", "postgres", connection_pane = FALSE)
 
 klink_postgres <- function(environment, database, server = NULL, connection_pane = TRUE){
 

@@ -7,11 +7,9 @@
 #' 2. Create a local RStudio Connect API key <https://docs.rstudio.com/connect/user/api-keys>
 #' 3. Create an .Renviron file in your Home folder assigning your API key value to the name CONNECT_API_KEY <https://rstats.wtf/r-startup.html>
 #'
-#' @param
-#'
 #' @usage zull()
 #'
-#' @return Data frame containing usage details
+#' @return dataframe containing usage details
 #' @export
 #'
 #' @examples

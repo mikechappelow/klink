@@ -7,7 +7,7 @@
 klink_s3R()
 }
 \value{
-
+populates user environment with required role and settings to access the corresponding S3 environment
 }
 \description{
 Defines system environment variables required to utilize aws.s3 functions and returns proper value for s3BucketName

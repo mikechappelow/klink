@@ -9,7 +9,7 @@
 #'
 #' Note: the klink_s3() function currently only works from within our RStudio server environment
 #'
-#' @return
+#' @return populates user environment with required role and settings to access the corresponding S3 environment
 #' @export
 #'
 #' @examples

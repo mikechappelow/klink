@@ -4,7 +4,7 @@
 \alias{klink_postgres}
 \title{Kellogg PostgreSQL connections}
 \usage{
-klink_postgres(environment, database, server = NULL)
+klink_postgres(environment, database, server = NULL, connection_pane = TRUE)
 }
 \arguments{
 \item{environment}{character string containing desired environment. Currently only "DEV" is supported.}
@@ -33,5 +33,5 @@ In order to use these tools users must first:
 dev_con <- klink_postgres(environment = "DEV", database = "postgres")
 
 # Without connection pane
-dev_con <- klink_postgres(environment = "DEV", database = "postgres", connection_pane = FALSE)
+dev_con <- klink_postgres("DEV", "postgres", connection_pane = FALSE)
 }

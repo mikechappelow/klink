@@ -4,7 +4,7 @@
 \alias{klink_sql}
 \title{Kellogg SQL connections}
 \usage{
-klink_sql(environment, database, server = NULL)
+klink_sql(environment, database, server = NULL, connection_pane = TRUE)
 }
 \arguments{
 \item{environment}{character string containing desired environment. Valid arguments are "PROD" or "DEV".}
@@ -32,7 +32,8 @@ In order to use these tools users must first:
 # Typical connection w/ connection pane
 keystone_example <- klink_sql(environment = "DEV", database = "KG_ANALYTICS_APPS")
 # Typical connection w/o connection pane
-keystone_example <- klink_sql(environment = "DEV", database = "KG_ANALYTICS_APPS", connection_pane = FALSE)
-# Connection to non-standard SQL server (these are supported on a case-by-case basis, please reach out to package maintainers for support)
-other_servers_ex <- klink_sql(environment = "DEV", database = "KG_ANALYTICS_APPS", server = "USAWSCWSQL5066\\\\ANALYTICSDEV3")
+keystone_example <- klink_sql("DEV", "KG_ANALYTICS_APPS", connection_pane = FALSE)
+# Connection to non-standard SQL server
+# (these are supported on a case-by-case basis, contact data science team for support)
+other__ex <- klink_sql("DEV", "KG_ANALYTICS_APPS", server = "USAWSCWSQL5066\\\\ANALYTICSDEV3")
 }

@@ -4,7 +4,7 @@
 \alias{klink_redshift}
 \title{Kellogg redshift connections}
 \usage{
-klink_redshift(environment, database = NULL, server = NULL)
+klink_redshift(environment, database = NULL, server = NULL, connection_pane = TRUE)
 }
 \arguments{
 \item{environment}{character string containing desired environment. Valid arguments are "PROD", "DEV", or "QA"}

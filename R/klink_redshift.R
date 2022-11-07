@@ -12,7 +12,7 @@
 #' @param server character string containing exact server name in R format (beware of /s). As of now, there is only one known server for each environment. As such, this argument is optional and currently unused.
 #' @param connection_pane logical indicating whether information about your connection should be added to the Connections pane, default is TRUE.
 #'
-#' @usage klink_redshift(environment, database = NULL, server = NULL)
+#' @usage klink_redshift(environment, database = NULL, server = NULL, connection_pane = TRUE)
 #'
 #' @return Returns redshift DBI connection object
 #' @export

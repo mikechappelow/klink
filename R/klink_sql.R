@@ -65,6 +65,10 @@ klink_sql <- function(environment, database, server = NULL, connection_pane = TR
                                "KG_VIEWS")) {
       uid <- klink::zoltar("KG_SAS_DEV_userid")
       pwd <- klink::zoltar("KG_SAS_DEV_pwd")
+    } else if (database %in% c("KG_SAS_WRITE")) {
+      database <- "KG_SAS" # replacing with true db name
+      uid <- klink::zoltar("KG_SAS_DEV_WRITE_uid")
+      pwd <- klink::zoltar("KG_SAS_DEV_WRITE_pwd")
     } else if (database %in% c("KG_ANALYTICS_APPS")) {
       uid <- klink::zoltar("KG_ANALYTICS_APPS_DEV_userid")
       pwd <- klink::zoltar("KG_ANALYTICS_APPS_DEV_pwd")

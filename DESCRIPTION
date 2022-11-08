@@ -1,9 +1,9 @@
 Package: klink
-Title: Easily Connect to K Data
-Version: 0.0.3.4
+Title: Easy connections for K data
+Version: 0.0.3.5
 Authors@R: 
     person("Mike", "Chappelow", , "michael.chappelow@kellogg.com", role = c("aut", "cre"))
-Description: Functions to simplify K data connections.
+Description: Functions to simplify K data connections
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

@@ -7,7 +7,7 @@
 zull()
 }
 \value{
-Data frame containing usage details
+data frame containing usage details
 }
 \description{
 Logs zoltar usage

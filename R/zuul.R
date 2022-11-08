@@ -9,7 +9,7 @@
 #'
 #' @usage zull()
 #'
-#' @return dataframe containing usage details
+#' @return data frame containing usage details
 #' @export
 #'
 #' @examples

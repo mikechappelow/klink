@@ -22,11 +22,11 @@ klink_scrub <- function(data_to_scrub){
     ifelse(is.infinite(x), NA, x)
   }
 
-  data_to_scrub %>%
-    # replace NaN with NA
-    dplyr::mutate_if(is.numeric, bad_NaN) %>% # if applied to dates, will coerce to int
-    dplyr::mutate_if(is.character, bad_NaN) %>% # character operations probably not necessary... but whatever
-    # replace infinite values
-    dplyr::mutate_if(is.numeric, bad_Inf) %>%
-    dplyr::mutate_if(is.character, bad_Inf)
+  # replace NaN with NA
+  data_to_scrub <- dplyr::mutate_if(data_to_scrub, is.numeric, bad_NaN)
+  data_to_scrub <- dplyr::mutate_if(data_to_scrub, is.character, bad_NaN) # character operations probably not necessary... but whatever
+
+  # replace infinite values
+  data_to_scrub <- dplyr::mutate_if(data_to_scrub, is.numeric, bad_Inf)
+  data_to_scrub <- dplyr::mutate_if(data_to_scrub, is.character, bad_Inf)
 }

@@ -158,7 +158,7 @@ The klink_scrub function replaces NaN and Inf values (which often cause
 issues when writing to databases) with NAs (which are written as
 standard NULL values). Running klink_scrub on your data before
 attempting to write to a database is recommended as the error messages
-associated with these type of errors can often be nondescript and
+associated with these type of issues can often be nondescript and
 opaque.
 
 Example:

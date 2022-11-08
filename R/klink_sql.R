@@ -43,7 +43,15 @@ klink_sql <- function(environment, database, server = NULL, connection_pane = TR
       uid <- klink::zoltar("USAWSCWSQL5066_PROD_userid")
       pwd <- klink::zoltar("USAWSCWSQL5066_PROD_pwd")
 
-    # SQL0066
+    # SQL0066 - KG ANALYTICS APPS
+    } else if (grep("USAWSCWSQL0066", toupper(server)) == 1 &
+               environment == "PROD" &
+               grep("KG_ANALYTICS_APPS", toupper(database))){
+      uid <- klink::zoltar("Usawscwsql0066_KG_ANALYTICS_APPS_PROD_uid")
+      pwd <- klink::zoltar("Usawscwsql0066_KG_ANALYTICS_APPS_PROD_pwd")
+    }
+
+    # SQL0066 - KG SAS
     } else if (grep("USAWSCWSQL0066", toupper(server)) == 1 & environment == "PROD"){
       uid <- klink::zoltar("Usawscwsql0066_KG_SAS_PROD_userid")
       pwd <- klink::zoltar("Usawscwsql0066_KG_SAS_PROD_pwd")

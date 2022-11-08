@@ -29,36 +29,36 @@
 klink_sql <- function(environment, database, server = NULL, connection_pane = TRUE){
 
   # retrieve wishes using zoltar
+  # Non-standard keystone SERVERS
   #----------------------------------------------------------------------------
-  # handling ANALYTICSDEV3 (only 1 currently known set)
   if(!is.null(server)){
     server_val <- server
 
-    # SQL5066
-    if (grep("USAWSCWSQL5066", toupper(server)) == 1 & environment == "DEV"){
-      uid <- klink::zoltar("USAWSCWSQL5066_DEV_userid")
-      pwd <- klink::zoltar("USAWSCWSQL5066_DEV_pwd")
+    if(environment == "DEV"){
+      # SQL5066
+      if (grepl("USAWSCWSQL5066", toupper(server))){
+        uid <- klink::zoltar("USAWSCWSQL5066_DEV_userid")
+        pwd <- klink::zoltar("USAWSCWSQL5066_DEV_pwd")
+      } else {"Unknown request, please contact Data Science team for support"}
 
-    } else if (grep("USAWSCWSQL5066", toupper(server)) == 1 & environment == "PROD"){
-      uid <- klink::zoltar("USAWSCWSQL5066_PROD_userid")
-      pwd <- klink::zoltar("USAWSCWSQL5066_PROD_pwd")
-
-    # SQL0066 - KG ANALYTICS APPS
-    } else if (grep("USAWSCWSQL0066", toupper(server)) == 1 &
-               environment == "PROD" &
-               grep("KG_ANALYTICS_APPS", toupper(database))){
-      uid <- klink::zoltar("Usawscwsql0066_KG_ANALYTICS_APPS_PROD_uid")
-      pwd <- klink::zoltar("Usawscwsql0066_KG_ANALYTICS_APPS_PROD_pwd")
-    }
-
-    # SQL0066 - KG SAS
-    } else if (grep("USAWSCWSQL0066", toupper(server)) == 1 & environment == "PROD"){
-      uid <- klink::zoltar("Usawscwsql0066_KG_SAS_PROD_userid")
-      pwd <- klink::zoltar("Usawscwsql0066_KG_SAS_PROD_pwd")
-    }
-  }
+    } else if(environment == "PROD"){
+      # SQL0066
+      if (grepl("USAWSCWSQL0066", toupper(server))){
+        if(toupper(database) == "KG_ANALYTICS_APPS"){
+          uid <- klink::zoltar("Usawscwsql0066_KG_ANALYTICS_APPS_PROD_uid")
+          pwd <- klink::zoltar("Usawscwsql0066_KG_ANALYTICS_APPS_PROD_pwd")
+        } else {
+          uid <- klink::zoltar("Usawscwsql0066_KG_SAS_PROD_userid") # this seems to no longer be valid
+          pwd <- klink::zoltar("Usawscwsql0066_KG_SAS_PROD_pwd")
+          # uid <- klink::zoltar("USAWSCWSQL5066_PROD_userid") # this is the same as KG_ANALYTICS_APPS above
+          # pwd <- klink::zoltar("USAWSCWSQL5066_PROD_pwd")
+          }
+        }
+      } # / PROD
+    } # / server
 
   # DEV
+  #----------------------------------------------------------------------------
   else if(environment == "DEV"){
 
     # server
@@ -87,6 +87,7 @@ klink_sql <- function(environment, database, server = NULL, connection_pane = TR
     }
 
     # PROD
+    #----------------------------------------------------------------------------
     } else if(environment == "PROD") {
 
       # server
@@ -117,7 +118,7 @@ klink_sql <- function(environment, database, server = NULL, connection_pane = TR
       "Error: Invalid environment name. Should be 'DEV' or 'PROD'."
     }
 
-  # connection or zoltar error message return
+  # Connection or Error Message
   #----------------------------------------------------------------------------
   if(grepl("^Error", uid, ignore.case = TRUE)){
     return(uid) # would be error message from zoltar

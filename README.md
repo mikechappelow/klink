@@ -118,6 +118,10 @@ library(klink)
 # hadoop_dev <- klink_hadoop("DEV", "KNA_BW") 
 ```
 
+*Note:* Currently, you can only connect to Hadoop DEV from the UAT
+Workbench/Connect servers and PROD from the PROD Workbench/Connect
+servers.
+
 #### klink_postgres
 
 The klink_postgres function enables users to connect to kortex

@@ -8,8 +8,9 @@
 #' 3. Create an .Renviron file in your Home folder assigning your API key value to the name CONNECT_API_KEY <https://rstats.wtf/r-startup.html>
 #'
 #' @param token character string containing the exact name of secret to be retrieved (if passing value directly must be wrapped in quotation marks to be interpreted as character string)
+#' @param solution_name character string identifying the name of the solution where this logic is being used, for recording to logs
 #'
-#' @usage zoltar(token)
+#' @usage zoltar(token, solution_name = NULL)
 #'
 #' @return If name is found, a string containing the secret value else a string stating that zoltar is unable to grant your wish
 #' @export
@@ -18,7 +19,20 @@
 #' zoltar("s3BucketName")
 #' zoltar("MS_SQL_ANALYTICS_DEV_server")
 
-zoltar <- function(token){
+zoltar <- function(token, solution_name = NULL){
+  solution <- NA # temp, need to add optional argument in zoltar
+
+  # Capture request
+  log_entry <- cbind(
+    data.frame(req_time = Sys.time(),
+               request = token,
+               solution_nm = ifelse(!is.null(solution_name), solution_name, NA)),
+    klink::zuul()
+    )
+
+  # Write log !!! should be absolute path in mounted drive, defined in/retrieved from zoltar
+
+  # Return result
   zoltar_speaks <- httr::content(httr::GET(url = "https://rstudioconnect.analytics.kellogg.com/zoltar/wish",
                           query = list(wish=token),
                           httr::add_headers(Authorization =

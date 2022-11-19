@@ -19,18 +19,18 @@
 #' zoltar("s3BucketName")
 #' zoltar("MS_SQL_ANALYTICS_DEV_server")
 
-zoltar <- function(token, solution_name = NULL){
-  solution <- NA # temp, need to add optional argument in zoltar
-
-  # Capture request
-  log_entry <- cbind(
-    data.frame(req_time = Sys.time(),
-               request = token,
-               solution_nm = ifelse(!is.null(solution_name), solution_name, NA)),
-    klink::zuul()
-    )
-
-  # Write log !!! should be absolute path in mounted drive, defined in/retrieved from zoltar
+zoltar <- function(token#, solution_name = NULL
+                   ){
+  # solution <- NA # temp, need to add optional argument in zoltar
+  # # Capture request
+  # log_entry <- cbind(
+  #   data.frame(req_time = Sys.time(),
+  #              request = token,
+  #              solution_nm = ifelse(!is.null(solution_name), solution_name, NA)),
+  #   klink::zuul()
+  #   )
+  #
+  # # Write log !!! should be absolute path in mounted drive, defined in/retrieved from zoltar
 
   # Return result
   zoltar_speaks <- httr::content(httr::GET(url = "https://rstudioconnect.analytics.kellogg.com/zoltar/wish",

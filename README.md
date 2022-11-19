@@ -12,9 +12,9 @@ connect to common data sources and Connect processes.
 
 ## Example
 
-klink currently supports common SQL and Redshift databases as well as S3
-buckets and provides a more succinct approach to forming these
-connections:
+klink currently supports common SQL, Redshift, and Hadoop databases as
+well as S3 buckets and provides a more succinct approach to forming
+these connections:
 
 ``` r
 # Old Approach to forming a SQL connection:
@@ -90,17 +90,6 @@ DBI::dbGetQuery(conn,
           FROM table")
 ```
 
-#### klink_postgres
-
-The klink_postgres function enables users to connect to kortex
-PostgreSQL databases.
-
-``` r
-library(klink)
-
-conn <- klink_postgres("DEV", "postgres") 
-```
-
 #### klink_redshift
 
 The klink_redshift function enables users to link to predefined,
@@ -116,6 +105,28 @@ red_dev <- klink_redshift("DEV")
 # Then use your connection as you would any other DBI connection object
 DBI::dbGetQuery(red_dev, "SELECT DISTINCT tablename FROM PG_TABLE_DEF") 
 DBI::dbGetQuery(red_dev, "SELECT TOP 10 * FROM fin_acctg_ops.fisc_cal_wk")
+```
+
+#### klink_hadoop
+
+The klink_hadoop function enables users to link to predefined, internal
+hadoop databases. The function currently only requires\* one argument.
+
+``` r
+library(klink)
+
+# hadoop_dev <- klink_hadoop("DEV", "KNA_BW") 
+```
+
+#### klink_postgres
+
+The klink_postgres function enables users to connect to kortex
+PostgreSQL databases.
+
+``` r
+library(klink)
+
+conn <- klink_postgres("DEV", "postgres") 
 ```
 
 #### klink_s3

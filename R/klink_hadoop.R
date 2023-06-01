@@ -56,19 +56,19 @@ klink_hadoop <- function(environment, schema, connection_pane = TRUE){
   } else {
     # Create DB connection object
     conn <- DBI::dbConnect(odbc::odbc(),
-                   Driver = "Hive",
-                   Host = host,
-                   Port = port,
-                   Schema= schema,
-                   AuthMech=1, # kerberos
-                   ThriftTransport=2,
-                   HiveServerType=2,
-                   AllowSelfSignedServerCert=1,
-                   SSL=1,
-                   TrustedCerts=ifelse(environment == "PROD",
-                                       '/usr/rstudio/serverpro/certs/hive_prod.pem',
-                                       '/usr/rstudio2/serverpro/certs/hive.pem'),
-                   HttpPathPrefix='/cliservice')
+                           Driver = "Hive",
+                           Host = host,
+                           Port = port,
+                           Schema= schema,
+                           AuthMech=1, # kerberos
+                           ThriftTransport=2,
+                           HiveServerType=2,
+                           AllowSelfSignedServerCert=1,
+                           SSL=1,
+                           TrustedCerts=ifelse(environment == "PROD",
+                                               '/usr/rstudio/serverpro/certs/hive_prod.pem',
+                                               '/usr/rstudio2/serverpro/certs/hive.pem'),
+                           HttpPathPrefix='/cliservice')
 
     # Updates connections pane w db structure
     if(connection_pane == TRUE){
@@ -76,7 +76,7 @@ klink_hadoop <- function(environment, schema, connection_pane = TRUE){
                                   paste("hadoop_",
                                         environment,
                                         schema, sep = "_"))
-      }
+    }
     cat("Password Accepted")
     return(conn)
   }

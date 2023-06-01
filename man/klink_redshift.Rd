@@ -4,16 +4,18 @@
 \alias{klink_redshift}
 \title{Kellogg redshift connections}
 \usage{
-klink_redshift(environment, database = NULL, server = NULL, connection_pane = TRUE)
+klink_redshift(environment, region = "KNA", server = NULL, database = NULL, connection_pane = TRUE)
 }
 \arguments{
-\item{environment}{character string containing desired environment. Valid arguments are "PROD", "DEV", or "QA"}
+\item{environment}{Required character string containing desired environment. Valid arguments are "PROD", "DEV", or "QA"}
 
-\item{database}{character string containing name of desired database. As of now, there is only one known databse for each environment. As such, this argument is optional and currently unused.}
+\item{region}{Required character string containing name of desired region. Currently supported arguments are "KNA" (default), "KEU", or "AMEA"}
 
-\item{server}{character string containing exact server name in R format (beware of /s). As of now, there is only one known server for each environment. As such, this argument is optional and currently unused.}
+\item{database}{Optional character string containing exact database name in R format.}
 
-\item{connection_pane}{logical indicating whether information about your connection should be added to the Connections pane, default is TRUE.}
+\item{server}{Optional character string containing exact server name in R format (beware of /s). As of now, there is only one known server for each environment. As such, this argument is optional and currently unused.}
+
+\item{connection_pane}{Optional logical indicating whether information about your connection should be added to the Connections pane, default is TRUE (turning this off results in faster initial connections and reduction of unnecessary data in automated processes).}
 }
 \value{
 Returns redshift DBI connection object
@@ -30,10 +32,10 @@ In order to use these tools users must first:
 }
 \examples{
 # Connect w/ connection pane
-red_dev <- klink_redshift(environment = "DEV")
+red_dev <- klink_redshift(environment = "DEV", region = "KNA")
 
 # Connect w/o connection pane
-red_dev <- klink_redshift(environment = "DEV", connection_pane = FALSE)
+red_dev <- klink_redshift(environment = "DEV", region = "AMEA", connection_pane = FALSE)
 
 # Example queries
 DBI::dbGetQuery(red_dev, "SELECT DISTINCT tablename FROM PG_TABLE_DEF")

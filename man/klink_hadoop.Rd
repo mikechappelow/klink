@@ -18,6 +18,7 @@ Returns Hadoop DBI connection object
 }
 \description{
 Enables users to create connections to Kellogg Hadoop databases with a simple function
+Note: Currently, you can only connect to Hadoop DEV from the UAT Workbench/Connect servers and PROD from the PROD Workbench/Connect servers.
 
 In order to use these tools users must first:
 \enumerate{

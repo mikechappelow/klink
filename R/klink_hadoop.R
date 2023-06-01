@@ -65,9 +65,11 @@ klink_hadoop <- function(environment, schema, connection_pane = TRUE){
                    HiveServerType=2,
                    AllowSelfSignedServerCert=1,
                    SSL=1,
-                   TrustedCerts='/usr/rstudio2/serverpro/certs/hive.pem',
-                   HttpPathPrefix='/cliservice'))
-
+                   TrustedCerts=ifelse(environment == "PROD",
+                                       '/usr/rstudio/serverpro/certs/hive_prod.pem',
+                                       '/usr/rstudio2/serverpro/certs/hive.pem'),
+                   HttpPathPrefix='/cliservice')
+                             
     # Updates connections pane w db structure
     if(connection_pane == TRUE){
       odbc:::on_connection_opened(conn,

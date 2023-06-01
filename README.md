@@ -93,13 +93,13 @@ DBI::dbGetQuery(conn,
 #### klink_redshift
 
 The klink_redshift function enables users to link to predefined,
-internal redshift databases. The function currently only requires\* one
-argument.
+internal redshift databases. The function currently only requires\* two
+arguments.
 
 ``` r
 library(klink)
 
-red_dev <- klink_redshift("DEV") 
+red_dev <- klink_redshift(environment = "DEV", region = "KNA") 
 # note: there are additional, optional arguments available. See documentation for more details (?klink::klink_redshift)
 
 # Then use your connection as you would any other DBI connection object

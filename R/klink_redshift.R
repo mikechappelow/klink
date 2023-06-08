@@ -39,7 +39,10 @@ klink_redshift <- function(environment, region = "KNA", database = NULL, server 
   port <- klink::zoltar(paste0(env_reg,"_port"))
   uid <- klink::zoltar(paste0(env_reg,"_uid"))
   pwd <- klink::zoltar(paste0(env_reg,"_pwd"))
-  if(is.null(database)){database <- paste0("klg_nga_",tolower(region))}
+  if(is.null(database)){
+    if(region %in% c("AMEA","KAMEA","KAP")){database <- "klg_nga_kamea"
+    } else {database <- paste0("klg_nga_",tolower(region))}
+  }
 
   # connection or zoltar error message return
   if(grepl("^Error", uid, ignore.case = TRUE)){

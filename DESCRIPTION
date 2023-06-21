@@ -1,6 +1,6 @@
 Package: klink
 Title: Easy connections for K data
-Version: 0.0.4.5
+Version: 0.0.4.6
 Authors@R: 
     person("Mike", "Chappelow", , "michael.chappelow@kellogg.com", role = c("aut", "cre"))
 Description: Functions to simplify K data connections
@@ -8,13 +8,14 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
+Depends:
+    aws.ec2metadata
 Imports: 
     httr,
     DBI,
     odbc,
     aws.iam,
     paws,
-    aws.ec2metadata,
     aws.s3,
     connectapi,
     dplyr,

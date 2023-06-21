@@ -36,7 +36,7 @@ klink_s3 <- function(ignore_existing = FALSE){
     # If no existing connection
   } else {
     # load ec2 meta data package
-    require(aws.ec2metadata)
+    #require(aws.ec2metadata)
 
     # Check whether in PROD or DEV
     current_server <- system2(command = "hostname", stdout  = TRUE)

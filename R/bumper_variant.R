@@ -1,5 +1,5 @@
-#' bumper
-#' @description trigger markdown jobs hosted in Connect to render
+#' bumper_variant
+#' @description trigger rendering of parameterized markdown job variants hosted in Connect to render
 #'
 #' The bumper function is intended to be called when you want to trigger an existing Connect job to run at the end of another process.
 #'

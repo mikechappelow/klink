@@ -4,7 +4,10 @@
 \alias{klink_s3}
 \title{Kellogg S3 (kortex) connection}
 \usage{
-klink_s3()
+klink_s3(ignore_existing = FALSE)
+}
+\arguments{
+\item{ignore_existing}{Logical indicating whether to ignore existing connections when executing function. Setting to TRUE can cause warnings/errors but may be useful if you want to flush your connection.}
 }
 \value{
 populates user environment with required role and settings to access the corresponding S3 environment

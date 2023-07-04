@@ -4,10 +4,12 @@
 \alias{bumper}
 \title{bumper}
 \usage{
-bumper(GUID, environment = "PROD")
+bumper(GUID, variant = NULL, environment = "PROD")
 }
 \arguments{
 \item{GUID}{character string the GUID of the content to trigger. You can find this value in the URL of your content, it should looks something like this: "b824db78-07b8-4205-b29e-0dbea32b4d8a"}
+
+\item{variant}{numeric value of parameterized content to render. These are the numbers following the last / in the url of the content variant in Connect.}
 
 \item{environment}{character string designating target environment. Default is "PROD".}
 }
@@ -15,7 +17,7 @@ bumper(GUID, environment = "PROD")
 returns message with details if error or confirmation of success
 }
 \description{
-trigger markdown jobs hosted in Connect to render
+trigger rendering of parameterized markdown job variants hosted in Connect to render
 
 The bumper function is intended to be called when you want to trigger an existing Connect job to run at the end of another process.
 
@@ -27,5 +29,6 @@ In order to use these tools users must first:
 }
 }
 \examples{
-bumper("b824db78-07b8-4205-b29e-0dbea32b4d8a")
+bumper(GUID = "6dd37913-30fd-4c89-9c1d-4afd9dbfc6fe", variant = 595, environment = "PROD")
+bumper(GUID = "6dd37913-30fd-4c89-9c1d-4afd9dbfc6fe")
 }

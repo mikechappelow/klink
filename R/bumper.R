@@ -1,7 +1,7 @@
 #' bumper
-#' @description trigger rendering of parameterized markdown job variants hosted in Connect to render
+#' @description trigger rendering of markdown jobs/reports and their variants hosted in Connect
 #'
-#' The bumper function is intended to be called when you want to trigger an existing Connect job to run at the end of another process.
+#' The bumper function is intended to be called when you want to trigger an existing Connect job or report to run as a result of another process.
 #'
 #' In order to use these tools users must first:
 #'
@@ -10,8 +10,8 @@
 #' 3. Create an .Renviron file in your Home folder assigning your API key value to the name CONNECT_API_KEY <https://rstats.wtf/r-startup.html>
 #'
 #' @param GUID character string the GUID of the content to trigger. You can find this value in the URL of your content, it should looks something like this: "b824db78-07b8-4205-b29e-0dbea32b4d8a"
-#' @param variant numeric value of parameterized content to render. These are the numbers following the last / in the url of the content variant in Connect.
-#' @param environment character string designating target environment. Default is "PROD".
+#' @param variant optional numeric value of parameterized content to render. These are the numbers following the last / in the url of the content variant in Connect. If no value is specified the default variant will be rendered (for non-parameterized content the default is the only variant so there would be no need to use this argument).
+#' @param environment optional character string designating target environment. Default is "PROD".
 #'
 #' @usage bumper(GUID, variant = NULL, environment = "PROD")
 #'

@@ -33,11 +33,21 @@ zoltar <- function(token#, solution_name = NULL
   # # Write log !!! should be absolute path in mounted drive, defined in/retrieved from zoltar
 
   # Return result
-  zoltar_speaks <- httr::content(httr::GET(url = "https://rstudioconnect.analytics.kellogg.com/zoltar/wish",
-                          query = list(wish=token),
+  zoltar_speaks <-
+    # Sandbox support
+    if(Sys.info()['nodename'] == "usaws6160"){
+      httr::content(httr::GET(url = Sys.getenv("SANDBOX_CONNECT_url"),
+                              query = list(wish=token),
+                              httr::add_headers(Authorization =
+                                                  paste0("Key ", Sys.getenv("CONNECT_API_KEY")))),
+                    as = "parsed")[[1]]
+    } else {
+      httr::content(httr::GET(url = "https://rstudioconnect.analytics.kellogg.com/zoltar/wish",
+                            query = list(wish=token),
                           httr::add_headers(Authorization =
                                               paste0("Key ", Sys.getenv("CONNECT_API_KEY")))),
                 as = "parsed")[[1]]
+    }
 
   if(!is.integer(zoltar_speaks)){
     return(zoltar_speaks)

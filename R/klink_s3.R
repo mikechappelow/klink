@@ -30,7 +30,7 @@ klink_s3 <- function(ignore_existing = FALSE){
 
   # Check for existing s3 connections
   if(ignore_existing == FALSE & Sys.getenv("AWS_SECRET_ACCESS_KEY") != ""){
-    print("You appear to have an existing S3 connection. You can only assume one role at a time. To open a new connection you must first start a new session.")
+    warning("You appear to have an existing S3 connection. You can only assume one role at a time. To open a new connection you must first start a new session.")
     #----------------------------------------------------------------------------
 
     # If no existing connection

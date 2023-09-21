@@ -35,7 +35,7 @@ zoltar <- function(token#, solution_name = NULL
   # Return result
   zoltar_speaks <-
     # Sandbox support
-    if(Sys.info()['nodename'] == "usaws6160"){
+    if(Sys.info()['nodename'] == "usaws6160" | system2(command = "hostname", stdout  = TRUE) == "usaws6160"){
       httr::content(httr::GET(url = Sys.getenv("SANDBOX_CONNECT_url"),
                               query = list(wish=token),
                               httr::add_headers(Authorization =

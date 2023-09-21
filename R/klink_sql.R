@@ -8,7 +8,7 @@
 #' 3. Create an .Renviron file in your Home folder assigning your API key value to the name CONNECT_API_KEY <https://rstats.wtf/r-startup.html>
 #'
 #' @param environment character string containing desired environment. Valid arguments are "PROD" or "DEV".
-#' @param database character string containing name of desired database. Any database in the specified SQL environment should be valid.
+#' @param database optional character string containing name of desired database. Any database in the specified SQL environment should be valid.
 #' @param server character string containing exact server name in R format (beware of /s). If no argument provided will attempt to use Keystone servers. If server argument is provided the function will attempt to pass specified value into the connection call.
 #' @param connection_pane logical indicating whether information about your connection should be added to the Connections pane, default is TRUE.
 #'
@@ -26,7 +26,7 @@
 #' # (these are supported on a case-by-case basis, contact data science team for support)
 #' other__ex <- klink_sql("DEV", "KG_ANALYTICS_APPS", server = "USAWSCWSQL5066\\ANALYTICSDEV3")
 
-klink_sql <- function(environment, database, server = NULL, connection_pane = TRUE){
+klink_sql <- function(environment, database = NULL, server = NULL, connection_pane = TRUE){
 
   # retrieve wishes using zoltar
   # Non-standard keystone SERVERS
@@ -52,10 +52,10 @@ klink_sql <- function(environment, database, server = NULL, connection_pane = TR
           pwd <- klink::zoltar("Usawscwsql0066_KG_SAS_PROD_pwd")
           # uid <- klink::zoltar("USAWSCWSQL5066_PROD_userid") # this is the same as KG_ANALYTICS_APPS above
           # pwd <- klink::zoltar("USAWSCWSQL5066_PROD_pwd")
-          }
         }
-      } # / PROD
-    } # / server
+      }
+    } # / PROD
+  } # / server
 
   # DEV
   #----------------------------------------------------------------------------
@@ -77,7 +77,7 @@ klink_sql <- function(environment, database, server = NULL, connection_pane = TR
       database <- "KG_SAS" # replacing with true db name
       uid <- klink::zoltar("KG_SAS_DEV_WRITE_uid")
       pwd <- klink::zoltar("KG_SAS_DEV_WRITE_pwd")
-    } else if (database %in% c("KG_ANALYTICS_APPS")) {
+    } else if (database %in% c("KG_ANALYTICS_APPS", "WKKC_KG_ANALYTICS_APPS")) {
       uid <- klink::zoltar("KG_ANALYTICS_APPS_DEV_userid")
       pwd <- klink::zoltar("KG_ANALYTICS_APPS_DEV_pwd")
     } else {
@@ -88,60 +88,60 @@ klink_sql <- function(environment, database, server = NULL, connection_pane = TR
 
     # PROD
     #----------------------------------------------------------------------------
-    } else if(environment == "PROD") {
+  } else if(environment == "PROD") {
 
-      # server
-      server_val <- klink::zoltar("MS_SQL_ANALYTICS_PROD_server")
+    # server
+    server_val <- klink::zoltar("MS_SQL_ANALYTICS_PROD_server")
 
-      # retrieve credentials for keystone DBs
-      if (database %in% c("KG_R_APPS", "KNA_FIN")) {
-        uid <- klink::zoltar("KG_R_APPS_PROD_userid")
-        pwd <- klink::zoltar("KG_R_APPS_PROD_pwd")
-      } else if (database %in% c("KG_SAS", "KG_SC", "KG_EXTERNAL",
-                                 "KNA_ECC", "KG_SANDBOX", "KG_MEMSQL",
-                                 "KG_VIEWS")) {
-        uid <- klink::zoltar("KG_SAS_PROD_userid")
-        pwd <- klink::zoltar("KG_SAS_PROD_pwd")
-      } else if (database %in% c("KG_SAS_WRITE")) {
-        database <- "KG_SAS" # replacing with true db name
-        uid <- klink::zoltar("KG_SAS_PROD_WRITE_uid")
-        pwd <- klink::zoltar("KG_SAS_PROD_WRITE_pwd")
-      } else if (database %in% c("KG_ANALYTICS_APPS")) {
-        uid <- klink::zoltar("KG_ANALYTICS_APPS_PROD_userid")
-        pwd <- klink::zoltar("KG_ANALYTICS_APPS_PROD_pwd")
-      } else {
-        # using KG_SAS as catch-all/default for now
-        uid <- klink::zoltar("KG_SAS_PROD_userid")
-        pwd <- klink::zoltar("KG_SAS_PROD_pwd")
-      }
+    # retrieve credentials for keystone DBs
+    if (database %in% c("KG_R_APPS", "KNA_FIN")) {
+      uid <- klink::zoltar("KG_R_APPS_PROD_userid")
+      pwd <- klink::zoltar("KG_R_APPS_PROD_pwd")
+    } else if (database %in% c("KG_SAS", "KG_SC", "KG_EXTERNAL",
+                               "KNA_ECC", "KG_SANDBOX", "KG_MEMSQL",
+                               "KG_VIEWS")) {
+      uid <- klink::zoltar("KG_SAS_PROD_userid")
+      pwd <- klink::zoltar("KG_SAS_PROD_pwd")
+    } else if (database %in% c("KG_SAS_WRITE")) {
+      database <- "KG_SAS" # replacing with true db name
+      uid <- klink::zoltar("KG_SAS_PROD_WRITE_uid")
+      pwd <- klink::zoltar("KG_SAS_PROD_WRITE_pwd")
+    } else if (database %in% c("KG_ANALYTICS_APPS", "WKKC_KG_ANALYTICS_APPS")) {
+      uid <- klink::zoltar("KG_ANALYTICS_APPS_PROD_userid")
+      pwd <- klink::zoltar("KG_ANALYTICS_APPS_PROD_pwd")
     } else {
-      "Error: Invalid environment name. Should be 'DEV' or 'PROD'."
+      # using KG_SAS as catch-all/default for now
+      uid <- klink::zoltar("KG_SAS_PROD_userid")
+      pwd <- klink::zoltar("KG_SAS_PROD_pwd")
     }
+  } else {
+    "Error: Invalid environment name. Should be 'DEV' or 'PROD'."
+  }
 
   # Connection or Error Message
   #----------------------------------------------------------------------------
   if(grepl("^Error", uid, ignore.case = TRUE)){
     return(uid) # would be error message from zoltar
-    } else if(grepl("^Error", pwd, ignore.case = TRUE)) {
-      return(pwd)
-      } else {
-        # Create DB connection object
-        conn <- DBI::dbConnect(
-          odbc::odbc()
-          ,Driver = "freetds" #"SQLServer"
-          ,Server = server_val
-          ,Database = database
-          ,UID = uid
-          ,PWD = pwd
-          )
+  } else if(grepl("^Error", pwd, ignore.case = TRUE)) {
+    return(pwd)
+  } else {
+    # Create DB connection object
+    conn <- DBI::dbConnect(
+      odbc::odbc()
+      ,Driver = "freetds" #"SQLServer"
+      ,Server = server_val
+      ,Database = database
+      ,UID = uid
+      ,PWD = pwd
+    )
 
-        # Updates connections pane w db structure
-        if(connection_pane == TRUE){
-          odbc:::on_connection_opened(conn,
-                                      paste("ms_sql", environment, database, server, sep = "_"))
-          }
+    # Updates connections pane w db structure
+    if(connection_pane == TRUE){
+      odbc:::on_connection_opened(conn,
+                                  paste("ms_sql", environment, database, server, sep = "_"))
+    }
 
-        return(conn)
-      }
+    return(conn)
+  }
 
-  } # / function closure
+} # / function closure

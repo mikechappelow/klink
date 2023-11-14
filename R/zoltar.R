@@ -35,8 +35,8 @@ zoltar <- function(token#, solution_name = NULL
   # Return result
   zoltar_speaks <-
     # Sandbox support
-    if(Sys.info()['nodename'] == "usaws6160" | system2(command = "hostname", stdout  = TRUE) == "usaws6160"){
-      httr::content(httr::GET(url = Sys.getenv("SANDBOX_CONNECT_url"),
+    if(grepl("usaws33", Sys.info()['nodename'], ignore.case = TRUE)  | grepl("usaws33", system2(command = "hostname", stdout  = TRUE), ignore.case = TRUE){
+      httr::content(httr::GET(url = "https://dev.positconnect.analytics.kellogg.com/zoltar/wish"),
                               query = list(wish=token),
                               httr::add_headers(Authorization =
                                                   paste0("Key ", Sys.getenv("CONNECT_API_KEY")))),

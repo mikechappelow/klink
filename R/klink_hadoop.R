@@ -22,7 +22,7 @@
 #' prod_example <- klink_hadoop(environment = "PROD", schema = "KNA_BW")
 #'
 #' # Typical connection w/o connection pane
-#' keystone_example <- klink_hadoop("DEV", "KNA_BW", connection_pane = FALSE)
+#' dev_example <- klink_hadoop("DEV", "KNA_BW", connection_pane = FALSE)
 
 klink_hadoop <- function(environment, schema, connection_pane = TRUE){
   #----------------------------------------------------------------------------
@@ -61,7 +61,7 @@ klink_hadoop <- function(environment, schema, connection_pane = TRUE){
                            Port = port,
                            Schema= schema,
                            AuthMech=1, # kerberos
-                           ThriftTransport=2,
+                           ThriftTransport=1, #2,
                            HiveServerType=2,
                            AllowSelfSignedServerCert=1,
                            SSL=1,

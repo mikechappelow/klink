@@ -34,7 +34,7 @@ klink_redshift <- function(environment, region = "KNA", database = NULL, server 
   # !!! Need to add some error handling for environment/region arguments
 
   # connection strings
-  region <- if(toupper(region) %in% c("KAMEA","KAP")){"AMEA"} else{region}
+  if(toupper(region) %in% c("KAMEA","KAP")){region <- "AMEA"}
   env_reg <- paste0("REDSHIFT_",toupper(region),"_",toupper(environment))
   server_val <- klink::zoltar(paste0(env_reg,"_server"))
   port <- klink::zoltar(paste0(env_reg,"_port"))

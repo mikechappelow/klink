@@ -43,19 +43,11 @@ zoltar <- function(token#, solution_name = NULL
     }
   
   # Get url
-  nodename <- Sys.info()['nodename']
-  hostname <- system2(command = "hostname", stdout  = TRUE)
+  current_env <- klink::env_checker()
   
-  kortex_dev <- "usaws3320|usaws3321|usaws3322|usaws3323"
-  kortex_prod <- "usaws1320|usaws1321|usaws1322|usaws1323"
-  # keystone_dev <- "usaws3170|usaws3171|usaws3172|usaws3173"
-  keystone_prod <- "usaws1170|usaws1171|usaws1172|usaws1173|usaws1174|usaws1175"
-  
-  checker_fun <- function(env){grepl(env, hostname, ignore.case = TRUE) | grepl(env, nodename, ignore.case = TRUE)}
-  
-  zoltar_url <- if(checker_fun(kortex_prod)){'URL_TBD'
-    } else if(checker_fun(kortex_dev)) {'https://dev.positconnect.analytics.kellogg.com/zoltar/wish'
-    } else if(checker_fun(keystone_prod)) {'https://rstudioconnect.analytics.kellogg.com/zoltar/wish'
+  zoltar_url <- if(current_env == "kortex_prod"){'ZOLTAR_KORTEX_PROD_URL_TBD'
+    } else if(current_env == "kortex_dev") {'https://dev.positconnect.analytics.kellogg.com/zoltar/wish'
+    } else if(current_env == "keystone_prod") {'https://rstudioconnect.analytics.kellogg.com/zoltar/wish'
     } else {"undefined"}
   
   # Return result

@@ -21,6 +21,7 @@
 
 zoltar <- function(token#, solution_name = NULL
                    ){
+  
   # solution <- NA # temp, need to add optional argument in zoltar
   # # Capture request
   # log_entry <- cbind(
@@ -31,26 +32,40 @@ zoltar <- function(token#, solution_name = NULL
   #   )
   #
   # # Write log !!! should be absolute path in mounted drive, defined in/retrieved from zoltar
-
-  # Return result
-  zoltar_speaks <-
-    # Sandbox support
-    if(grepl("usaws33", Sys.info()['nodename'], ignore.case = TRUE)  | grepl("usaws33", system2(command = "hostname", stdout  = TRUE), ignore.case = TRUE)){
-      httr::content(httr::GET(url = "https://dev.positconnect.analytics.kellogg.com/zoltar/wish",
-                              query = list(wish=token),
-                              httr::add_headers(Authorization =
-                                                  paste0("Key ", Sys.getenv("CONNECT_API_KEY")))),
-                    as = "parsed")[[1]]
-    } else {
-      httr::content(httr::GET(url = "https://rstudioconnect.analytics.kellogg.com/zoltar/wish",
-                            query = list(wish=token),
+  
+  # Define core function
+  get_fun <- function(URL){
+    httr::content(httr::GET(url = URL,
+                          query = list(wish=token),
                           httr::add_headers(Authorization =
                                               paste0("Key ", Sys.getenv("CONNECT_API_KEY")))),
                 as = "parsed")[[1]]
     }
+  
+  # Get url
+  nodename <- Sys.info()['nodename']
+  hostname <- system2(command = "hostname", stdout  = TRUE)
+  
+  kortex_dev <- "usaws3320|usaws3321|usaws3322|usaws3323"
+  kortex_prod <- "usaws1320|usaws1321|usaws1322|usaws1323"
+  # keystone_dev <- "usaws3170|usaws3171|usaws3172|usaws3173"
+  keystone_prod <- "usaws1170|usaws1171|usaws1172|usaws1173|usaws1174|usaws1175"
+  
+  checker_fun <- function(env){grepl(env, hostname, ignore.case = TRUE) | grepl(env, nodename, ignore.case = TRUE)}
+  
+  zoltar_url <- if(checker_fun(kortex_prod)){'URL_TBD'
+    } else if(checker_fun(kortex_dev)) {'https://dev.positconnect.analytics.kellogg.com/zoltar/wish'
+    } else if(checker_fun(keystone_prod)) {'https://rstudioconnect.analytics.kellogg.com/zoltar/wish'
+    } else {"undefined"}
+  
+  # Return result
+  zoltar_speaks <- get_fun(zoltar_url)
 
+  # Error handling
   if(!is.integer(zoltar_speaks)){
     return(zoltar_speaks)
+  } else if(zoltar_url == "undefined") {
+    return("Error: Unknown working environment")
   } else {
     if(zoltar_speaks == 1) {return("Error: An internal failure occurred.")
     } else if(zoltar_speaks == 2) {return("Error: The requested method or endpoint is not supported.")

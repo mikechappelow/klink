@@ -9,7 +9,7 @@
 #' @examples
 #' env_checker()
 
-checker_fun <- function(){
+env_checker <- function(){
   nodename <- Sys.info()['nodename']
   hostname <- system2(command = "hostname", stdout  = TRUE)
   

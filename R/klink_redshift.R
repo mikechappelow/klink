@@ -9,8 +9,8 @@
 #'
 #' @param environment Required character string containing desired environment. Valid arguments are "PROD", "DEV", or "QA"
 #' @param region Required character string containing name of desired region. Currently supported arguments are "KNA" (default), "KEU", or "AMEA"
-#' @param server Optional character string containing exact server name in R format (beware of /s). As of now, there is only one known server for each environment. As such, this argument is optional and currently unused.
 #' @param database Optional character string containing exact database name in R format.
+#' @param server Optional character string containing exact server name in R format (beware of /s). As of now, there is only one known server for each environment. As such, this argument is optional and currently unused.
 #' @param connection_pane Optional logical indicating whether information about your connection should be added to the Connections pane, default is TRUE (turning this off results in faster initial connections and reduction of unnecessary data in automated processes).
 #'
 #' @usage klink_redshift(environment, region = "KNA", server = NULL, database = NULL, connection_pane = TRUE)

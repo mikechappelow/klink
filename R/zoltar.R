@@ -19,8 +19,7 @@
 #' zoltar("s3BucketName")
 #' zoltar("MS_SQL_ANALYTICS_DEV_server")
 
-zoltar <- function(token#, solution_name = NULL
-                   ){
+zoltar <- function(token){
   
   # solution <- NA # temp, need to add optional argument in zoltar
   # # Capture request

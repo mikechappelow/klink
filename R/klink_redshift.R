@@ -30,7 +30,8 @@
 #' DBI::dbGetQuery(red_dev, "SELECT TOP 10 * FROM fin_acctg_ops.fisc_cal_wk")
 
 
-klink_redshift <- function(environment, region = "KNA", database = NULL, server = NULL, connection_pane = TRUE){
+klink_redshift <- function(environment, region = "KNA", database = NULL, 
+                           server = NULL, connection_pane = TRUE){
   # !!! Need to add some error handling for environment/region arguments
 
   # connection strings

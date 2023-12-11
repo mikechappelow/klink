@@ -9,11 +9,11 @@
 #'
 #' Note: the klink_s3() function currently only works from within our RStudio server environment
 #'
+#' @param region Character string representing the regional bucket you need to connect to. Current options are 'globa', 'kna', 'keu', 'kla', and 'kamea'. Default is 'kna' in order to avoid breaking code written using previous versions.
 #' @param ignore_existing Logical indicating whether to ignore existing connections when executing function. Setting to TRUE can cause warnings/errors but may be useful if you want to flush your connection.
 #'
 #' @usage klink_s3(ignore_existing = FALSE)
 #' @return populates user environment with required role and settings to access the corresponding S3 environment
-#' @export
 #'
 #' @examples
 #' # Retrieve required system settings (in background) and appropriate s3 bucket name
@@ -22,11 +22,11 @@
 #' # Use example aws.s3 functions to retrieve information from s3 bucket
 #' # (making sure to reference the bucket as "s3BucketName")
 #'
-#' aws.s3::get_bucket_df(s3BucketName, max = 20)[["Key"]]
+#' aws.s3::get_bucket_df(region = 'kna', s3BucketName, max = 20)[["Key"]]
 #'
 #' s3_other$list_objects(Bucket = s3BucketName)
 
-klink_s3 <- function(ignore_existing = FALSE){
+klink_s3 <- function(ignore_existing = FALSE, region = "kna"){
   
   # Check for existing s3 connections
   if(ignore_existing == FALSE & Sys.getenv("AWS_SECRET_ACCESS_KEY") != ""){
@@ -35,24 +35,86 @@ klink_s3 <- function(ignore_existing = FALSE){
     # If no existing connection
   } else {
     
+    #===========================================================================
+    # Environmental / Regional Variations
+    #===========================================================================
     # Check current env
     current_env <- klink::env_checker()
     
-    zoltar_url <- if(current_env == "kortex_prod"){'ZOLTAR_KORTEX_PROD_URL_TBD'
-    } else if(current_env == "kortex_dev") {'https://dev.positconnect.analytics.kellogg.com/zoltar/wish'
-    } else if(current_env == "keystone_prod") {'https://rstudioconnect.analytics.kellogg.com/zoltar/wish'
-    } else {"undefined"}
+    # Kortex PROD
+    if(current_env == "kortex_prod"){
+      zoltar_url <- 'https://prod.positconnect.analytics.kellogg.com/zoltar/wish'
+      if(tolower(region) == 'global'){
+        bucket_name <- klink::zoltar("s3BucketName_global_kortex_prod")
+        iam <- klink::zoltar("s3iam_global_kortex_prod")
+      } else if(tolower(region) == 'kna'){
+        bucket_name <- klink::zoltar("s3BucketName_kna_kortex_prod")
+        iam <- klink::zoltar("s3iam_kna_kortex_prod")
+      } else if(tolower(region) == 'keu'){
+        bucket_name <- klink::zoltar("s3BucketName_keu_kortex_prod")
+        iam <- klink::zoltar("s3iam_keu_kortex_prod")
+      } else if(tolower(region) == 'kamea'){
+        bucket_name <- klink::zoltar("s3BucketName_kamea_kortex_prod")
+        iam <- klink::zoltar("s3iam_kamea_kortex_prod")
+      } else { # kla
+        bucket_name <- klink::zoltar("s3BucketName_kla_kortex_prod")
+        iam <- klink::zoltar("s3iam_kla_kortex_prod")
+      }
     
-    # If DEV
-    
-    if(current_env %in% c("kortex_dev", "keystone_dev")){
-      bucket_name <- klink::zoltar("s3BucketName_kortex_DEV")
+    # Kortex DEV
+    } else if(current_env == "kortex_dev"){
+      zoltar_url <- 'https://dev.positconnect.analytics.kellogg.com/zoltar/wish'
+      if(tolower(region) == 'global'){
+        bucket_name <- klink::zoltar("s3BucketName_global_kortex_dev")
+        iam <- klink::zoltar("s3iam_global_kortex_dev")
+      } else if(tolower(region) == 'kna'){
+        bucket_name <- klink::zoltar("s3BucketName_kna_kortex_dev")
+        iam <- klink::zoltar("s3iam_kna_kortex_dev")
+      } else if(tolower(region) == 'keu'){
+        bucket_name <- klink::zoltar("s3BucketName_keu_kortex_dev")
+        iam <- klink::zoltar("s3iam_keu_kortex_dev")
+      } else if(tolower(region) == 'kamea'){
+        bucket_name <- klink::zoltar("s3BucketName_kamea_kortex_dev")
+        iam <- klink::zoltar("s3iam_kamea_kortex_dev")
+      } else { # kla
+        bucket_name <- klink::zoltar("s3BucketName_kla_kortex_dev")
+        iam <- klink::zoltar("s3iam_kla_kortex_dev")
+      }
       
-      # If PROD
-    } else if(current_env %in% c("kortex_prod", "keystone_prod")){
-      bucket_name <- klink::zoltar("s3BucketName_kortex")
+    # Keystone PROD  
+    } else if(current_env == "keystone_prod"){
+      zoltar_url <- 'https://rstudioconnect.analytics.kellogg.com/zoltar/wish'
+      bucket_name <- klink::zoltar("s3BucketName_kortex_DEV")
+      iam <- klink::zoltar("s3iam_posit_keystone_DEV")
+      # iam <- if(tolower(region) == 'kna'){
+      #     klink::zoltar("s3iam_posit_keystone_PROD")
+      #   } else if(tolower(region) == 'keu'){
+      #     klink::zoltar('')
+      #   } else if(tolower(region) == 'kamea'){
+      #     klink::zoltar('')
+      #   } else { # kla
+      #     klink::zoltar('')
+      #   }
+  
+    # Keystone DEV - Not supported, should probably just delete
+    } else {
+      zoltar_url <- 'undefined'
+      bucket_name <- klink::zoltar("s3BucketName_kortex_DEV")
+      iam <- klink::zoltar("s3iam_posit_keystone_DEV")
+      # iam <- if(tolower(region) == 'kna'){
+      #     klink::zoltar("s3iam_posit_keystone_DEV")  
+      #   } else if(tolower(region) == 'keu'){
+      #     klink::zoltar('')
+      #   } else if(tolower(region) == 'kamea'){
+      #     klink::zoltar('')
+      #   } else { # kla
+      #     klink::zoltar('')
+      #   }
     }
     
+    #===========================================================================
+    # All Environments / Regions
+    #===========================================================================
     # If zoltar returned error, pass that error back as the output of function
     if(grepl("^Error", bucket_name, ignore.case = TRUE)){
       return(bucket_name) # would be error message from zoltar
@@ -64,13 +126,7 @@ klink_s3 <- function(ignore_existing = FALSE){
       assign("s3BucketName",
              value = bucket_name,
              envir = globalenv()
-      )
-      
-      # Find iam
-      iam <- if(current_env == "kortex_dev"){klink::zoltar("s3iam_posit_kortex_DEV")
-      } else if(current_env == "keystone_dev"){klink::zoltar("s3iam_posit_keystone_DEV")
-      } else if(current_env == "kortex_prod"){klink::zoltar("s3iam_posit_keystone_PROD")
-      } else {klink::zoltar("s3iam_posit_kortex_PROD")}
+             )
       
       # Use paws to assume iam and form s3 connection
       s3_other <- paws::s3(
@@ -84,10 +140,11 @@ klink_s3 <- function(ignore_existing = FALSE){
       
     }
     
-    # BOTH
+    # Assign required vars to global environment
     assign("s3_other",
            value = s3_other,
            envir = globalenv()
     )
+    
   } # / if no existing connection
 } # / function

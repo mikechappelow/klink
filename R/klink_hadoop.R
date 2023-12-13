@@ -25,6 +25,7 @@
 #' dev_example <- klink_hadoop("DEV", "KNA_BW", connection_pane = FALSE)
 
 klink_hadoop <- function(environment, schema, connection_pane = TRUE){
+  
   #----------------------------------------------------------------------------
   # DEV
   #----------------------------------------------------------------------------

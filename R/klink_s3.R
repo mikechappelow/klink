@@ -14,6 +14,7 @@
 #'
 #' @usage klink_s3(ignore_existing = FALSE)
 #' @return populates user environment with required role and settings to access the corresponding S3 environment
+#' @export
 #'
 #' @examples
 #' # Retrieve required system settings (in background) and appropriate s3 bucket name

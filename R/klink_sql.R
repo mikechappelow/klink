@@ -129,10 +129,10 @@ klink_sql <- function(environment, database = NULL, server = NULL, connection_pa
     conn <- DBI::dbConnect(
       odbc::odbc()
       ,Driver = "freetds" #"SQLServer"
-      ,Server = server_val
-      ,Database = database
-      ,UID = uid
-      ,PWD = pwd
+      ,Server = I(server_val)
+      ,Database = I(database)
+      ,UID = I(uid)
+      ,PWD = I(pwd)
     )
 
     # Updates connections pane w db structure

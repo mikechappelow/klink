@@ -12,7 +12,7 @@
 #' @param region Character string representing the regional bucket you need to connect to. Current options are 'globa', 'kna', 'keu', 'kla', and 'kamea'. Default is 'kna' in order to avoid breaking code written using previous versions.
 #' @param ignore_existing Logical indicating whether to ignore existing connections when executing function. Setting to TRUE can cause warnings/errors but may be useful if you want to flush your connection.
 #'
-#' @usage klink_s3(ignore_existing = FALSE)
+#' @usage klink_s3(region = 'kamea', ignore_existing = FALSE)
 #' @return populates user environment with required role and settings to access the corresponding S3 environment
 #' @export
 #'
@@ -27,7 +27,7 @@
 #'
 #' s3_other$list_objects(Bucket = s3BucketName)
 
-klink_s3 <- function(ignore_existing = FALSE, region = "kna"){
+klink_s3 <- function(region = "kna", ignore_existing = FALSE){
   
   # Check for existing s3 connections
   if(ignore_existing == FALSE & Sys.getenv("AWS_SECRET_ACCESS_KEY") != ""){

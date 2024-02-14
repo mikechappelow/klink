@@ -11,25 +11,36 @@
 #'
 #' @param GUID character string the GUID of the content to trigger. You can find this value in the URL of your content, it should looks something like this: "b824db78-07b8-4205-b29e-0dbea32b4d8a"
 #' @param variant optional numeric value of parameterized content to render. These are the numbers following the last / in the url of the content variant in Connect. If no value is specified the default variant will be rendered (for non-parameterized content the default is the only variant so there would be no need to use this argument).
-#' @param environment optional character string designating target environment. Default is "PROD".
 #'
-#' @usage bumper(GUID, variant = NULL, environment = "PROD")
+#' @usage bumper(GUID, variant = NULL)
 #'
 #' @return returns message with details if error or confirmation of success
 #' @export
 #'
 #' @examples
-#' bumper(GUID = "6dd37913-30fd-4c89-9c1d-4afd9dbfc6fe", variant = 595, environment = "PROD")
+#' bumper(GUID = "6dd37913-30fd-4c89-9c1d-4afd9dbfc6fe", variant = 595)
 #' bumper(GUID = "6dd37913-30fd-4c89-9c1d-4afd9dbfc6fe")
 
-bumper <- function(GUID, variant = NULL, environment = "PROD"){
+bumper <- function(GUID, variant = NULL){
   suppressWarnings(
     # tryCatch 1
     tryCatch({
-      if(environment == "PROD"){client <- #connectapi::connect(host = klink::zoltar("CONNECT_PROD_url"),
-        connectapi::connect(server = klink::zoltar("CONNECT_PROD_url"),
-                            api_key = Sys.getenv("CONNECT_API_KEY"))
+      # Check current env
+      current_env <- klink::env_checker()
+      
+      if(environment == "kortex_prod"){
+        client <- connectapi::connect(server = klink::zoltar("CONNECT_PROD_url"),
+                                      api_key = Sys.getenv("CONNECT_API_KEY"))
       }
+      if(environment == "kortex_dev"){
+        client <- connectapi::connect(server = klink::zoltar("CONNECT_DEV_url"),
+                                      api_key = Sys.getenv("CONNECT_API_KEY"))
+      }
+      if(environment == "keystone_prod"){
+        client <- connectapi::connect(server = "https://rstudioconnect.analytics.kellogg.com",
+                                      api_key = Sys.getenv("CONNECT_API_KEY"))
+      }
+      
       # tryCatch 2
       tryCatch({
         rmd_content <- connectapi::content_item(client, GUID)

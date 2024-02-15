@@ -28,15 +28,15 @@ bumper <- function(GUID, variant = NULL){
       # Check current env
       current_env <- klink::env_checker()
       
-      if(environment == "kortex_prod"){
+      if(current_env == "kortex_prod"){
         client <- connectapi::connect(server = klink::zoltar("CONNECT_PROD_url"),
                                       api_key = Sys.getenv("CONNECT_API_KEY"))
       }
-      if(environment == "kortex_dev"){
+      if(current_env == "kortex_dev"){
         client <- connectapi::connect(server = klink::zoltar("CONNECT_DEV_url"),
                                       api_key = Sys.getenv("CONNECT_API_KEY"))
       }
-      if(environment == "keystone_prod"){
+      if(current_env == "keystone_prod"){
         client <- connectapi::connect(server = "https://rstudioconnect.analytics.kellogg.com",
                                       api_key = Sys.getenv("CONNECT_API_KEY"))
       }

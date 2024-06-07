@@ -63,8 +63,8 @@ klink_sql <- function(environment, database = NULL, server = NULL, connection_pa
       #-------------------------
     } else if(environment == "DEV"){
       if (grepl("USAWSCWSQL5004", toupper(server))){
-          uid <- klink::zoltar("USAWSCWSQL5004_pwd")
-          pwd <- klink::zoltar("USAWSCWSQL5004_server")
+          uid <- klink::zoltar("USAWSCWSQL5004_uid")
+          pwd <- klink::zoltar("USAWSCWSQL5004_pwd")
           } 
     } # / USAWSCWSQL5004
   } # / manual server designations

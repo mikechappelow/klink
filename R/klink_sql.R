@@ -48,7 +48,7 @@ klink_sql <- function(environment, database = NULL, server = NULL, connection_pa
     } else if(environment == "PROD"){
       # SQL0066
       if (grepl("USAWSCWSQL0066", toupper(server))){
-        if(toupper(database) == "KG_ANALYTICS_APPS"){
+        if(grepl("KG_ANALYTICS_APPS", toupper(database))){
           uid <- klink::zoltar("Usawscwsql0066_KG_ANALYTICS_APPS_PROD_uid")
           pwd <- klink::zoltar("Usawscwsql0066_KG_ANALYTICS_APPS_PROD_pwd")
         } else {
@@ -141,10 +141,10 @@ klink_sql <- function(environment, database = NULL, server = NULL, connection_pa
     conn <- DBI::dbConnect(
       odbc::odbc()
       ,Driver = "freetds" #"SQLServer"
-      ,Server = server_val
-      ,Database = database
-      ,UID = uid
-      ,PWD = pwd
+      ,Server = I(server_val)
+      ,Database = I(database)
+      ,UID = I(uid)
+      ,PWD = I(pwd)
     )
 
     # Updates connections pane w db structure

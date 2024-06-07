@@ -19,8 +19,8 @@
 #' zoltar("s3BucketName")
 #' zoltar("MS_SQL_ANALYTICS_DEV_server")
 
-zoltar <- function(token#, solution_name = NULL
-                   ){
+zoltar <- function(token){
+  
   # solution <- NA # temp, need to add optional argument in zoltar
   # # Capture request
   # log_entry <- cbind(
@@ -31,26 +31,32 @@ zoltar <- function(token#, solution_name = NULL
   #   )
   #
   # # Write log !!! should be absolute path in mounted drive, defined in/retrieved from zoltar
-
-  # Return result
-  zoltar_speaks <-
-    # Sandbox support
-    if(grepl("usaws33", Sys.info()['nodename'], ignore.case = TRUE)  | grepl("usaws33", system2(command = "hostname", stdout  = TRUE), ignore.case = TRUE)){
-      httr::content(httr::GET(url = "https://dev.positconnect.analytics.kellogg.com/zoltar/wish",
-                              query = list(wish=token),
-                              httr::add_headers(Authorization =
-                                                  paste0("Key ", Sys.getenv("CONNECT_API_KEY")))),
-                    as = "parsed")[[1]]
-    } else {
-      httr::content(httr::GET(url = "https://rstudioconnect.analytics.kellogg.com/zoltar/wish",
-                            query = list(wish=token),
+  
+  # Define core function
+  get_fun <- function(URL){
+    httr::content(httr::GET(url = URL,
+                          query = list(wish=token),
                           httr::add_headers(Authorization =
                                               paste0("Key ", Sys.getenv("CONNECT_API_KEY")))),
                 as = "parsed")[[1]]
     }
+  
+  # Get url
+  current_env <- klink::env_checker()
+  
+  zoltar_url <- if(current_env == "kortex_prod"){'https://prod.positconnect.analytics.kellogg.com/zoltar/wish'
+    } else if(current_env == "kortex_dev") {'https://dev.positconnect.analytics.kellogg.com/zoltar/wish'
+    } else if(current_env == "keystone_prod") {'https://rstudioconnect.analytics.kellogg.com/zoltar/wish'
+    } else {"undefined"}
+  
+  # Return result
+  zoltar_speaks <- get_fun(zoltar_url)
 
+  # Error handling
   if(!is.integer(zoltar_speaks)){
     return(zoltar_speaks)
+  } else if(zoltar_url == "undefined") {
+    return("Error: Unknown working environment")
   } else {
     if(zoltar_speaks == 1) {return("Error: An internal failure occurred.")
     } else if(zoltar_speaks == 2) {return("Error: The requested method or endpoint is not supported.")

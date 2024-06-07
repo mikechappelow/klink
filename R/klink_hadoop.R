@@ -25,10 +25,13 @@
 #' dev_example <- klink_hadoop("DEV", "KNA_BW", connection_pane = FALSE)
 
 klink_hadoop <- function(environment, schema, connection_pane = TRUE){
+  
+  current_env <- klink::env_checker()
   #----------------------------------------------------------------------------
   # DEV
   #----------------------------------------------------------------------------
-  if(environment == "DEV"){
+  if(current_env %in% c("kortex_dev", "keystone_dev")){
+     #environment == "DEV"){
     system(paste0("kinit ",
                   klink::zoltar("DEV_HADOOP_userid"), " <<< ",
                   klink::zoltar("DEV_HADOOP_pwd")))
@@ -38,7 +41,8 @@ klink_hadoop <- function(environment, schema, connection_pane = TRUE){
     #--------------------------------------------------------------------------
     # PROD
     #--------------------------------------------------------------------------
-  } else if(environment == "PROD") {
+  } else if(current_env %in% c("kortex_prod", "keystone_prod")){
+    # environment == "PROD") {
     system(paste0("kinit ",
                   klink::zoltar("PROD_HADOOP_userid"), " <<< ",
                   klink::zoltar("PROD_HADOOP_pwd")))
@@ -65,9 +69,10 @@ klink_hadoop <- function(environment, schema, connection_pane = TRUE){
                            HiveServerType=2,
                            AllowSelfSignedServerCert=1,
                            SSL=1,
-                           TrustedCerts=ifelse(environment == "PROD",
-                                               '/usr/rstudio/serverpro/certs/hive_prod.pem',
-                                               '/usr/rstudio2/serverpro/certs/hive.pem'),
+                           TrustedCerts= #ifelse(# environment == "PROD",
+                            if(current_env == "kortex_prod"){"/usr/rstudio_prod/serverpro/certs/hive_prod.pem"
+                              } else if(current_env == "keystone_prod"){'/usr/rstudio/serverpro/certs/hive_prod.pem'
+                                } else {'/usr/rstudio2/serverpro/certs/hive.pem'},
                            HttpPathPrefix='/cliservice')
 
     # Updates connections pane w db structure
@@ -81,3 +86,4 @@ klink_hadoop <- function(environment, schema, connection_pane = TRUE){
     return(conn)
   }
 } # / function closure
+

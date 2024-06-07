@@ -9,7 +9,7 @@ klink_sql(environment, database, server = NULL, connection_pane = TRUE)
 \arguments{
 \item{environment}{character string containing desired environment. Valid arguments are "PROD" or "DEV".}
 
-\item{database}{character string containing name of desired database. Any database in the specified SQL environment should be valid.}
+\item{database}{optional character string containing name of desired database. Any database in the specified SQL environment should be valid.}
 
 \item{server}{character string containing exact server name in R format (beware of /s). If no argument provided will attempt to use Keystone servers. If server argument is provided the function will attempt to pass specified value into the connection call.}
 

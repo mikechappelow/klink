@@ -1,4 +1,4 @@
-#' Kellogg PostgreSQL connections
+#' Kellogg RDS PostgreSQL connections
 #' @description Enables users to create connections to Kellogg PostgreSQL databases
 #'
 #' In order to use these tools users must first:
@@ -25,61 +25,70 @@
 #' dev_con <- klink_postgres("DEV", "postgres", connection_pane = FALSE)
 
 klink_postgres <- function(environment, database, server = NULL, connection_pane = TRUE){
-
-  # retrieve wishes using zoltar
-  #----------------------------------------------------------------------------
-  # DEV
-  if(environment == "DEV"){
-
-    # retrieve credentials
+  
+  current_env <- klink::env_checker()
+  
+  # Kortex PROD
+  if(current_env == "kortex_prod" & environment == "PROD"){
+    zoltar_url <- 'https://prod.positconnect.analytics.kellogg.com/zoltar/wish'
     if(!is.null(server)){
       server_val <- server
     } else {
-      server_val <- klink::zoltar("POSTGRES_DEV_server")
+      server_val <- klink::zoltar("RDS_PROD_server")
     }
-    port_val <- klink::zoltar("POSTGRES_DEV_port")
-    uid <- klink::zoltar("POSTGRES_DEV_uid")
-    pwd <- klink::zoltar("POSTGRES_DEV_pwd")
-
-    # PROD
-    } else if(environment == "PROD") {
-      "Error: PROD credentials not found"
+    port_val <- klink::zoltar("RDS_PROD_port")
+    uid <- klink::zoltar("RDS_PROD_uid")
+    pwd <- klink::zoltar("RDS_PROD_pwd")
+    
+    # Kortex DEV
+  } else if(current_env == "kortex_dev" & environment == "DEV"){
+    zoltar_url <- 'https://dev.positconnect.analytics.kellogg.com/zoltar/wish'
+    if(!is.null(server)){
+      server_val <- server
     } else {
-      "Error: Invalid environment name. Should be 'DEV' or 'PROD'."
+      server_val <- klink::zoltar("RDS_DEV_server")
     }
-
+    port_val <- klink::zoltar("RDS_DEV_port")
+    uid <- klink::zoltar("RDS_DEV_uid")
+    pwd <- klink::zoltar("RDS_DEV_pwd")
+    
+  } else {
+    "Error: Please ensure that current working environment and desired environment match"
+  }
+  
   # connection or zoltar error message return
   #----------------------------------------------------------------------------
   if(grepl("^Error", uid, ignore.case = TRUE)){
     return(uid) # would be error message from zoltar
-    } else if(grepl("^Error", pwd, ignore.case = TRUE)) {
-      return(pwd)
-      } else {
-        # Create DB connection object
-        conn <- DBI::dbConnect(
-          odbc::odbc()
-          ,Driver = "postgresql"
-          ,Server = server_val
-          ,Port = port_val
-          ,Database = database
-          ,UID = uid
-          ,PWD = pwd
-          ,BoolAsChar = ""
-          ,timeout = 10
-          )
-
-        # Updates connections pane w db structure
-        if(connection_pane == TRUE){
-          odbc:::on_connection_opened(conn,
-                                      paste("postgres",
-                                            environment
-                                            ,database
-                                            # ,server
-                                            ,sep = "_")
-                                      )
-          }
-
-        return(conn)
-      }
-
-  } # / function closure
+  } else if(grepl("^Error", pwd, ignore.case = TRUE)) {
+    return(pwd)
+  } else {
+    
+    # Create DB connection object
+    conn <- DBI::dbConnect(
+      odbc::odbc()
+      ,Driver = "postgresql"
+      ,Server = server_val
+      ,Port = port_val
+      ,Database = database
+      ,UID = uid
+      ,PWD = pwd
+      ,BoolAsChar = ""
+      ,timeout = 10
+    )
+    
+    # Updates connections pane w db structure
+    if(connection_pane == TRUE){
+      odbc:::on_connection_opened(conn,
+                                  paste("postgres",
+                                        environment
+                                        # ,database
+                                        # ,server
+                                        ,sep = "_")
+      )
+    }
+    
+    return(conn)
+  }
+  
+} # / function closure

@@ -32,5 +32,5 @@ In order to use these tools users must first:
 prod_example <- klink_hadoop(environment = "PROD", schema = "KNA_BW")
 
 # Typical connection w/o connection pane
-keystone_example <- klink_hadoop("DEV", "KNA_BW", connection_pane = FALSE)
+dev_example <- klink_hadoop("DEV", "KNA_BW", connection_pane = FALSE)
 }

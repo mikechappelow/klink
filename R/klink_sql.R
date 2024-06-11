@@ -94,7 +94,7 @@ klink_sql <- function(environment, database = NULL, server = NULL, connection_pa
       pwd <- klink::zoltar("KG_ANALYTICS_APPS_DEV_pwd")
     } else {
       # using KG_SAS as catch-all/default for now
-      uid <- klink::zoltar("KG_SAS_DEV_userid")
+      uid <- klink::zoltar("KG_SAS_DEV_uid")
       pwd <- klink::zoltar("KG_SAS_DEV_pwd")
     }
 

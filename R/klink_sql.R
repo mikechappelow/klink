@@ -47,7 +47,7 @@ klink_sql <- function(environment, database = NULL, server = NULL, connection_pa
       else if (grepl("USAWSCWSQL5004", toupper(server))){
         uid <- klink::zoltar("USAWSCWSQL5004_uid")
         pwd <- klink::zoltar("USAWSCWSQL5004_pwd")
-        }
+        } 
       else {"Unknown request, please contact Data Science team for support"}
     } # / USAWSCWSQL5004
     

@@ -41,8 +41,16 @@ klink_sql <- function(environment, database = NULL, server = NULL, connection_pa
       if (grepl("USAWSCWSQL5066", toupper(server))){
         uid <- klink::zoltar("USAWSCWSQL5066_DEV_userid")
         pwd <- klink::zoltar("USAWSCWSQL5066_DEV_pwd")
-      } else {"Unknown request, please contact Data Science team for support"}
-
+        }       
+      # USAWSCWSQL5004
+      #-------------------------
+      else if (grepl("USAWSCWSQL5004", toupper(server))){
+        uid <- klink::zoltar("USAWSCWSQL5004_uid")
+        pwd <- klink::zoltar("USAWSCWSQL5004_pwd")
+        }
+      else {"Unknown request, please contact Data Science team for support"}
+    } # / USAWSCWSQL5004
+    
       # USAWSCWSQL0066
       #-------------------------
     } else if(environment == "PROD"){
@@ -58,15 +66,7 @@ klink_sql <- function(environment, database = NULL, server = NULL, connection_pa
           # pwd <- klink::zoltar("USAWSCWSQL5066_PROD_pwd")
         }
       }
-      
-      # USAWSCWSQL5004
-      #-------------------------
-    } else if(environment == "DEV"){
-      if (grepl("USAWSCWSQL5004", toupper(server))){
-          uid <- klink::zoltar("USAWSCWSQL5004_uid")
-          pwd <- klink::zoltar("USAWSCWSQL5004_pwd")
-          } 
-    } # / USAWSCWSQL5004
+    
   } # / manual server designations
 
   # DEV

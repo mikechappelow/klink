@@ -47,13 +47,13 @@ klink_sql <- function(environment, database = NULL, server = NULL, connection_pa
       else if (grepl("USAWSCWSQL5004", toupper(server))){
         uid <- klink::zoltar("USAWSCWSQL5004_uid")
         pwd <- klink::zoltar("USAWSCWSQL5004_pwd")
-        } 
+        }
       else {"Unknown request, please contact Data Science team for support"}
     } # / USAWSCWSQL5004
     
       # USAWSCWSQL0066
       #-------------------------
-    } else if(environment == "PROD"){
+    else if(environment == "PROD"){
       # SQL0066
       if (grepl("USAWSCWSQL0066", toupper(server))){
         if(grepl("KG_ANALYTICS_APPS", toupper(database))){
@@ -66,6 +66,7 @@ klink_sql <- function(environment, database = NULL, server = NULL, connection_pa
           # pwd <- klink::zoltar("USAWSCWSQL5066_PROD_pwd")
         }
       }
+    } # / prod 
     
   } # / manual server designations
 

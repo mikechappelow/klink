@@ -1,5 +1,5 @@
 #' Kellogg SQL connections
-#' @description Enables users to create connections to Kellogg SQL databases with a simple function
+#' @description Enables users to create connections to Kellogg SQL databases with a simple function 
 #'
 #' In order to use these tools users must first:
 #'

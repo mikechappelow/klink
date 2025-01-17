@@ -4,12 +4,12 @@
 \alias{klink_s3}
 \title{Kellogg S3 (kortex) connection}
 \usage{
-klink_s3(ignore_existing = FALSE)
+klink_s3(region = 'kamea', ignore_existing = FALSE)
 }
 \arguments{
-\item{ignore_existing}{Logical indicating whether to ignore existing connections when executing function. Setting to TRUE can cause warnings/errors but may be useful if you want to flush your connection.}
-
 \item{region}{Character string representing the regional bucket you need to connect to. Current options are 'globa', 'kna', 'keu', 'kla', and 'kamea'. Default is 'kna' in order to avoid breaking code written using previous versions.}
+
+\item{ignore_existing}{Logical indicating whether to ignore existing connections when executing function. Setting to TRUE can cause warnings/errors but may be useful if you want to flush your connection.}
 }
 \value{
 populates user environment with required role and settings to access the corresponding S3 environment

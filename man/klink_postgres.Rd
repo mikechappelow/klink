@@ -2,7 +2,7 @@
 % Please edit documentation in R/klink_postgres.R
 \name{klink_postgres}
 \alias{klink_postgres}
-\title{Kellogg PostgreSQL connections}
+\title{Kellogg RDS PostgreSQL connections}
 \usage{
 klink_postgres(environment, database, server = NULL, connection_pane = TRUE)
 }

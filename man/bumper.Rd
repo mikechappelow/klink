@@ -4,14 +4,12 @@
 \alias{bumper}
 \title{bumper}
 \usage{
-bumper(GUID, variant = NULL, environment = "PROD")
+bumper(GUID, variant = NULL)
 }
 \arguments{
 \item{GUID}{character string the GUID of the content to trigger. You can find this value in the URL of your content, it should looks something like this: "b824db78-07b8-4205-b29e-0dbea32b4d8a"}
 
 \item{variant}{optional numeric value of parameterized content to render. These are the numbers following the last / in the url of the content variant in Connect. If no value is specified the default variant will be rendered (for non-parameterized content the default is the only variant so there would be no need to use this argument).}
-
-\item{environment}{optional character string designating target environment. Default is "PROD".}
 }
 \value{
 returns message with details if error or confirmation of success
@@ -29,6 +27,6 @@ In order to use these tools users must first:
 }
 }
 \examples{
-bumper(GUID = "6dd37913-30fd-4c89-9c1d-4afd9dbfc6fe", variant = 595, environment = "PROD")
+bumper(GUID = "6dd37913-30fd-4c89-9c1d-4afd9dbfc6fe", variant = 595)
 bumper(GUID = "6dd37913-30fd-4c89-9c1d-4afd9dbfc6fe")
 }

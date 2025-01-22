@@ -1,9 +1,9 @@
 Package: klink
 Title: Easy connections for K data
-Version: 0.0.8.0
+Version: 0.0.8.1
 Authors@R: 
     person("Mike", "Chappelow", , "michael.chappelow@kellanova.com", role = c("aut", "cre"))
-Description: Functions to simplify K data connections
+Description: Package provides functions to simplify K data connections.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -16,10 +16,10 @@ Imports:
     odbc,
     aws.iam,
     paws,
-    aws.s3,
     connectapi,
     dplyr
 Suggests: 
+    aws.s3,
     knitr,
     rmarkdown,
     testthat (>= 3.0.0)

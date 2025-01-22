@@ -4,7 +4,7 @@
 \alias{klink_s3}
 \title{Kellogg S3 (kortex) connection}
 \usage{
-klink_s3(region = 'kamea', ignore_existing = FALSE)
+klink_s3(region = 'kna', ignore_existing = FALSE)
 }
 \arguments{
 \item{region}{Character string representing the regional bucket you need to connect to. Current options are 'globa', 'kna', 'keu', 'kla', and 'kamea'. Default is 'kna' in order to avoid breaking code written using previous versions.}

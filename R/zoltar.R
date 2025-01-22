@@ -8,9 +8,8 @@
 #' 3. Create an .Renviron file in your Home folder assigning your API key value to the name CONNECT_API_KEY <https://rstats.wtf/r-startup.html>
 #'
 #' @param token character string containing the exact name of secret to be retrieved (if passing value directly must be wrapped in quotation marks to be interpreted as character string)
-#' @param solution_name character string identifying the name of the solution where this logic is being used, for recording to logs
 #'
-#' @usage zoltar(token, solution_name = NULL)
+#' @usage zoltar(token)
 #'
 #' @return If name is found, a string containing the secret value else a string stating that zoltar is unable to grant your wish
 #' @export

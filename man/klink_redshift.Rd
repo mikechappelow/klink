@@ -4,18 +4,27 @@
 \alias{klink_redshift}
 \title{Kellogg redshift connections}
 \usage{
-klink_redshift(environment, region = "KNA", server = NULL, database = NULL, connection_pane = TRUE)
+klink_redshift(environment, region = "KNA", database = NULL, 
+ server = NULL, connection_pane = TRUE)
 }
 \arguments{
-\item{environment}{Required character string containing desired environment. Valid arguments are "PROD", "DEV", or "QA"}
+\item{environment}{Required character string containing desired environment.
+Valid arguments are "PROD", "DEV", or "QA"}
 
-\item{region}{Required character string containing name of desired region. Currently supported arguments are "KNA" (default), "KEU", or "AMEA"}
+\item{region}{Required character string containing name of desired region.
+Currently supported arguments are "KNA" (default), "KEU", or "AMEA"}
 
-\item{database}{Optional character string containing exact database name in R format.}
+\item{database}{Optional character string containing exact database name in R
+format.}
 
-\item{server}{Optional character string containing exact server name in R format (beware of /s). As of now, there is only one known server for each environment. As such, this argument is optional and currently unused.}
+\item{server}{Optional character string containing exact server name in R
+format (beware of /s). As of now, there is only one known server for each
+environment. As such, this argument is optional and currently unused.}
 
-\item{connection_pane}{Optional logical indicating whether information about your connection should be added to the Connections pane, default is TRUE (turning this off results in faster initial connections and reduction of unnecessary data in automated processes).}
+\item{connection_pane}{Optional logical indicating whether information about
+your connection should be added to the Connections pane, default is TRUE
+(turning this off results in faster initial connections and reduction of
+unnecessary data in automated processes).}
 }
 \value{
 Returns redshift DBI connection object
@@ -25,9 +34,13 @@ Enables users to create connections to Kellogg redshift databases
 
 In order to use these tools users must first:
 \enumerate{
-\item Have a RStudio Connect account (you likely have one already if you're using RStudio Workbench, if not you can request access through Digital Concierge).
-\item Create a local RStudio Connect API key \url{https://docs.rstudio.com/connect/user/api-keys}
-\item Create an .Renviron file in your Home folder assigning your API key value to the name CONNECT_API_KEY \url{https://rstats.wtf/r-startup.html}
+\item Have a RStudio Connect account (you likely have one already if you're
+using RStudio Workbench, if not you can request access through Digital
+Concierge).
+\item Create a local RStudio Connect API key
+\url{https://docs.rstudio.com/connect/user/api-keys}
+\item Create an .Renviron file in your Home folder assigning your API key value
+to the name CONNECT_API_KEY \url{https://rstats.wtf/r-startup.html}
 }
 }
 \examples{
@@ -35,7 +48,8 @@ In order to use these tools users must first:
 red_dev <- klink_redshift(environment = "DEV", region = "KNA")
 
 # Connect w/o connection pane
-red_dev <- klink_redshift(environment = "DEV", region = "AMEA", connection_pane = FALSE)
+red_dev <- klink_redshift(environment = "DEV", region = "AMEA", 
+  connection_pane = FALSE)
 
 # Example queries
 DBI::dbGetQuery(red_dev, "SELECT DISTINCT tablename FROM PG_TABLE_DEF")

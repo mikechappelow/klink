@@ -72,7 +72,8 @@ klink_hadoop <- function(environment, schema, connection_pane = TRUE){
                            TrustedCerts= #ifelse(# environment == "PROD",
                             if(current_env == "kortex_prod"){"/usr/rstudio_prod/serverpro/certs/hive_prod.pem"
                               } else if(current_env == "keystone_prod"){'/usr/rstudio/serverpro/certs/hive_prod.pem'
-                                } else {'/usr/rstudio_dev/serverpro/certs/hive.pem'},
+                                } else {#'/usr/rstudio_dev/serverpro/certs/hive.pem'
+                                  "/usr/rstudio_dev/serverpro/certs/hive.pem"},
                            HttpPathPrefix='/cliservice')
 
     # Updates connections pane w db structure

@@ -21,9 +21,10 @@
 #' @param schema character string containing exact name of desired schema.
 #' @param connection_pane OPTIONAL logical indicating whether information about 
 #'  your connection should be added to the Connections pane, default is TRUE.
+#' @param role OPTIONAL character string containing exact name of desired warehouse
 #'
 #' @usage klink_snowflake(environment, database, warehouse, schema, 
-#'  connection_pane = TRUE)
+#'  connection_pane = TRUE, role = NULL)
 #'
 #' @return Returns Snowflake DBI connection object
 #' @export
@@ -37,7 +38,7 @@
 #' prod_con <- klink_snowflake("PROD", "KEU", "KEU_IT_SMALL", "PRCURMT", 
 #'   connection_pane = FALSE)
 
-klink_snowflake <- function(environment, database, warehouse, schema, connection_pane = TRUE){
+klink_snowflake <- function(environment, database, warehouse, schema, connection_pane = TRUE, role = NULL){
   current_env <- klink::env_checker()
   
   # Kortex PROD (request matches environment)
@@ -67,6 +68,7 @@ klink_snowflake <- function(environment, database, warehouse, schema, connection
     conn <- DBI::dbConnect(odbc::odbc(),
                            DSN          = dsn,
                            UID          = uid,
+                           ROLE         = role,
                            Database     = database,
                            Warehouse    = warehouse,
                            Schema       = schema

@@ -5,7 +5,7 @@
 \title{Kellogg Snowflake connections}
 \usage{
 klink_snowflake(environment, database, warehouse, schema, 
- connection_pane = TRUE)
+ connection_pane = TRUE, role = NULL)
 }
 \arguments{
 \item{environment}{character string containing desired environment. Currently
@@ -21,6 +21,8 @@ as the service account being used has adequate permissions.}
 
 \item{connection_pane}{OPTIONAL logical indicating whether information about
 your connection should be added to the Connections pane, default is TRUE.}
+
+\item{role}{OPTIONAL character string containing exact name of desired warehouse}
 }
 \value{
 Returns Snowflake DBI connection object

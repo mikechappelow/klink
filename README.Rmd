@@ -38,9 +38,9 @@ The goal of klink is to provide helpful functions for Kellogg users to connect t
 
 ## Example
 
-klink currently supports common SQL, Redshift, and Hadoop databases as well as S3 buckets and provides a more succinct approach to forming these connections:
+klink currently supports connections for common SQL Server, Redshift, Snowflake, Postgres, and Hadoop databases as well as S3 buckets:
 
-```{r example, echo=TRUE}
+```{r example, eval=F, echo=T}
 # Old Approach to forming a SQL connection:
 con <- DBI::dbConnect(
     odbc::odbc()
@@ -59,22 +59,22 @@ con <- klink_sql(environment = "DEV", database = "database_name")
 In addition to the brevity of the klink syntax, end users also gain the benefit of not having to maintain credentials in their own code and individual publications.
 
 ## Setup
-In order to use klink there are a few setup steps that will need to be completed:
+In order to use klink there are a few setup steps that will need to be completed first:
 
-1. Have a RStudio Connect account (you likely have one already if you're using RStudio Workbench, if not you can request access through Digital Concierge)
+1. Have a Posit Connect account (you likely have one already if you're using Posit Workbench, if not you can request access through Digital Concierge)
 2. Create a local RStudio Connect API key <https://docs.rstudio.com/connect/user/api-keys>
 3. Create an .Renviron file in your Home folder assigning your API key value to the name CONNECT_API_KEY <https://rstats.wtf/r-startup.html>
 4. Install the klink package (instructions below)
 
 ## How to Install
 Currently, the easiest way to install the klink package is to install from the public GitHub repo:
-```{r install, eval=FALSE, include=TRUE}
+```{r install, eval=F, echo=T}
 devtools::install_github("mikechappelow/klink")
 
 library(klink)
 ```
 
-In the future we will host these types of packages in our internal RStudio Package Manager environment.
+In the future we will host these types of packages in our internal Posit Package Manager environment.
 
 
 ## Current Functions
@@ -83,9 +83,10 @@ In the future we will host these types of packages in our internal RStudio Packa
 The klink functions can be used to establish links to common data sources within Kellogg.
 
 #### klink_sql
+![](vignettes/microsoft-sql.png){width=216px}
 The klink_sql function enables users to connect to internal SQL databases. The function only requires* two arguments and removes the necessity of locally defining service account credentials in your code, .Renviron files, and Connect publications.
 
-```{r klink_sql, include=TRUE}
+```{r klink_sql, eval=F, echo=T}
 library(klink)
 
 conn <- klink_sql("DEV", "database_name") 
@@ -98,9 +99,10 @@ DBI::dbGetQuery(conn,
 ```
 
 #### klink_redshift
+![](vignettes/redshift.png){width=150px}
 The klink_redshift function enables users to link to predefined, internal redshift databases. The function currently only requires* two arguments.
 
-```{r klink_redshift, include=TRUE}
+```{r klink_redshift, eval=F, echo=T}
 library(klink)
 
 red_dev <- klink_redshift(environment = "DEV", region = "KNA") 
@@ -111,29 +113,54 @@ DBI::dbGetQuery(red_dev, "SELECT DISTINCT tablename FROM PG_TABLE_DEF")
 DBI::dbGetQuery(red_dev, "SELECT TOP 10 * FROM fin_acctg_ops.fisc_cal_wk")
 ```
 
-#### klink_hadoop
-The klink_hadoop function enables users to link to predefined, internal hadoop databases. The function currently only requires* one argument.
+#### klink_snowflake
 
-```{r klink_hadoop, include=TRUE}
+![](vignettes/snowflake.png){width=216px}
+
+The klink_snowflake function enables users to link to predefined, internal snowflake databases. The function currently only requires* two arguments.
+
+```{r klink_snowflake, eval=F, echo=T}
 library(klink)
 
-# hadoop_dev <- klink_hadoop("DEV", "KNA_BW") 
+snowflake_prod <- klink_snowflake(environment = "PROD", database = "PROD_KNA", warehouse = "KNA_IT_SMALL", schema = "SALES_PRFMNC_EVAL")
+# note: there are additional, optional arguments available. See documentation for more details (?klink::klink_snowflake)
+
+# Then use your connection as you would any other DBI connection object
+DBI::dbGetQuery(snowflake_prod, 'SELECT TOP 10 * FROM "KNA"."SALES_PRFMNC_EVAL"."MKT_PRFMNC_MKT_BRAND_CATG"')
+```
+
+#### klink_hadoop
+
+![](vignettes/hadoop.png){width=216px}
+
+The klink_hadoop function enables users to link to predefined, internal hadoop databases. The function currently only requires* one argument.
+
+```{r klink_hadoop, eval=F, echo=T}
+library(klink)
+
+hadoop_dev <- klink_hadoop("DEV", "KNA_BW") 
 ```
 *Note:* Currently, you can only connect to Hadoop DEV from the UAT Workbench/Connect servers and PROD from the PROD Workbench/Connect servers.
 
 #### klink_postgres
+
+![](vignettes/postgresql.png){width=216px}
+
 The klink_postgres function enables users to connect to kortex PostgreSQL databases.
 
-```{r klink_postgres, include=TRUE}
+```{r klink_postgres, eval=F, echo=T}
 library(klink)
 
 conn <- klink_postgres("DEV", "postgres") 
 ```
 
 #### klink_s3
+
+![](vignettes/s3.png){width=150px}
+
 The klink_s3 function enables users to link to our kortex s3 bucket simply by calling the function (no arguments required).
 
-```{r klink_s3, include=TRUE}
+```{r klink_s3, eval=F, echo=T}
 library(klink)
 
 # Retrieve required system settings (in background) and appropriate s3 bucket name
@@ -146,11 +173,11 @@ aws.s3::get_bucket_df(s3BucketName, max = 20)[["Key"]]
 
 
 #### klink_s3R
-The klink_s3R function enables users to link to our foreign s3 bucket simply by calling the function (no arguments required).
+The klink_s3R function enables users to link to our legacy s3 bucket by simply calling the function (no arguments required).
 
 Example:
 
-```{r klink_s3R, include=TRUE}
+```{r klink_s3R, eval=F, echo=T}
 library(klink)
 
 # Retrieve required system settings (in background) and appropriate s3 bucket name
@@ -166,7 +193,7 @@ The klink_scrub function replaces NaN and Inf values (which often cause issues w
 
 Example:
 
-```{r klink_scub, include=TRUE}
+```{r klink_scub, eval=F, echo=T}
 library(klink)
 
 # Replace NaN and Inf values with NAs
@@ -186,7 +213,7 @@ When a wish/alias of a known value is passed to this function our internal zolta
 If there are required connections that are not yet supported by zoltar please reach out to the Kellogg Data Science team to have them added.
 
 Example:
-```{r zoltar, include=TRUE}
+```{r zoltar, eval=F, echo=T}
 library(klink)
 
 con <- DBI::dbConnect(
@@ -202,7 +229,7 @@ con <- DBI::dbConnect(
 Note: the values passed to the zoltar function in the example above are not valid and are meant for illustrative purposes only. In order to retrieve a full list of currently supported arguments to the zoltar API users with a Connect API key can use the zoltar_list() function.
 
 Example:
-```{r zoltar_list, include=TRUE}
+```{r zoltar_list, eval=F, echo=T}
 library(klink)
 
 zoltar_list()
@@ -214,7 +241,7 @@ zoltar_list()
 The bumper function is intended to be called when you want to trigger an existing Connect job to run at the end of another process. This essentially allows you to string together a series of jobs in sequence without having to guess at/schedule specific run times.
 
 Example:
-```{r bumper, include=TRUE}
+```{r bumper, eval=F, echo=T}
 library(klink)
 
 bumper(GUID = "b824db78-07b8-4205-b29e-0dbea32b4d8a", environment = "PROD")

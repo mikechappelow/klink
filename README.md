@@ -12,9 +12,8 @@ connect to common data sources and Connect processes.
 
 ## Example
 
-klink currently supports common SQL, Redshift, and Hadoop databases as
-well as S3 buckets and provides a more succinct approach to forming
-these connections:
+klink currently supports connections for common SQL Server, Redshift,
+Snowflake, Postgres, and Hadoop databases as well as S3 buckets:
 
 ``` r
 # Old Approach to forming a SQL connection:
@@ -38,11 +37,11 @@ individual publications.
 ## Setup
 
 In order to use klink there are a few setup steps that will need to be
-completed:
+completed first:
 
-1.  Have a RStudio Connect account (you likely have one already if
-    you’re using RStudio Workbench, if not you can request access
-    through Digital Concierge)
+1.  Have a Posit Connect account (you likely have one already if you’re
+    using Posit Workbench, if not you can request access through Digital
+    Concierge)
 2.  Create a local RStudio Connect API key
     <https://docs.rstudio.com/connect/user/api-keys>
 3.  Create an .Renviron file in your Home folder assigning your API key
@@ -61,8 +60,8 @@ devtools::install_github("mikechappelow/klink")
 library(klink)
 ```
 
-In the future we will host these types of packages in our internal
-RStudio Package Manager environment.
+In the future we will host these types of packages in our internal Posit
+Package Manager environment.
 
 ## Current Functions
 
@@ -73,10 +72,11 @@ sources within Kellogg.
 
 #### klink_sql
 
-The klink_sql function enables users to connect to internal SQL
-databases. The function only requires\* two arguments and removes the
-necessity of locally defining service account credentials in your code,
-.Renviron files, and Connect publications.
+<img src="vignettes/microsoft-sql.png" width="216" /> The klink_sql
+function enables users to connect to internal SQL databases. The
+function only requires\* two arguments and removes the necessity of
+locally defining service account credentials in your code, .Renviron
+files, and Connect publications.
 
 ``` r
 library(klink)
@@ -92,9 +92,9 @@ DBI::dbGetQuery(conn,
 
 #### klink_redshift
 
-The klink_redshift function enables users to link to predefined,
-internal redshift databases. The function currently only requires\* two
-arguments.
+<img src="vignettes/redshift.png" width="150" /> The klink_redshift
+function enables users to link to predefined, internal redshift
+databases. The function currently only requires\* two arguments.
 
 ``` r
 library(klink)
@@ -107,7 +107,27 @@ DBI::dbGetQuery(red_dev, "SELECT DISTINCT tablename FROM PG_TABLE_DEF")
 DBI::dbGetQuery(red_dev, "SELECT TOP 10 * FROM fin_acctg_ops.fisc_cal_wk")
 ```
 
+#### klink_snowflake
+
+<img src="vignettes/snowflake.png" width="216" />
+
+The klink_snowflake function enables users to link to predefined,
+internal snowflake databases. The function currently only requires\* two
+arguments.
+
+``` r
+library(klink)
+
+snowflake_prod <- klink_snowflake(environment = "PROD", database = "PROD_KNA", warehouse = "KNA_IT_SMALL", schema = "SALES_PRFMNC_EVAL")
+# note: there are additional, optional arguments available. See documentation for more details (?klink::klink_snowflake)
+
+# Then use your connection as you would any other DBI connection object
+DBI::dbGetQuery(snowflake_prod, 'SELECT TOP 10 * FROM "KNA"."SALES_PRFMNC_EVAL"."MKT_PRFMNC_MKT_BRAND_CATG"')
+```
+
 #### klink_hadoop
+
+<img src="vignettes/hadoop.png" width="216" />
 
 The klink_hadoop function enables users to link to predefined, internal
 hadoop databases. The function currently only requires\* one argument.
@@ -115,7 +135,7 @@ hadoop databases. The function currently only requires\* one argument.
 ``` r
 library(klink)
 
-# hadoop_dev <- klink_hadoop("DEV", "KNA_BW") 
+hadoop_dev <- klink_hadoop("DEV", "KNA_BW") 
 ```
 
 *Note:* Currently, you can only connect to Hadoop DEV from the UAT
@@ -123,6 +143,8 @@ Workbench/Connect servers and PROD from the PROD Workbench/Connect
 servers.
 
 #### klink_postgres
+
+<img src="vignettes/postgresql.png" width="216" />
 
 The klink_postgres function enables users to connect to kortex
 PostgreSQL databases.
@@ -134,6 +156,8 @@ conn <- klink_postgres("DEV", "postgres")
 ```
 
 #### klink_s3
+
+<img src="vignettes/s3.png" width="150" />
 
 The klink_s3 function enables users to link to our kortex s3 bucket
 simply by calling the function (no arguments required).
@@ -151,8 +175,8 @@ aws.s3::get_bucket_df(s3BucketName, max = 20)[["Key"]]
 
 #### klink_s3R
 
-The klink_s3R function enables users to link to our foreign s3 bucket
-simply by calling the function (no arguments required).
+The klink_s3R function enables users to link to our legacy s3 bucket by
+simply calling the function (no arguments required).
 
 Example:
 

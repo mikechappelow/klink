@@ -1,7 +1,6 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-
-# klink <img src="vignettes/k_hex-DS.png" width="110" />
+<!-- # klink ![](vignettes/k_hex-DS.png){width=110px} -->
 
 <img src="vignettes/klink.png" width="216" />
 

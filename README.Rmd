@@ -83,7 +83,7 @@ In the future we will host these types of packages in our internal Posit Package
 The klink functions can be used to establish links to common data sources within Kellogg.
 
 #### klink_sql
-![](vignettes/microsoft-sql.png){width=216px}
+<!-- ![](vignettes/microsoft-sql.png){width=216px} -->
 The klink_sql function enables users to connect to internal SQL databases. The function only requires* two arguments and removes the necessity of locally defining service account credentials in your code, .Renviron files, and Connect publications.
 
 ```{r klink_sql, eval=F, echo=T}
@@ -99,7 +99,7 @@ DBI::dbGetQuery(conn,
 ```
 
 #### klink_redshift
-![](vignettes/redshift.png){width=150px}
+<!-- ![](vignettes/redshift.png){width=150px} -->
 The klink_redshift function enables users to link to predefined, internal redshift databases. The function currently only requires* two arguments.
 
 ```{r klink_redshift, eval=F, echo=T}
@@ -131,7 +131,7 @@ DBI::dbGetQuery(snowflake_prod, 'SELECT TOP 10 * FROM "KNA"."SALES_PRFMNC_EVAL".
 
 #### klink_hadoop
 
-![](vignettes/hadoop.png){width=216px}
+<!-- ![](vignettes/hadoop.png){width=216px} -->
 
 The klink_hadoop function enables users to link to predefined, internal hadoop databases. The function currently only requires* one argument.
 
@@ -144,7 +144,7 @@ hadoop_dev <- klink_hadoop("DEV", "KNA_BW")
 
 #### klink_postgres
 
-![](vignettes/postgresql.png){width=216px}
+<!-- ![](vignettes/postgresql.png){width=216px} -->
 
 The klink_postgres function enables users to connect to kortex PostgreSQL databases.
 
@@ -156,7 +156,7 @@ conn <- klink_postgres("DEV", "postgres")
 
 #### klink_s3
 
-![](vignettes/s3.png){width=150px}
+<!-- ![](vignettes/s3.png){width=150px} -->
 
 The klink_s3 function enables users to link to our kortex s3 bucket simply by calling the function (no arguments required).
 

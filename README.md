@@ -67,9 +67,7 @@ from your local file.
 In the future I intend to host these types of packages in our internal
 Posit Package Manager environment.
 
-## Current Functions
-
-### klink connection functions
+## Current klink connection functions
 
 <img src="vignettes/microsoft-sql.png" width="100" />
 
@@ -202,19 +200,16 @@ aws.s3::object_size("your_object.csv", bucket = s3BucketName)
 ### zoltar
 
 The klink connection functions are wrappers that utilize an internal API
-called zoltar in order to simplify the user experience. This is achieved
-by leveraging the zoltar API and making assumptions about the connection
-that should be formed based on the user inputs.
+that I created called zoltar in order to simplify the user experience.
+The user credentials and arguments users pass into their klink
+connection function are filtered through logic to determine the most
+appropriate service account to use and those credentials are then used
+to create the data connection object in the user’s local environment.
 
 If you would like to avoid these assumptions while leveraging the
 underlying functionality you can do so by specifying your own connection
-settings and using the zoltar function directly in your connection call.
-
-When a wish/alias of a known value is passed to this function our
-internal zoltar API returns the requested value.
-
-If there are required connections that are not yet supported by zoltar
-please reach out to the Kellogg Data Science team to have them added.
+settings and using the zoltar function directly in your connection calls
+(see example below).
 
 Example:
 
@@ -236,13 +231,12 @@ not valid and are meant for illustrative purposes only. In order to
 retrieve a full list of currently supported arguments to the zoltar API
 users with a Connect API key can use the zoltar_list() function.
 
-Example:
+When a wish/alias of a known value is passed to this function our
+internal zoltar API returns the requested value.
 
-``` r
-library(klink)
-
-zoltar_list()
-```
+If there are required connections that are not yet supported by zoltar
+please reach out to the Michael Chappelow or another member of the
+Kellogg Data Science teams to have them added.
 
 ## Additional klink functions
 
@@ -280,3 +274,16 @@ bumper(GUID = "b824db78-07b8-4205-b29e-0dbea32b4d8a", environment = "PROD")
 ```
 
 Note: Currently only supported in PROD. Can be added to DEV if needed.
+
+### zoltar_list
+
+This function returns a list of valid arguments currently defined in the
+zoltar API.
+
+Example:
+
+``` r
+library(klink)
+
+zoltar_list()
+```

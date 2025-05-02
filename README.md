@@ -6,8 +6,9 @@
 
 ## What it’s for
 
-The goal of klink is to provide helpful functions for Kellogg users to
-connect to common data sources and Connect processes.
+The goal of klink is to provide simple functions to enable users
+throughout Kellogg to connect to data sources more easily using the R
+language.
 
 ## Example
 
@@ -30,8 +31,9 @@ con <- klink_sql(environment = "DEV", database = "database_name")
 ```
 
 In addition to the brevity of the klink syntax, end users also gain the
-benefit of not having to maintain credentials in their own code and
-individual publications.
+benefit of not having to rely on tribal knowledge to set up reliable
+data connections or locally maintain credentials and risk exposing them
+in their logic.
 
 ## Setup
 
@@ -50,8 +52,8 @@ completed first:
 
 ## How to Install
 
-Currently, the easiest way to install the klink package is to install
-from the public GitHub repo:
+The easiest way to install the klink package is to source it from the
+public GitHub repo:
 
 ``` r
 devtools::install_github("mikechappelow/klink")
@@ -59,24 +61,24 @@ devtools::install_github("mikechappelow/klink")
 library(klink)
 ```
 
-In the future we will host these types of packages in our internal Posit
-Package Manager environment.
+Alternatively, you can download the package from GitHub and install it
+from your local file.
+
+In the future I intend to host these types of packages in our internal
+Posit Package Manager environment.
 
 ## Current Functions
 
-### klink functions
+### klink connection functions
 
-The klink functions can be used to establish links to common data
-sources within Kellogg.
+<img src="vignettes/microsoft-sql.png" width="100" />
 
 #### klink_sql
 
-<!-- ![](vignettes/microsoft-sql.png){width=216px} -->
-
-The klink_sql function enables users to connect to internal SQL
-databases. The function only requires\* two arguments and removes the
-necessity of locally defining service account credentials in your code,
-.Renviron files, and Connect publications.
+The klink_sql function enables users to connect to internal MS SQL
+Server databases. The function only requires\* two arguments and removes
+the necessity of locally defining service account credentials in your
+code, .Renviron files, and Connect publications.
 
 ``` r
 library(klink)
@@ -90,9 +92,9 @@ DBI::dbGetQuery(conn,
           FROM table")
 ```
 
-#### klink_redshift
+<img src="vignettes/redshift.png" width="100" />
 
-<!-- ![](vignettes/redshift.png){width=150px} -->
+#### klink_redshift
 
 The klink_redshift function enables users to link to predefined,
 internal redshift databases. The function currently only requires\* two
@@ -109,9 +111,9 @@ DBI::dbGetQuery(red_dev, "SELECT DISTINCT tablename FROM PG_TABLE_DEF")
 DBI::dbGetQuery(red_dev, "SELECT TOP 10 * FROM fin_acctg_ops.fisc_cal_wk")
 ```
 
-#### klink_snowflake
+<img src="vignettes/snowflake.png" width="200" />
 
-<img src="vignettes/snowflake.png" width="216" />
+#### klink_snowflake
 
 The klink_snowflake function enables users to link to predefined,
 internal snowflake databases. The function currently only requires\* two
@@ -127,9 +129,9 @@ snowflake_prod <- klink_snowflake(environment = "PROD", database = "PROD_KNA", w
 DBI::dbGetQuery(snowflake_prod, 'SELECT TOP 10 * FROM "KNA"."SALES_PRFMNC_EVAL"."MKT_PRFMNC_MKT_BRAND_CATG"')
 ```
 
-#### klink_hadoop
+<img src="vignettes/hadoop.png" width="200" />
 
-<!-- ![](vignettes/hadoop.png){width=216px} -->
+#### klink_hadoop
 
 The klink_hadoop function enables users to link to predefined, internal
 hadoop databases. The function currently only requires\* one argument.
@@ -144,9 +146,9 @@ hadoop_dev <- klink_hadoop("DEV", "KNA_BW")
 Workbench/Connect servers and PROD from the PROD Workbench/Connect
 servers.
 
-#### klink_postgres
+<img src="vignettes/postgresql.png" width="100" />
 
-<!-- ![](vignettes/postgresql.png){width=216px} -->
+#### klink_postgres
 
 The klink_postgres function enables users to connect to kortex
 PostgreSQL databases.
@@ -157,9 +159,9 @@ library(klink)
 conn <- klink_postgres("DEV", "postgres") 
 ```
 
-#### klink_s3
+<img src="vignettes/s3.png" width="100" />
 
-<!-- ![](vignettes/s3.png){width=150px} -->
+#### klink_s3
 
 The klink_s3 function enables users to link to our kortex s3 bucket
 simply by calling the function (no arguments required).
@@ -193,32 +195,16 @@ aws.s3::object_exists("your_object.rds", bucket = s3BucketName)
 aws.s3::object_size("your_object.csv", bucket = s3BucketName)
 ```
 
-#### klink_scrub
-
-The klink_scrub function replaces NaN and Inf values (which often cause
-issues when writing to databases) with NAs (which are written as
-standard NULL values). Running klink_scrub on your data before
-attempting to write to a database is recommended as the error messages
-associated with these type of issues can often be nondescript and
-opaque.
-
-Example:
-
-``` r
-library(klink)
-
-# Replace NaN and Inf values with NAs
-my_df <- klink_scrub(my_df)
-```
+## How klink connections work
 
 <img src="vignettes/zoltar-hex.png" width="216" />
 
 ### zoltar
 
-The klink functions are wrappers that utilize zoltar in order to
-simplify the user experience. This is achieved by leveraging the zoltar
-API and making assumptions about the connection that should be formed
-based on the user inputs.
+The klink connection functions are wrappers that utilize an internal API
+called zoltar in order to simplify the user experience. This is achieved
+by leveraging the zoltar API and making assumptions about the connection
+that should be formed based on the user inputs.
 
 If you would like to avoid these assumptions while leveraging the
 underlying functionality you can do so by specifying your own connection
@@ -256,6 +242,26 @@ Example:
 library(klink)
 
 zoltar_list()
+```
+
+## Additional klink functions
+
+### klink_scrub
+
+The klink_scrub function replaces NaN and Inf values (which often cause
+issues when writing to databases) with NAs (which are written as
+standard NULL values). Running klink_scrub on your data before
+attempting to write to a database is recommended as the error messages
+associated with these type of issues can often be nondescript and
+opaque.
+
+Example:
+
+``` r
+library(klink)
+
+# Replace NaN and Inf values with NAs
+my_df <- klink_scrub(my_df)
 ```
 
 ### bumper

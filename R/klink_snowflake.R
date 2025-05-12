@@ -64,15 +64,26 @@ klink_snowflake <- function(environment, database, warehouse, schema, connection
     
   # else attempt connection
   } else {
+    
+    if(is.null(role)){
+      conn <- DBI::dbConnect(odbc::odbc(),
+                             DSN          = dsn,
+                             UID          = uid,
+                             Database     = database,
+                             Warehouse    = warehouse,
+                             Schema       = schema
+      )
+    } else {
     # Create DB connection object
-    conn <- DBI::dbConnect(odbc::odbc(),
-                           DSN          = dsn,
-                           UID          = uid,
-                           ROLE         = role,
-                           Database     = database,
-                           Warehouse    = warehouse,
-                           Schema       = schema
-                           )
+      conn <- DBI::dbConnect(odbc::odbc(),
+                             DSN          = dsn,
+                             UID          = uid,
+                             ROLE         = role,
+                             Database     = database,
+                             Warehouse    = warehouse,
+                             Schema       = schema
+                             )
+    }
     
     # Updates connections pane w db structure
     if(connection_pane == TRUE){

@@ -1,6 +1,6 @@
 Package: klink
 Title: Easy connections for K data
-Version: 0.0.8.3
+Version: 0.0.8.4
 Authors@R: 
     person("Mike", "Chappelow", , "michael.chappelow@kellanova.com", role = c("aut", "cre"))
 Description: Package provides functions to simplify K data connections.

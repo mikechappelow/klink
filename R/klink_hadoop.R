@@ -30,7 +30,7 @@ klink_hadoop <- function(environment, schema, connection_pane = TRUE){
   #----------------------------------------------------------------------------
   # DEV
   #----------------------------------------------------------------------------
-  if(current_env %in% c("kortex_dev", "keystone_dev")){
+  if(current_env %in% c("dev", "keystone_dev")){
      #environment == "DEV"){
     system(paste0("kinit ",
                   klink::zoltar("DEV_HADOOP_userid"), " <<< ",
@@ -41,7 +41,7 @@ klink_hadoop <- function(environment, schema, connection_pane = TRUE){
     #--------------------------------------------------------------------------
     # PROD
     #--------------------------------------------------------------------------
-  } else if(current_env %in% c("kortex_prod", "keystone_prod")){
+  } else if(current_env %in% c("prod", "keystone_prod")){
     # environment == "PROD") {
     system(paste0("kinit ",
                   klink::zoltar("PROD_HADOOP_userid"), " <<< ",
@@ -70,7 +70,7 @@ klink_hadoop <- function(environment, schema, connection_pane = TRUE){
                            AllowSelfSignedServerCert=1,
                            SSL=1,
                            TrustedCerts= #ifelse(# environment == "PROD",
-                            if(current_env == "kortex_prod"){"/usr/rstudio_prod/serverpro/certs/hive_prod.pem"
+                            if(current_env == "prod"){"/usr/rstudio_prod/serverpro/certs/hive_prod.pem"
                               } else if(current_env == "keystone_prod"){'/usr/rstudio/serverpro/certs/hive_prod.pem'
                                 } else {#'/usr/rstudio_dev/serverpro/certs/hive.pem'
                                   "/usr/rstudio_dev/serverpro/certs/hive.pem"},

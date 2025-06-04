@@ -13,16 +13,14 @@ env_checker <- function(){
   nodename <- Sys.info()['nodename']
   hostname <- system2(command = "hostname", stdout  = TRUE)
   
-  kortex_dev <- "usaws3320|usaws3321|usaws3322|usaws3323"
-  kortex_prod <- "usaws1320|usaws1321|usaws1322|usaws1323"
-  # keystone_dev <- "usaws3170|usaws3171|usaws3172|usaws3173"
-  keystone_prod <- "usaws1170|usaws1171|usaws1172|usaws1173|usaws1174|usaws1175"
+  posit_dev_list <- klink::zoltar("posit_dev_list")
+  
+  posit_prod_list <- klink::zoltar("posit_prod_list")
   
   identify_env <- function(env) {grepl(env, hostname, ignore.case = TRUE) | grepl(env, nodename, ignore.case = TRUE)}
   
-  env_out <- if(identify_env(kortex_prod)) {"kortex_prod"
-    } else if(identify_env(kortex_dev)) {"kortex_dev"
-    } else if(identify_env(keystone_prod)) {"keystone_prod"
+  env_out <- if(identify_env(posit_prod_list)) {"prod"
+    } else if(identify_env(posit_dev_list)) {"dev"
     } else {"unknown_environment"}
   
   return(env_out)

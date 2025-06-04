@@ -37,32 +37,30 @@ klink_sql <- function(environment, database = NULL, server = NULL, connection_pa
     #-------------------------
     # USAWSCWSQL5066 - DEV ONLY
     #-------------------------
-    if (grepl("USAWSCWSQL5066", toupper(server))){
-        uid <- klink::zoltar("USAWSCWSQL5066_DEV_userid")
-        pwd <- klink::zoltar("USAWSCWSQL5066_DEV_pwd")
+    if (grepl(klink::zoltar("5xx6"), toupper(server))){
+        uid <- klink::zoltar(paste0(klink::zoltar("5xx6"),"_DEV_userid"))
+        pwd <- klink::zoltar(paste0(klink::zoltar("5xx6"),"_DEV_pwd"))
         }
 
     #-------------------------
     # USAWSCWSQL5004 - DEV ONLY
     #-------------------------
-    else if (grepl("USAWSCWSQL5004", toupper(server))){
-        uid <- klink::zoltar("USAWSCWSQL5004_uid")
-        pwd <- klink::zoltar("USAWSCWSQL5004_pwd")
-        server_val <- klink::zoltar("USAWSCWSQL5004_server")
+    else if (grepl(klink::zoltar("5xx4"), toupper(server))){
+        uid <- klink::zoltar(paste0(klink::zoltar("5xx4"),"_uid"))
+        pwd <- klink::zoltar(paste0(klink::zoltar("5xx4"),"_pwd"))
+        server_val <- klink::zoltar(paste0(klink::zoltar("5xx4"),"_server"))
       }
 
     #-------------------------
-    # USAWSCWSQL0066 - PROD ONLY
+    # 0xx6 - PROD ONLY
     #-------------------------
-    else if (grepl("USAWSCWSQL0066", toupper(server))){
+    else if (grepl(klink::zoltar("0xx6"), toupper(server))){
         if(grepl("KG_ANALYTICS_APPS", toupper(database))){
-          uid <- klink::zoltar("Usawscwsql0066_KG_ANALYTICS_APPS_PROD_uid")
-          pwd <- klink::zoltar("Usawscwsql0066_KG_ANALYTICS_APPS_PROD_pwd")
+          uid <- klink::zoltar(paste0(klink::zoltar("0xx6"),"_KG_ANALYTICS_APPS_PROD_uid"))
+          pwd <- klink::zoltar(paste0(klink::zoltar("0xx6"),"_KG_ANALYTICS_APPS_PROD_pwd"))
         } else {
-          uid <- klink::zoltar("Usawscwsql0066_KG_SAS_PROD_userid") # this seems to no longer be valid
-          pwd <- klink::zoltar("Usawscwsql0066_KG_SAS_PROD_pwd")
-          # uid <- klink::zoltar("USAWSCWSQL5066_PROD_userid") # this is the same as KG_ANALYTICS_APPS above
-          # pwd <- klink::zoltar("USAWSCWSQL5066_PROD_pwd")
+          uid <- klink::zoltar(paste0(klink::zoltar("0xx6"),"_KG_SAS_PROD_userid")) # this seems to no longer be valid
+          pwd <- klink::zoltar(paste0(klink::zoltar("0xx6"),"_KG_SAS_PROD_pwd"))
         }
       }
   } # / manual server designations

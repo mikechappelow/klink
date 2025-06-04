@@ -43,7 +43,7 @@ klink_s3 <- function(region = "kna", ignore_existing = FALSE){
     current_env <- klink::env_checker()
     
     # Kortex PROD
-    if(current_env == "kortex_prod"){
+    if(current_env == "prod"){
       zoltar_url <- 'https://prod.positconnect.analytics.kellogg.com/zoltar/wish'
       if(tolower(region) == 'global'){
         bucket_name <- klink::zoltar("s3BucketName_global_kortex_prod")
@@ -63,7 +63,7 @@ klink_s3 <- function(region = "kna", ignore_existing = FALSE){
       }
     
     # Kortex DEV
-    } else if(current_env == "kortex_dev"){
+    } else if(current_env == "dev"){
       zoltar_url <- 'https://dev.positconnect.analytics.kellogg.com/zoltar/wish'
       if(tolower(region) == 'global'){
         bucket_name <- klink::zoltar("s3BucketName_global_kortex_dev")

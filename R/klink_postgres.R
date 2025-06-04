@@ -29,7 +29,7 @@ klink_postgres <- function(environment, database, server = NULL, connection_pane
   current_env <- klink::env_checker()
   
   # Kortex PROD
-  if(current_env == "kortex_prod" & environment == "PROD"){
+  if(current_env == "prod" & environment == "PROD"){
     zoltar_url <- 'https://prod.positconnect.analytics.kellogg.com/zoltar/wish'
     if(!is.null(server)){
       server_val <- server
@@ -41,7 +41,7 @@ klink_postgres <- function(environment, database, server = NULL, connection_pane
     pwd <- klink::zoltar("RDS_PROD_pwd")
     
     # Kortex DEV
-  } else if(current_env == "kortex_dev" & environment == "DEV"){
+  } else if(current_env == "dev" & environment == "DEV"){
     zoltar_url <- 'https://dev.positconnect.analytics.kellogg.com/zoltar/wish'
     if(!is.null(server)){
       server_val <- server

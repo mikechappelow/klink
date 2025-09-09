@@ -43,8 +43,8 @@ zoltar <- function(token){
   # Get url
   current_env <- klink::env_checker()
   
-  zoltar_url <- if(current_env == "kortex_prod"){'https://prod.positconnect.analytics.kellogg.com/zoltar/wish'
-    } else if(current_env == "kortex_dev") {'https://dev.positconnect.analytics.kellogg.com/zoltar/wish'
+  zoltar_url <- if(current_env == "kortex_prod" | current_env == "prod"){'https://prod.positconnect.analytics.kellogg.com/zoltar/wish'
+    } else if(current_env == "kortex_dev" | current_env == "dev") {'https://dev.positconnect.analytics.kellogg.com/zoltar/wish'
     } else if(current_env == "keystone_prod") {'https://rstudioconnect.analytics.kellogg.com/zoltar/wish'
     } else {"undefined"}
   

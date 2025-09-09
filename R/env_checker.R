@@ -13,15 +13,18 @@ env_checker <- function(){
   nodename <- Sys.info()['nodename']
   hostname <- system2(command = "hostname", stdout  = TRUE)
   
-  posit_dev_list <- klink::zoltar("posit_dev_list")
-  
-  posit_prod_list <- klink::zoltar("posit_prod_list")
-  
+  # posit_dev_list <- #klink::zoltar("posit_dev_list") #! recursive, see zoltar
+  # posit_prod_list <- #klink::zoltar("posit_prod_list") #! recursive, see zoltar
+
   identify_env <- function(env) {grepl(env, hostname, ignore.case = TRUE) | grepl(env, nodename, ignore.case = TRUE)}
   
-  env_out <- if(identify_env(posit_prod_list)) {"prod"
-    } else if(identify_env(posit_dev_list)) {"dev"
-    } else {"unknown_environment"}
+  # env_out <- if(identify_env(posit_prod_list)) {"prod"
+  #   } else if(identify_env(posit_dev_list)) {"dev"
+  #   } else {"unknown_environment"}
+  
+  env_out <- if(identify_env("13")) {"prod"
+  } else if(identify_env("33")) {"dev"
+  } else {"unknown_environment"}
   
   return(env_out)
 }

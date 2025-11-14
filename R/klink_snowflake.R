@@ -46,16 +46,22 @@ klink_snowflake <- function(environment, database, warehouse, schema, connection
     zoltar_url <- 'https://prod.positconnect.analytics.kellogg.com/zoltar/wish'
     dsn <- "Snowflake"
     uid <- klink::zoltar("SNOWFLAKE_PROD_UID")
-  
+
+    # Kortex DEV (request matches environment)
+  } else if(current_env == "prod" & toupper(environment) == "DEV"){
+    zoltar_url <- 'https://prod.positconnect.analytics.kellogg.com/zoltar/wish'
+    dsn <- "Snowflake"
+    uid <- klink::zoltar("SNOWFLAKE_DEV_UID")
+      
   # Kortex DEV (request matches environment)
-  } else if(current_env == "dev" & environment == "DEV"){
+  } else if(current_env == "dev" & toupper(environment) == "DEV"){
     zoltar_url <- 'https://dev.positconnect.analytics.kellogg.com/zoltar/wish'
     dsn <- "snowflake"
     uid <- klink::zoltar("SNOWFLAKE_DEV_UID")
   
   # Mismatch  
   } else {
-    "Error: Please ensure that current working environment and desired environment match"
+    "Error: Dev Posit is only able to connect to DEV Snowflake"
   }
   
   # connection or zoltar error message return

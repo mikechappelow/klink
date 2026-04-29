@@ -42,19 +42,21 @@ klink_snowflake <- function(environment, database, warehouse, schema, connection
   current_env <- klink::env_checker()
   
   # Kortex PROD (request matches environment)
-  if(current_env == "prod" & environment == "PROD"){
+  if(current_env == "prod" # & environment == "PROD"
+     ){
     zoltar_url <- 'https://prod.positconnect.analytics.kellogg.com/zoltar/wish'
     dsn <- "Snowflake"
     uid <- klink::zoltar("SNOWFLAKE_PROD_UID")
 
-    # Kortex DEV (request matches environment)
-  } else if(current_env == "prod" & toupper(environment) == "DEV"){
-    zoltar_url <- 'https://prod.positconnect.analytics.kellogg.com/zoltar/wish'
-    dsn <- "Snowflake"
-    uid <- klink::zoltar("SNOWFLAKE_DEV_UID")
+  #   # Kortex DEV (request matches environment)
+  # } else if(current_env == "prod" & toupper(environment) == "DEV"){
+  #   zoltar_url <- 'https://prod.positconnect.analytics.kellogg.com/zoltar/wish'
+  #   dsn <- "Snowflake"
+  #   uid <- klink::zoltar("SNOWFLAKE_DEV_UID")
       
   # Kortex DEV (request matches environment)
-  } else if(current_env == "dev" & toupper(environment) == "DEV"){
+  } else if(current_env == "dev" # & toupper(environment) == "DEV"
+    ){
     zoltar_url <- 'https://dev.positconnect.analytics.kellogg.com/zoltar/wish'
     dsn <- "snowflake"
     uid <- klink::zoltar("SNOWFLAKE_DEV_UID")
